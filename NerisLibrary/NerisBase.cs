@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using NerisLibrary.Models;
 using NerisLibrary.Models.ElementModels;
+using NerisLibrary.Models.RequestModels;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -89,6 +90,7 @@ namespace NerisLibrary
         private enum RouteTypes
         {
             Token,
+            Entity,
         }
         private string GetRoute(RouteTypes type)
         {
@@ -98,11 +100,48 @@ namespace NerisLibrary
                 case RouteTypes.Token:
                     routeAppend = "token";
                     break;
+                case RouteTypes.Entity:
+                    routeAppend = "entity";
+                    break;
                 default:
                     break;
             }
             return new Uri(_config.Url, routeAppend).ToString();
         }
+
+        public async Task GetEntities(EntityRequestModel requestModel)
+        {
+            //check if request is valid
+            if (!requestModel.Validate())
+            {
+                throw new Exception("Error"); //TODO add exception types;
+            }
+            //check if logged in
+            if (!await LoginIfTokenExpired())
+            {
+                //failed to login:
+                throw new Exception("Not Logged In"); //TODO Add exception types
+            }
+
+            //build request uri
+            string baseUri = GetRoute(RouteTypes.Entity);
+            string uri = requestModel.CreateQueryURI(baseUri);
+            //make request
+            using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Get, uri))
+            {
+                message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.access_token);
+                message.Headers.UserAgent.ParseAdd(".NET/3.1");
+
+                HttpResponseMessage response = await _httpClient.SendAsync(message);
+                response.EnsureSuccessStatusCode();
+                string responseValue = await response.Content.ReadAsStringAsync();
+                LogMessage(responseValue);
+            }
+            //handle results
+        }
+
+
+
 
         private void LogMessage(string message, LogLevel severity=LogLevel.Information)
         {
@@ -125,6 +164,5 @@ namespace NerisLibrary
                 Console.WriteLine(ex.Message); 
             }
         }
-
     }
 }
