@@ -17,17 +17,14 @@ namespace NerisLibrary
         //will hold methods for interacting with Neris API
         //Also needs to login with user
         private Config _config { get; set; }
-        private ILogger<NerisBase>? _logger { get; set; }
+        private ILogger<NerisBase>? _logger { get; set; } = null;
         private HttpClient _httpClient { get; set; }
         private AccessTokenModel? _accessToken { get; set; }
         public bool Initialized { get {  return _accessToken != null && _accessToken.access_token != string.Empty; } } 
         public NerisBase(Config config, HttpClient client, ILogger<NerisBase> logger = null)
         {
             _config = config;
-            if (logger != null)
-            {
-                _logger = logger;
-            }
+            _logger = logger;
             _httpClient = client;
         }
 
@@ -56,6 +53,15 @@ namespace NerisLibrary
                 LogError(ex, "Error Logging In");
                 throw ex;
             }
+        }
+
+        private async Task<bool> LoginIfTokenExpired()
+        {
+            if (!Initialized || _accessToken.expires_at <= DateTime.UtcNow)
+            {
+                await Login();
+            }
+            return Initialized;
         }
 
         private async Task LoginClientCredentials()
