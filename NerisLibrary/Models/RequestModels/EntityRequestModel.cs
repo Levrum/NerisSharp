@@ -11,14 +11,14 @@ namespace NerisLibrary.Models.RequestModels
         public string Name { get; set; }
         public string Neris_id { get; set; }
         public string State { get; set; }
-        public EntityClassTypes Entity_Class_Enum { get; set; }
+        public EntityClassTypes? Entity_Class_Enum { get; set; } = null;
         public string Entity_Class{ get {
-                return Entity_Class_Enum.ToString();
+                return Entity_Class_Enum?.ToString() ?? null;
             } 
         }
-        public EntitySubtypes Entity_Subtype_Enum{ get; set; }
+        public EntitySubtypes? Entity_Subtype_Enum { get; set; } = null;
         public string Entity_Subtype { get {
-                return Entity_Subtype_Enum.ToString();
+                return Entity_Subtype_Enum?.ToString() ?? null;
             } 
         }
         public string Last_Modified { get; set; }
@@ -56,7 +56,7 @@ namespace NerisLibrary.Models.RequestModels
             }
 
             //last modified = too hard
-            if (!SortByValues.Contains(this.Sort_by))
+            if (this.Sort_by != null && !SortByValues.Contains(this.Sort_by))
             {
                 valid = false;
             }
@@ -86,7 +86,7 @@ namespace NerisLibrary.Models.RequestModels
 
         //Method to add to URI
         //uses reflection to add each property minus those excluded into a dictonary to build the query
-        public Uri CreateQueryURI(Uri baseUri)
+        public string CreateQueryURI(string baseUri)
         {
             Dictionary<string, string> queryValues = new Dictionary<string, string>();
             //add sort:
@@ -111,8 +111,8 @@ namespace NerisLibrary.Models.RequestModels
                 }
             }
 
-            string uriString = QueryHelpers.AddQueryString(baseUri.ToString(), queryValues);
-            return new Uri(uriString);
+            string uriString = QueryHelpers.AddQueryString(baseUri, queryValues);
+            return uriString;
         }
     }
 }
