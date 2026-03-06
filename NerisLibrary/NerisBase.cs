@@ -126,6 +126,7 @@ namespace NerisLibrary
             //build request uri
             string baseUri = GetRoute(RouteTypes.Entity);
             string uri = requestModel.CreateQueryURI(baseUri);
+            EntityPageSet entities = null;
             //make request
             using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Get, uri))
             {
@@ -135,9 +136,12 @@ namespace NerisLibrary
                 HttpResponseMessage response = await _httpClient.SendAsync(message);
                 response.EnsureSuccessStatusCode();
                 string responseValue = await response.Content.ReadAsStringAsync();
-                LogMessage(responseValue);
+                entities = await response.Content.ReadFromJsonAsync<EntityPageSet>(new System.Text.Json.JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+
             }
             //handle results
+            LogMessage(entities.Entities[0].Name);
+
         }
 
 
