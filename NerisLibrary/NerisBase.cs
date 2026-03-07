@@ -2,6 +2,7 @@
 using NerisLibrary.Models;
 using NerisLibrary.Models.ElementModels;
 using NerisLibrary.Models.RequestModels;
+using NerisLibrary.Utils;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -21,7 +22,7 @@ namespace NerisLibrary
         private ILogger<NerisBase>? _logger { get; set; } = null;
         private HttpClient _httpClient { get; set; }
         private AccessTokenModel? _accessToken { get; set; }
-        public bool Initialized { get {  return _accessToken != null && _accessToken.access_token != string.Empty; } } 
+        public bool Initialized { get {  return _accessToken != null && _accessToken.Access_Token != string.Empty; } } 
         public NerisBase(Config config, HttpClient client, ILogger<NerisBase> logger = null)
         {
             _config = config;
@@ -81,7 +82,7 @@ namespace NerisLibrary
 
                 HttpResponseMessage response = await _httpClient.SendAsync(message);
                 response.EnsureSuccessStatusCode();
-                tokenModel = await response.Content.ReadFromJsonAsync<AccessTokenModel>();
+                tokenModel = await response.Content.DeserializeCaseInsensitive<AccessTokenModel>();
             }
 
             _accessToken = tokenModel;
@@ -109,7 +110,7 @@ namespace NerisLibrary
             return new Uri(_config.Url, routeAppend).ToString();
         }
 
-        public async Task GetEntities(EntityRequestModel requestModel)
+        public async Task<EntityPageSet> GetEntities(EntityRequestModel requestModel)
         {
             //check if request is valid
             if (!requestModel.Validate())
@@ -130,17 +131,16 @@ namespace NerisLibrary
             //make request
             using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Get, uri))
             {
-                message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.access_token);
+                message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.Access_Token);
                 message.Headers.UserAgent.ParseAdd(".NET/3.1");
 
                 HttpResponseMessage response = await _httpClient.SendAsync(message);
                 response.EnsureSuccessStatusCode();
-                string responseValue = await response.Content.ReadAsStringAsync();
-                entities = await response.Content.ReadFromJsonAsync<EntityPageSet>(new System.Text.Json.JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                entities = await response.Content.DeserializeCaseInsensitive<EntityPageSet>();
 
             }
             //handle results
-            LogMessage(entities.Entities[0].Name);
+            return entities;
 
         }
 

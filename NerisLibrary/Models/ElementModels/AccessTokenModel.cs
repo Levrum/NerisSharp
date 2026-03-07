@@ -7,10 +7,10 @@ namespace NerisLibrary.Models.ElementModels
 {
     internal class AccessTokenModel
     {
-        public string access_token { get; set; } = string.Empty;
-        public string refresh_token { get; set; } = string.Empty;
+        public string Access_Token { get; set; } = string.Empty;
+        public string Refresh_Token { get; set; } = string.Empty;
         private int _expires_in;
-        public int expires_in { get {
+        public int Expires_In { get {
                 return _expires_in;
             } set 
             {

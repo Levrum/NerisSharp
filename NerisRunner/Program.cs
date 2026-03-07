@@ -17,6 +17,16 @@ namespace NerisRunner
             HttpClient client = new HttpClient(new SocketsHttpHandler { PooledConnectionLifetime = TimeSpan.FromMinutes(2) });
             NerisBase nb = new NerisBase(clientCredentialsLogin, client, factory.CreateLogger<NerisBase>());
             await nb.Login();
+
+            EntityRequestModel erm = new EntityRequestModel()
+            {
+                Name = "portland",
+                State = "or"
+            };
+
+            var result = await nb.GetEntities(erm);
+            Console.WriteLine(result.Entities[0].Name);
+
         }
     }
 }
