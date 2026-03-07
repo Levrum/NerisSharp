@@ -10,7 +10,16 @@ namespace NerisLibrary.Models.RequestModels
     {
         public string Name { get; set; }
         public string Neris_id { get; set; }
-        public string State { get; set; }
+        private string _state;
+        public string State { get
+            {
+                return _state;
+            }
+            set 
+            {
+                _state = value.ToUpper();
+            } 
+        }
         public EntityClassTypes? Entity_Class_Enum { get; set; } = null;
         public string Entity_Class{ get {
                 return Entity_Class_Enum?.ToString() ?? null;
