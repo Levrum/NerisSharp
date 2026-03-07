@@ -10,7 +10,18 @@ namespace NerisLibrary.Models.ElementModels
         public string Station_Id { get; set; }
         public string Address_Line_1 { get; set; }
         public string City { get; set; }
-        public string State { get; set; }
+        private string _state;
+        public string State
+        {
+            get
+            {
+                return _state;
+            }
+            set
+            {
+                _state = value.ToUpper();
+            }
+        }
         public string Zip_Code { get; set; }
         public string Location { get; set; }
     }
