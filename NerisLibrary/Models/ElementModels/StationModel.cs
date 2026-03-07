@@ -4,19 +4,14 @@ using System.Text;
 
 namespace NerisLibrary.Models.ElementModels
 {
-    public class EntityModel
+    public class StationModel
     {
-        public string Name { get; set; }
         public string Neris_Id { get; set; }
+        public string Station_Id { get; set; }
         public string Address_Line_1 { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public string Zip_Code { get; set; }
-        public DateTimeOffset Last_Modified { get; set; }
-        public string Department_Type { get; set; }
-        public string Website {  get; set; }
-        public string Time_Zone { get; set; }
         public string Location { get; set; }
-        public List<StationModel> Stations { get; set; }
     }
 }
