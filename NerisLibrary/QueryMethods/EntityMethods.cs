@@ -1,4 +1,5 @@
-﻿using NerisLibrary.Models.ElementModels;
+﻿using NerisLibrary.Exceptions;
+using NerisLibrary.Models.ElementModels;
 using NerisLibrary.Models.RequestModels;
 using NerisLibrary.Utils;
 using System;
@@ -26,13 +27,13 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
             //check if request is valid
             if (!requestModel.Validate())
             {
-                throw new Exception("Error"); //TODO add exception types;
+                throw new ValidationException("RequestModel is not valid");
             }
             //check if logged in
             if (!await LoginIfTokenExpired())
             {
                 //failed to login:
-                throw new Exception("Not Logged In"); //TODO Add exception types
+                throw new AuthorizationException(); 
             }
 
             //build request uri
@@ -62,7 +63,7 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
             }
             if (!await LoginIfTokenExpired())
             {
-                throw new Exception();
+                throw new AuthorizationException();
             }
             string entityUri = GetRoute(RouteTypes.Entity);
             string entitySearchUri = entityUri + EntityId;
@@ -100,7 +101,7 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
             if (!await LoginIfTokenExpired())
             {
                 //failed to login:
-                throw new Exception("Not Logged In"); //TODO Add exception types
+                throw new AuthorizationException();
             }
             string nerisId = string.Empty;
             using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, stationUri))
