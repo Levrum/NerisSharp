@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace NerisLibrary
 {
-    public class NerisBase //NerisAPIBase?
+    public partial class NerisBase //NerisAPIBase?
     {
 
         //will hold methods for interacting with Neris API
@@ -28,6 +28,7 @@ namespace NerisLibrary
             _config = config;
             _logger = logger;
             _httpClient = client;
+            _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(".NET/3.1");
         }
 
         public async Task Login() //i think we want this to throw an error if it fails.
@@ -77,7 +78,6 @@ namespace NerisLibrary
             using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, GetRoute(RouteTypes.Token)))
             {
                 message.Headers.Authorization = new AuthenticationHeaderValue("Basic", encodedCredentials);
-                message.Headers.UserAgent.ParseAdd(".NET/3.1");
                 message.Content = new FormUrlEncodedContent(formContent);
 
                 HttpResponseMessage response = await _httpClient.SendAsync(message);
@@ -109,41 +109,6 @@ namespace NerisLibrary
             }
             return new Uri(_config.Url, routeAppend).ToString();
         }
-
-        public async Task<EntityPageSet> GetEntities(EntityRequestModel requestModel)
-        {
-            //check if request is valid
-            if (!requestModel.Validate())
-            {
-                throw new Exception("Error"); //TODO add exception types;
-            }
-            //check if logged in
-            if (!await LoginIfTokenExpired())
-            {
-                //failed to login:
-                throw new Exception("Not Logged In"); //TODO Add exception types
-            }
-
-            //build request uri
-            string baseUri = GetRoute(RouteTypes.Entity);
-            string uri = requestModel.CreateQueryURI(baseUri);
-            EntityPageSet entities = null;
-            //make request
-            using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Get, uri))
-            {
-                message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.Access_Token);
-                message.Headers.UserAgent.ParseAdd(".NET/3.1");
-
-                HttpResponseMessage response = await _httpClient.SendAsync(message);
-                response.EnsureSuccessStatusCode();
-                entities = await response.Content.DeserializeCaseInsensitive<EntityPageSet>();
-
-            }
-            //handle results
-            return entities;
-
-        }
-
 
 
 
