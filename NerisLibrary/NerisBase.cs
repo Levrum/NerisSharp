@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace NerisLibrary
@@ -95,14 +96,14 @@ namespace NerisLibrary
         }
         private string GetRoute(RouteTypes type)
         {
-            string routeAppend = "";
+            string routeAppend = "/";
             switch (type)
             {
                 case RouteTypes.Token:
-                    routeAppend = "token";
+                    routeAppend = "token/";
                     break;
                 case RouteTypes.Entity:
-                    routeAppend = "entity";
+                    routeAppend = "entity/";
                     break;
                 default:
                     break;
@@ -110,14 +111,28 @@ namespace NerisLibrary
             return new Uri(_config.Url, routeAppend).ToString();
         }
 
+        private async Task<string> ParseIdFromCreatedResult(HttpResponseMessage response)
+        {
+            string reponseContent = await response.Content.ReadAsStringAsync();
+            JsonDocument jsonDocument = JsonDocument.Parse(reponseContent);
+            bool success = jsonDocument.RootElement.TryGetProperty("neris_id", out JsonElement nerisIdJson);
+            if (success)
+            {
+                return nerisIdJson.ToString();
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
 
 
-        private void LogMessage(string message, LogLevel severity=LogLevel.Information)
+        private void LogMessage(string message, LogLevel severity = LogLevel.Information)
         {
             if (_logger != null)
             {
                 _logger.Log(severity, message);
-            }else
+            } else
             {
                 Console.WriteLine(message);
             }
