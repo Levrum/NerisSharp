@@ -94,7 +94,7 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
         }
 
 
-        private async Task<string> PostStation(string BaseEntityId, StationModel NewStation)
+        public async Task<string> PostStation(string BaseEntityId, StationModel NewStation)
         {
             string stationUri = GetStationRoute(BaseEntityId);
             if (!await LoginIfTokenExpired())
@@ -106,13 +106,18 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
             using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, stationUri))
             {
                 message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.Access_Token);
-                //string JsonContent
-                string content = JsonSerializer.Serialize(NewStation);
+                string content = SerializationExtensions.SerializeLowerCase<StationModel>(NewStation);
                 message.Content = new StringContent(content, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await _httpClient.SendAsync(message);
-                response.EnsureSuccessStatusCode();
+                if (!response.IsSuccessStatusCode)
+                {
+                    string responseMessage = await response.Content.ReadAsStringAsync();
+                    LogMessage(responseMessage, Microsoft.Extensions.Logging.LogLevel.Error);
+                    throw new HttpRequestException(responseMessage);
+                }
 
                 //parse new ID out
+                nerisId = await ParseIdFromCreatedResult(response);
             }
             return nerisId;
         }
