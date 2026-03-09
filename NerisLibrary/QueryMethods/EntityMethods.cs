@@ -54,6 +54,7 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
 
         }
 
+        public async Task<EntityModel?> GetEntity(string EntityId)
         public async Task<string> PostStation(EntityModel BaseEntity, StationModel NewStation)
         {
             if (BaseEntity == null)
