@@ -55,6 +55,35 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
         }
 
         public async Task<EntityModel?> GetEntity(string EntityId)
+        {
+            if (EntityId == null)
+            {
+                throw new ArgumentNullException(nameof(EntityId));
+            }
+            if (!await LoginIfTokenExpired())
+            {
+                throw new Exception();
+            }
+            string entityUri = GetRoute(RouteTypes.Entity);
+            string entitySearchUri = entityUri + EntityId;
+            EntityModel? entityModel = null;
+            using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Get, entitySearchUri))
+            {
+                message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.Access_Token);
+                HttpResponseMessage response = await _httpClient.SendAsync(message);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    string responseMessage = await response.Content.ReadAsStringAsync();
+                    LogMessage(responseMessage, Microsoft.Extensions.Logging.LogLevel.Error);
+                    throw new HttpRequestException(responseMessage);
+                }
+
+                entityModel = await response.Content.DeserializeCaseInsensitive<EntityModel>();
+            }
+            return entityModel;
+        }
+
         public async Task<string> PostStation(EntityModel BaseEntity, StationModel NewStation)
         {
             if (BaseEntity == null)
