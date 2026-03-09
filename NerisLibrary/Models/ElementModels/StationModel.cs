@@ -6,10 +6,11 @@ namespace NerisLibrary.Models.ElementModels
 {
     public class StationModel
     {
-        public string Neris_Id { get; set; }
-        public string Station_Id { get; set; }
-        public string Address_Line_1 { get; set; }
-        public string City { get; set; }
+        public string Neris_Id { get; set; } = string.Empty;
+        public string Station_Id { get; set; } = string.Empty;
+        public string Address_Line_1 { get; set; } = string.Empty;
+        public string Address_Line_2 { get; set; } = string.Empty;
+        public string City { get; set; } = string.Empty;
         private string _state;
         public string State
         {
@@ -22,8 +23,10 @@ namespace NerisLibrary.Models.ElementModels
                 _state = value.ToUpper();
             }
         }
-        public string Zip_Code { get; set; }
-        public string Location { get; set; }
+        public int Staffing { get; set; } = 0;
+        public string Internal_Id { get; set; } = string.Empty;
+        public string Zip_Code { get; set; }= string.Empty;
+        public string Location { get; set; } = string.Empty;
         public List<UnitModel> Units { get; set; } = new List<UnitModel>();
     }
 }
