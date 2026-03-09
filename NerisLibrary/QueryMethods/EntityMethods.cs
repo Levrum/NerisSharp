@@ -15,6 +15,12 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
 {
     public partial class NerisBase
     {
+        /// <summary>
+        /// Search entities by various parameters
+        /// </summary>
+        /// <param name="requestModel">Object containing parameters to search by</param>
+        /// <returns>An EntityPageSet containing a list of found entities and pagination info</returns>
+        /// <exception cref="Exception"></exception>
         public async Task<EntityPageSet> GetEntities(EntityRequestModel requestModel)
         {
             //check if request is valid
