@@ -34,7 +34,7 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
             if (!await LoginIfTokenExpired())
             {
                 //failed to login:
-                throw new AuthorizationException(); 
+                throw new AuthorizationException();
             }
 
             //build request uri
@@ -83,7 +83,7 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
 
         public async Task<string> PatchEntity(EntityModel EntityToUpdate, HashSet<string> FieldsToNull = null)
         {
-            if (EntityToUpdate  == null) { throw new ArgumentNullException(nameof(EntityToUpdate)); }
+            if (EntityToUpdate == null) { throw new ArgumentNullException(nameof(EntityToUpdate)); }
             if (string.IsNullOrWhiteSpace(EntityToUpdate.Neris_Id)) { throw new ArgumentException("Neris_Id cannot be null or whitespace"); }
             string entityId = EntityToUpdate.Neris_Id;
             if (!await LoginIfTokenExpired())
@@ -113,161 +113,6 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
                 neris_id = await ParseIdFromCreatedResult(response);
             }
             return neris_id;
-        }
-
-        public async Task<string> PostStation(EntityModel BaseEntity, StationModel NewStation)
-        {
-            if (BaseEntity == null)
-            {
-                throw new ArgumentNullException(nameof(BaseEntity));
-            }
-            return await PostStation(BaseEntity.Neris_Id, NewStation);
-        }
-
-
-        public async Task<string> PostStation(string BaseEntityId, StationModel NewStation)
-        {
-            string stationUri = GetStationRoute(BaseEntityId);
-            if (!await LoginIfTokenExpired())
-            {
-                //failed to login:
-                throw new AuthorizationException();
-            }
-            string nerisId = string.Empty;
-            using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, stationUri))
-            {
-                message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.Access_Token);
-                string content = SerializationExtensions.SerializeLowerCase<StationModel>(NewStation);
-                message.Content = new StringContent(content, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await _httpClient.SendAsync(message);
-                await CheckStatusCodeAndHandleError(response);
-
-                //parse new ID out
-                nerisId = await ParseIdFromCreatedResult(response);
-            }
-            return nerisId;
-        }
-
-        /// <summary>
-        /// Updates an existing station entity with the specified changes and returns the NERIS identifier of the
-        /// updated station.
-        /// </summary>
-        /// <remarks>Only the fields provided in <paramref name="StationUpdate"/> are updated. Fields
-        /// listed in <paramref name="FieldsToNull"/> are explicitly set to null in the update. The method requires a
-        /// valid authentication token and will attempt to re-authenticate if the token has expired.</remarks>
-        /// <param name="BaseEntity">The Entity of which the station belongs. Cannot be null.</param>
-        /// <param name="StationUpdate">An object containing the updated values for the station. Must include a valid NERIS identifier. Cannot be
-        /// null.</param>
-        /// <param name="FieldsToNull">A set of property names to be explicitly set to null in the update request. If null, no fields are set to
-        /// null.</param>
-        /// <returns>A string containing the NERIS identifier of the updated station.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="BaseEntityId"/> or <paramref name="StationUpdate"/> is null.</exception>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="StationUpdate"/> does not contain a valid NERIS identifier.</exception>
-        /// <exception cref="AuthorizationException">Thrown if the current authentication token is invalid and re-authentication fails.</exception>
-        public async Task<string> PatchStation(EntityModel BaseEntity, StationModel StationUpdate, HashSet<string> FieldsToNull = null)
-        {
-            if (BaseEntity == null)
-            {
-                throw new ArgumentNullException(nameof(BaseEntity));
-            }
-            return await PatchStation(BaseEntity.Neris_Id, StationUpdate, FieldsToNull);
-        }
-
-        /// <summary>
-        /// Updates an existing station entity with the specified changes and returns the NERIS identifier of the
-        /// updated station.
-        /// </summary>
-        /// <remarks>Only the fields provided in <paramref name="StationUpdate"/> are updated. Fields
-        /// listed in <paramref name="FieldsToNull"/> are explicitly set to null in the update. The method requires a
-        /// valid authentication token and will attempt to re-authenticate if the token has expired.</remarks>
-        /// <param name="BaseEntityId">The unique identifier of the base entity to which the station belongs. Cannot be null.</param>
-        /// <param name="StationUpdate">An object containing the updated values for the station. Must include a valid NERIS identifier. Cannot be
-        /// null.</param>
-        /// <param name="FieldsToNull">A set of property names to be explicitly set to null in the update request. If null, no fields are set to
-        /// null.</param>
-        /// <returns>A string containing the NERIS identifier of the updated station.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="BaseEntityId"/> or <paramref name="StationUpdate"/> is null.</exception>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="StationUpdate"/> does not contain a valid NERIS identifier.</exception>
-        /// <exception cref="AuthorizationException">Thrown if the current authentication token is invalid and re-authentication fails.</exception>
-        public async Task<string> PatchStation(string BaseEntityId, StationModel StationUpdate, HashSet<string> FieldsToNull = null)
-        {
-            if (BaseEntityId == null || StationUpdate == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            if (String.IsNullOrWhiteSpace(StationUpdate.Neris_Id))
-            {
-                throw new ArgumentException("StationUpdate MUST have NERIS id to patch");
-            }
-            if (!await LoginIfTokenExpired())
-            {
-                //failed to login:
-                throw new AuthorizationException();
-            }
-            string route = GetStationRoute(BaseEntityId);
-            string fullRoute = UriUtils.AppendPath(route, StationUpdate.Neris_Id);
-            string nerisId = string.Empty;
-            using (var message = new HttpRequestMessage(HttpMethod.Patch, fullRoute))
-            {
-                message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.Access_Token);
-                JsonObject contentNode = SerializationExtensions.SerializeToJsonObjectLowerCase(StationUpdate);
-                contentNode.Remove("neris_id");
-                //check for nulls: 
-                if (FieldsToNull != null)
-                {
-                    foreach (string field in FieldsToNull)
-                    {
-                        contentNode[field.ToLower()] = null;
-                    }
-                }
-                string content = contentNode.ToJsonString();
-                message.Content = new StringContent(content, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await _httpClient.SendAsync(message);
-                await CheckStatusCodeAndHandleError(response);
-
-                nerisId = await ParseIdFromCreatedResult(response);
-            }
-            return nerisId;
-
-        }
-
-        public async Task<bool> DeleteStation(EntityModel BaseEntity, StationModel StationToDelete)
-        {
-            if (StationToDelete == null) { throw new ArgumentNullException(nameof(StationToDelete)); }
-            if (BaseEntity == null) { throw new ArgumentNullException(nameof(BaseEntity)); }
-
-            return await DeleteStation(BaseEntity.Neris_Id, StationToDelete.Neris_Id);
-        }
-
-        public async Task<bool> DeleteStation(string BaseEntityId, string StationId)
-        {
-            if (string.IsNullOrWhiteSpace(BaseEntityId)) { throw new ArgumentNullException(nameof(BaseEntityId)); }
-            if (string.IsNullOrWhiteSpace(StationId)) { throw new ArgumentNullException(nameof(StationId)); }
-
-            if (!await LoginIfTokenExpired())
-            {
-                //failed to login:
-                throw new AuthorizationException();
-            }
-
-            string baseUrl = GetStationRoute(BaseEntityId);
-            string fullUrl = UriUtils.AppendPath(baseUrl, StationId);
-            using (var message = new HttpRequestMessage(HttpMethod.Delete, fullUrl))
-            {
-                message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.Access_Token);
-                HttpResponseMessage response = await _httpClient.SendAsync(message);
-                await CheckStatusCodeAndHandleError(response);
-                return response.IsSuccessStatusCode;
-            }
-        }
-
-        public string GetStationRoute(string BaseEntityId)
-        {
-            string baseUri = GetRoute(RouteTypes.Entity);
-            baseUri = UriUtils.AppendPath(baseUri, BaseEntityId);
-            baseUri = UriUtils.AppendPath(baseUri, "station");
-            return baseUri;
         }
     }
 }
