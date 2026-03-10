@@ -121,6 +121,31 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
         /// <remarks>Only the fields provided in <paramref name="StationUpdate"/> are updated. Fields
         /// listed in <paramref name="FieldsToNull"/> are explicitly set to null in the update. The method requires a
         /// valid authentication token and will attempt to re-authenticate if the token has expired.</remarks>
+        /// <param name="BaseEntity">The Entity of which the station belongs. Cannot be null.</param>
+        /// <param name="StationUpdate">An object containing the updated values for the station. Must include a valid NERIS identifier. Cannot be
+        /// null.</param>
+        /// <param name="FieldsToNull">A set of property names to be explicitly set to null in the update request. If null, no fields are set to
+        /// null.</param>
+        /// <returns>A string containing the NERIS identifier of the updated station.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="BaseEntityId"/> or <paramref name="StationUpdate"/> is null.</exception>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="StationUpdate"/> does not contain a valid NERIS identifier.</exception>
+        /// <exception cref="AuthorizationException">Thrown if the current authentication token is invalid and re-authentication fails.</exception>
+        public async Task<string> PatchStation(EntityModel BaseEntity,  StationModel StationUpdate, HashSet<string> FieldsToNull = null)
+        {
+            if (BaseEntity == null)
+            {
+                throw new ArgumentNullException(nameof(BaseEntity));
+            }
+            return await PatchStation(BaseEntity.Neris_Id, StationUpdate, FieldsToNull);
+        }
+
+        /// <summary>
+        /// Updates an existing station entity with the specified changes and returns the NERIS identifier of the
+        /// updated station.
+        /// </summary>
+        /// <remarks>Only the fields provided in <paramref name="StationUpdate"/> are updated. Fields
+        /// listed in <paramref name="FieldsToNull"/> are explicitly set to null in the update. The method requires a
+        /// valid authentication token and will attempt to re-authenticate if the token has expired.</remarks>
         /// <param name="BaseEntityId">The unique identifier of the base entity to which the station belongs. Cannot be null.</param>
         /// <param name="StationUpdate">An object containing the updated values for the station. Must include a valid NERIS identifier. Cannot be
         /// null.</param>
