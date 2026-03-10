@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace NerisLibrary.Models.ElementModels
 {
@@ -11,7 +12,8 @@ namespace NerisLibrary.Models.ElementModels
         public string Address_Line_1 { get; set; } 
         public string City { get; set; } 
         public string State { get; set; } 
-        public string Zip_Code { get; set; } 
+        public string Zip_Code { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]
         public DateTimeOffset Last_Modified { get; set; }
         public string Department_Type { get; set; } 
         public string Website {  get; set; } 
