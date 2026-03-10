@@ -82,7 +82,7 @@ namespace NerisLibrary
                 message.Content = new FormUrlEncodedContent(formContent);
 
                 HttpResponseMessage response = await _httpClient.SendAsync(message);
-                response.EnsureSuccessStatusCode();
+                await CheckStatusCodeAndHandleErrror(response);
                 tokenModel = await response.Content.DeserializeCaseInsensitive<AccessTokenModel>();
             }
 
@@ -126,6 +126,15 @@ namespace NerisLibrary
             }
         }
 
+        private async Task CheckStatusCodeAndHandleErrror(HttpResponseMessage response)
+        {
+            if (!response.IsSuccessStatusCode)
+            {
+                string responseMessage = await response.Content.ReadAsStringAsync();
+                LogMessage(responseMessage, Microsoft.Extensions.Logging.LogLevel.Error);
+                throw new HttpRequestException(responseMessage);
+            }
+        }
 
         private void LogMessage(string message, LogLevel severity = LogLevel.Information)
         {
