@@ -17,6 +17,6 @@ namespace NerisLibrary.Models.ElementModels
         public string Website {  get; set; } 
         public string Time_Zone { get; set; } 
         public string Location { get; set; } 
-        public List<StationModel> Stations { get; set; } = new List<StationModel>();
+        public List<StationModel> Stations { get; set; }
     }
 }

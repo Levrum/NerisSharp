@@ -27,6 +27,6 @@ namespace NerisLibrary.Models.ElementModels
         public string Internal_Id { get; set; } 
         public string Zip_Code { get; set; }
         public string Location { get; set; } 
-        public List<UnitModel> Units { get; set; } = new List<UnitModel>();
+        public List<UnitModel> Units { get; set; }
     }
 }
