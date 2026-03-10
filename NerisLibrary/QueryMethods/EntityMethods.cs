@@ -72,7 +72,7 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
             {
                 message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.Access_Token);
                 HttpResponseMessage response = await _httpClient.SendAsync(message);
-                await CheckStatusCodeAndHandleErrror(response);
+                await CheckStatusCodeAndHandleError(response);
 
 
                 entityModel = await response.Content.DeserializeCaseInsensitive<EntityModel>();
@@ -105,7 +105,7 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
                 string content = SerializationExtensions.SerializeLowerCase<StationModel>(NewStation);
                 message.Content = new StringContent(content, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await _httpClient.SendAsync(message);
-                await CheckStatusCodeAndHandleErrror(response);
+                await CheckStatusCodeAndHandleError(response);
 
                 //parse new ID out
                 nerisId = await ParseIdFromCreatedResult(response);
