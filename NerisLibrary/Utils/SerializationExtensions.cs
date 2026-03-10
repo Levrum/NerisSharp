@@ -34,5 +34,11 @@ namespace NerisLibrary.Utils
             JsonNode result = JsonSerializer.SerializeToNode(value, LowerCaseNamingPolicy);
             return result;
         }
+
+        public static JsonObject SerializeToJsonObjectLowerCase<T>(T value)
+        {
+            JsonNode result = JsonSerializer.SerializeToNode(value, LowerCaseNamingPolicy);
+            return result.AsObject();
+        }
     }
 }

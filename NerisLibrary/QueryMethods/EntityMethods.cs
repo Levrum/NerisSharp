@@ -81,6 +81,40 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
             return entityModel;
         }
 
+        public async Task<string> PatchEntity(EntityModel EntityToUpdate, HashSet<string> FieldsToNull = null)
+        {
+            if (EntityToUpdate  == null) { throw new ArgumentNullException(nameof(EntityToUpdate)); }
+            if (string.IsNullOrWhiteSpace(EntityToUpdate.Neris_Id)) { throw new ArgumentException("Neris_Id cannot be null or whitespace"); }
+            string entityId = EntityToUpdate.Neris_Id;
+            if (!await LoginIfTokenExpired())
+            {
+                throw new AuthorizationException();
+            }
+
+            string baseUri = GetRoute(RouteTypes.Entity);
+            string entityUri = UriUtils.AppendPath(baseUri, EntityToUpdate.Neris_Id);
+
+            string neris_id = "";
+            using (var message = new HttpRequestMessage(HttpMethod.Patch, entityUri))
+            {
+                message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.Access_Token);
+                JsonObject nodeContent = SerializationExtensions.SerializeToJsonObjectLowerCase(EntityToUpdate);
+                nodeContent.Remove("neris_id");
+                if (FieldsToNull != null)
+                {
+                    foreach (string field in FieldsToNull)
+                    {
+                        nodeContent[field.ToLower()] = null;
+                    }
+                }
+                message.Content = new StringContent(nodeContent.ToJsonString(), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await _httpClient.SendAsync(message);
+                await CheckStatusCodeAndHandleError(response);
+                neris_id = await ParseIdFromCreatedResult(response);
+            }
+            return neris_id;
+        }
+
         public async Task<string> PostStation(EntityModel BaseEntity, StationModel NewStation)
         {
             if (BaseEntity == null)
@@ -130,7 +164,7 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="BaseEntityId"/> or <paramref name="StationUpdate"/> is null.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="StationUpdate"/> does not contain a valid NERIS identifier.</exception>
         /// <exception cref="AuthorizationException">Thrown if the current authentication token is invalid and re-authentication fails.</exception>
-        public async Task<string> PatchStation(EntityModel BaseEntity,  StationModel StationUpdate, HashSet<string> FieldsToNull = null)
+        public async Task<string> PatchStation(EntityModel BaseEntity, StationModel StationUpdate, HashSet<string> FieldsToNull = null)
         {
             if (BaseEntity == null)
             {
@@ -161,7 +195,6 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
             {
                 throw new ArgumentNullException();
             }
-            string stationID = StationUpdate.Neris_Id;
 
             if (String.IsNullOrWhiteSpace(StationUpdate.Neris_Id))
             {
@@ -178,8 +211,8 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
             using (var message = new HttpRequestMessage(HttpMethod.Patch, fullRoute))
             {
                 message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.Access_Token);
-                StationUpdate.Neris_Id = null;
-                JsonNode contentNode = SerializationExtensions.SerializeToNodeLowerCase(StationUpdate);
+                JsonObject contentNode = SerializationExtensions.SerializeToJsonObjectLowerCase(StationUpdate);
+                contentNode.Remove("neris_id");
                 //check for nulls: 
                 if (FieldsToNull != null)
                 {
@@ -189,7 +222,6 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
                     }
                 }
                 string content = contentNode.ToJsonString();
-                StationUpdate.Neris_Id = stationID;
                 message.Content = new StringContent(content, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await _httpClient.SendAsync(message);
                 await CheckStatusCodeAndHandleError(response);
@@ -210,8 +242,8 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
 
         public async Task<bool> DeleteStation(string BaseEntityId, string StationId)
         {
-            if (string.IsNullOrEmpty(BaseEntityId)) { throw new ArgumentNullException(nameof(BaseEntityId)); }
-            if (string.IsNullOrEmpty(StationId)) { throw new ArgumentNullException(nameof(StationId)); }
+            if (string.IsNullOrWhiteSpace(BaseEntityId)) { throw new ArgumentNullException(nameof(BaseEntityId)); }
+            if (string.IsNullOrWhiteSpace(StationId)) { throw new ArgumentNullException(nameof(StationId)); }
 
             if (!await LoginIfTokenExpired())
             {
