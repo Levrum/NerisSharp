@@ -200,6 +200,36 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
 
         }
 
+        public async Task<bool> DeleteStation(EntityModel BaseEntity, StationModel StationToDelete)
+        {
+            if (StationToDelete == null) { throw new ArgumentNullException(nameof(StationToDelete)); }
+            if (BaseEntity == null) { throw new ArgumentNullException(nameof(BaseEntity)); }
+
+            return await DeleteStation(BaseEntity.Neris_Id, StationToDelete.Neris_Id);
+        }
+
+        public async Task<bool> DeleteStation(string BaseEntityId, string StationId)
+        {
+            if (string.IsNullOrEmpty(BaseEntityId)) { throw new ArgumentNullException(nameof(BaseEntityId)); }
+            if (string.IsNullOrEmpty(StationId)) { throw new ArgumentNullException(nameof(StationId)); }
+
+            if (!await LoginIfTokenExpired())
+            {
+                //failed to login:
+                throw new AuthorizationException();
+            }
+
+            string baseUrl = GetStationRoute(BaseEntityId);
+            string fullUrl = UriUtils.AppendPath(baseUrl, StationId);
+            using (var message = new HttpRequestMessage(HttpMethod.Delete, fullUrl))
+            {
+                message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.Access_Token);
+                HttpResponseMessage response = await _httpClient.SendAsync(message);
+                await CheckStatusCodeAndHandleError(response);
+                return response.IsSuccessStatusCode;
+            }
+        }
+
         public string GetStationRoute(string BaseEntityId)
         {
             string baseUri = GetRoute(RouteTypes.Entity);
