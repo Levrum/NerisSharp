@@ -27,5 +27,11 @@ namespace NerisLibrary.Utils
             string result = JsonSerializer.Serialize(value, LowerCaseNamingPolicy);
             return result;
         }
+
+        public static JsonNode SerializeToNodeLowerCase<T>(T value)
+        {
+            JsonNode result = JsonSerializer.SerializeToNode(value, LowerCaseNamingPolicy);
+            return result;
+        }
     }
 }
