@@ -66,7 +66,7 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
                 throw new AuthorizationException();
             }
             string entityUri = GetRoute(RouteTypes.Entity);
-            string entitySearchUri = entityUri + EntityId;
+            string entitySearchUri = UriUtils.AppendPath(entityUri, EntityId);
             EntityModel? entityModel = null;
             using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Get, entitySearchUri))
             {
@@ -116,11 +116,8 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
         public string GetStationRoute(string BaseEntityId)
         {
             string baseUri = GetRoute(RouteTypes.Entity);
-            if (baseUri.Last() != '/')
-            {
-                baseUri += '/';
-            }
-            baseUri += BaseEntityId + "/" + "station";
+            baseUri = UriUtils.AppendPath(baseUri, BaseEntityId);
+            baseUri = UriUtils.AppendPath(baseUri, "station");
             return baseUri;
         }
     }
