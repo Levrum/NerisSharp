@@ -23,7 +23,7 @@ namespace NerisLibrary.Models.ElementModels
                 _state = value.ToUpper();
             }
         }
-        public int Staffing { get; set; } = 0;
+        public int? Staffing { get; set; } = null;
         public string Internal_Id { get; set; } 
         public string Zip_Code { get; set; }
         public string Location { get; set; } 

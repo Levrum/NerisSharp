@@ -4,7 +4,8 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
-   using System.Text.Json.Serialization;
+using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace NerisLibrary.Utils
@@ -15,7 +16,7 @@ namespace NerisLibrary.Utils
         static JsonSerializerOptions LowerCaseNamingPolicy = new JsonSerializerOptions() 
         { 
             PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower, 
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull 
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         };
         public static async Task<T> DeserializeCaseInsensitive<T>(this HttpContent response)
         {
