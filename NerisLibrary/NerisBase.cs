@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using NerisLibrary.Exceptions;
 using NerisLibrary.Models;
 using NerisLibrary.Models.ElementModels;
 using NerisLibrary.Models.RequestModels;
@@ -30,6 +31,21 @@ namespace NerisLibrary
             _logger = logger;
             _httpClient = client;
             _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(".NET/3.1");
+        }
+
+        private async Task<HttpResponseMessage> _call(HttpRequestMessage message)
+        {
+            await LoginIfTokenExpired();
+
+            message.Headers.Authorization = new AuthenticationHeaderValue("Beaer", _accessToken.Access_Token);
+            HttpResponseMessage response = await _httpClient.SendAsync(message);
+            await CheckStatusCodeAndHandleError(response);
+            return response;
+        }
+
+        private StringContent _CreateJsonContent(string content)
+        {
+            return new StringContent(content, Encoding.UTF8, "application/json");
         }
 
         public async Task Login() //i think we want this to throw an error if it fails.
