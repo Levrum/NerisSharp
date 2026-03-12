@@ -59,13 +59,16 @@ namespace NerisLibrary
             }
         }
 
-        private async Task<bool> LoginIfTokenExpired()
+        private async Task LoginIfTokenExpired()
         {
             if (!Initialized || _accessToken.expires_at <= DateTime.UtcNow)
             {
                 await Login();
             }
-            return Initialized;
+            if (!Initialized)
+            {
+                throw new AuthorizationException();
+            }
         }
 
         private async Task LoginClientCredentials()

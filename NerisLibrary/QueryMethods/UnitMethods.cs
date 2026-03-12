@@ -26,10 +26,7 @@ namespace NerisLibrary
             if (string.IsNullOrWhiteSpace(baseStationId)) throw new ArgumentNullException(nameof(baseStationId));
             if (newUnit == null) throw new ArgumentNullException(nameof(newUnit));
 
-            if (!await LoginIfTokenExpired())
-            {
-                throw new AuthorizationException();
-            }
+            await LoginIfTokenExpired();
 
             string postURI = GetUnitRoute(baseEntityId, baseStationId);
 

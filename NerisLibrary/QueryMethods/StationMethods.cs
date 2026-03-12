@@ -26,11 +26,7 @@ namespace NerisLibrary
         public async Task<string> PostStation(string BaseEntityId, StationModel NewStation)
         {
             string stationUri = GetStationRoute(BaseEntityId);
-            if (!await LoginIfTokenExpired())
-            {
-                //failed to login:
-                throw new AuthorizationException();
-            }
+            await LoginIfTokenExpired();
             string nerisId = string.Empty;
             using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, stationUri))
             {
@@ -98,11 +94,8 @@ namespace NerisLibrary
             {
                 throw new ArgumentException("StationUpdate MUST have NERIS id to patch");
             }
-            if (!await LoginIfTokenExpired())
-            {
-                //failed to login:
-                throw new AuthorizationException();
-            }
+            await LoginIfTokenExpired();
+
             string fullRoute = GetStationRoute(BaseEntityId, StationUpdate.Neris_Id);
             string nerisId = string.Empty;
             using (var message = new HttpRequestMessage(HttpMethod.Patch, fullRoute))
@@ -142,11 +135,7 @@ namespace NerisLibrary
             if (string.IsNullOrWhiteSpace(BaseEntityId)) { throw new ArgumentNullException(nameof(BaseEntityId)); }
             if (string.IsNullOrWhiteSpace(StationId)) { throw new ArgumentNullException(nameof(StationId)); }
 
-            if (!await LoginIfTokenExpired())
-            {
-                //failed to login:
-                throw new AuthorizationException();
-            }
+            await LoginIfTokenExpired();
 
             string fullUrl = GetStationRoute(BaseEntityId, StationId);
             using (var message = new HttpRequestMessage(HttpMethod.Delete, fullUrl))

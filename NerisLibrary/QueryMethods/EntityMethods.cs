@@ -22,7 +22,8 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
         /// </summary>
         /// <param name="requestModel">Object containing parameters to search by</param>
         /// <returns>An EntityPageSet containing a list of found entities and pagination info</returns>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="ValidationException">Indicates EntityRequestModel is not valid</exception>
+        /// <exception cref="AuthorizationException">Indicates failure to login and receive NERIS Auth token</exception>
         public async Task<EntityPageSet> GetEntities(EntityRequestModel requestModel)
         {
             //check if request is valid
@@ -31,11 +32,7 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
                 throw new ValidationException("RequestModel is not valid");
             }
             //check if logged in
-            if (!await LoginIfTokenExpired())
-            {
-                //failed to login:
-                throw new AuthorizationException();
-            }
+            await LoginIfTokenExpired();
 
             //build request uri
             string baseUri = GetRoute(RouteTypes.Entity);
@@ -62,10 +59,8 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
             {
                 throw new ArgumentNullException(nameof(EntityId));
             }
-            if (!await LoginIfTokenExpired())
-            {
-                throw new AuthorizationException();
-            }
+            await LoginIfTokenExpired();
+
             string entityUri = GetRoute(RouteTypes.Entity);
             string entitySearchUri = UriUtils.AppendPath(entityUri, EntityId);
             EntityModel? entityModel = null;
@@ -86,10 +81,7 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
             if (EntityToUpdate == null) { throw new ArgumentNullException(nameof(EntityToUpdate)); }
             if (string.IsNullOrWhiteSpace(EntityToUpdate.Neris_Id)) { throw new ArgumentException("Neris_Id cannot be null or whitespace"); }
             string entityId = EntityToUpdate.Neris_Id;
-            if (!await LoginIfTokenExpired())
-            {
-                throw new AuthorizationException();
-            }
+            await LoginIfTokenExpired();
 
             string baseUri = GetRoute(RouteTypes.Entity);
             string entityUri = UriUtils.AppendPath(baseUri, EntityToUpdate.Neris_Id);
