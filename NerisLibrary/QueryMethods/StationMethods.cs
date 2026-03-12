@@ -103,8 +103,7 @@ namespace NerisLibrary
                 //failed to login:
                 throw new AuthorizationException();
             }
-            string route = GetStationRoute(BaseEntityId);
-            string fullRoute = UriUtils.AppendPath(route, StationUpdate.Neris_Id);
+            string fullRoute = GetStationRoute(BaseEntityId, StationUpdate.Neris_Id);
             string nerisId = string.Empty;
             using (var message = new HttpRequestMessage(HttpMethod.Patch, fullRoute))
             {
@@ -149,8 +148,7 @@ namespace NerisLibrary
                 throw new AuthorizationException();
             }
 
-            string baseUrl = GetStationRoute(BaseEntityId);
-            string fullUrl = UriUtils.AppendPath(baseUrl, StationId);
+            string fullUrl = GetStationRoute(BaseEntityId, StationId);
             using (var message = new HttpRequestMessage(HttpMethod.Delete, fullUrl))
             {
                 message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.Access_Token);
@@ -160,11 +158,15 @@ namespace NerisLibrary
             }
         }
 
-        public string GetStationRoute(string BaseEntityId)
+        public string GetStationRoute(string BaseEntityId, string stationId = null)
         {
             string baseUri = GetRoute(RouteTypes.Entity);
             baseUri = UriUtils.AppendPath(baseUri, BaseEntityId);
             baseUri = UriUtils.AppendPath(baseUri, "station");
+            if (!string.IsNullOrWhiteSpace(stationId))
+            {
+                baseUri = UriUtils.AppendPath(baseUri, stationId);
+            }
             return baseUri;
         }
     }
