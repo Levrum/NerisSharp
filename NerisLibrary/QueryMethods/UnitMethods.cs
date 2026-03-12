@@ -79,6 +79,28 @@ namespace NerisLibrary
             
         }
 
+        public async Task<bool> DeleteUnit(EntityModel baseEntity, StationModel baseStation, UnitModel unitToDelete)
+        {
+            if (baseEntity == null) throw new ArgumentNullException(nameof(baseEntity));
+            if (baseStation == null) throw new ArgumentNullException(nameof(baseStation));
+            if (unitToDelete == null) throw new ArgumentNullException(nameof(unitToDelete));
+            return await DeleteUnit(baseEntity.Neris_Id, baseStation.Neris_Id, unitToDelete.Neris_Id);
+        }
+
+        public async Task<bool> DeleteUnit(string baseEntityId, string baseStationId, string unitToDeletId)
+        {
+            if (string.IsNullOrWhiteSpace(baseEntityId)) throw new ArgumentNullException(nameof(baseEntityId));
+            if (string.IsNullOrWhiteSpace(baseStationId)) throw new ArgumentNullException(nameof(baseStationId));
+            if (string.IsNullOrWhiteSpace(unitToDeletId)) throw new ArgumentNullException(nameof(unitToDeletId));
+
+            string unitRoute = GetUnitRoute(baseEntityId, baseStationId, unitToDeletId);
+            using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Delete, unitRoute))
+            {
+                HttpResponseMessage response = await _call(message);
+                return response.IsSuccessStatusCode;
+            }
+        }
+
         private string GetUnitRoute(string entityId, string stationId, string unitId = null)
         {
             string baseUri = GetStationRoute(entityId, stationId);
