@@ -4,9 +4,9 @@ using System.Text;
 
 namespace NerisLibrary.Models.ElementModels.Incident
 {
-    public class IncidentTypeUtil
+    public static class IncidentTypeUtil
     {
-        public bool TryCreateIncidentTypeString(out string typeString, IncidentType type1, IncidentType? type2 = null, IncidentType? type3 = null)
+        public static bool TryCreateIncidentTypeString(out string typeString, IncidentType type1, IncidentType? type2 = null, IncidentType? type3 = null)
         {
             typeString = string.Empty;
             if (type2 == null && type3 != null) { throw new ArgumentException("Cannot supply Type 3 without Type 2"); }
@@ -41,9 +41,10 @@ namespace NerisLibrary.Models.ElementModels.Incident
             return true;
         }
 
-        public List<IncidentType> GetTypesFromString(string incidentTypeString)
+        public static List<IncidentType> GetTypesFromString(string incidentTypeString)
         {
             List<IncidentType> toReturn = new List<IncidentType>();
+            if (incidentTypeString == null) { return toReturn; }
             string[] substrings = incidentTypeString.Split("||");
             foreach (string typeString in substrings)
             {
@@ -54,7 +55,7 @@ namespace NerisLibrary.Models.ElementModels.Incident
             return toReturn;
         }
 
-        public readonly HashSet<IncidentType> IncidentType1 = new HashSet<IncidentType>
+        public static readonly HashSet<IncidentType> IncidentType1 = new HashSet<IncidentType>
         {
             IncidentType.FIRE,
             IncidentType.HAZSIT,
@@ -65,7 +66,7 @@ namespace NerisLibrary.Models.ElementModels.Incident
             IncidentType.LAWENFORCE,
         };
 
-        public readonly HashSet<IncidentType> IncidentType2 = new HashSet<IncidentType>
+        public static readonly HashSet<IncidentType> IncidentType2 = new HashSet<IncidentType>
         {
             IncidentType.OUTSIDE_FIRE,
             IncidentType.SPECIAL_FIRE,
@@ -90,7 +91,7 @@ namespace NerisLibrary.Models.ElementModels.Incident
             IncidentType.CANCELLED
         };
 
-        public readonly HashSet<IncidentType> IncidentType3 = new HashSet<IncidentType>
+        public static readonly HashSet<IncidentType> IncidentType3 = new HashSet<IncidentType>
         {
             IncidentType.CONSTRUCTION_WASTE, IncidentType.OTHER_OUTSIDE_FIRE, IncidentType.OUTSIDE_TANK_FIRE, IncidentType.TRASH_RUBBISH_FIRE, IncidentType.VEGETATION_GRASS_FIRE, IncidentType.WILDFIRE_WILDLAND, IncidentType.WILDFIRE_URBAN_INTERFACE,
             IncidentType.UTILITY_INFRASTRUCTURE_FIRE, IncidentType.DUMPSTER_OUTDOOR_CONTAINER_FIRE, IncidentType.ESS_FIRE, IncidentType.EXPLOSION, IncidentType.INFRASTRUCTURE_FIRE, IncidentType.STRUCTURAL_INVOLVEMENT_FIRE, IncidentType.ROOM_AND_CONTENTS_FIRE,
