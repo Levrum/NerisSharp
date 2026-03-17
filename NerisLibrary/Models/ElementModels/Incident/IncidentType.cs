@@ -30,7 +30,7 @@ namespace NerisLibrary.Models.ElementModels.Incident
             if (type3 != null)
             {
                 IncidentType _type3 = (IncidentType)type3;
-                if (!IncidentType2.Contains(_type3))
+                if (!IncidentType3.Contains(_type3))
                 {
                     return false;
                 }
