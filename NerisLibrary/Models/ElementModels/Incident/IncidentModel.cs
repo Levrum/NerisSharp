@@ -15,10 +15,27 @@ namespace NerisLibrary.Models.ElementModels.Incident
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public SubmitterAccountTypes Submitter_Account_Type { get; set; }
         public IncidentBaseModel Base { get; set; }
+
+        public string IncidentType { get; set; }
+        [JsonIgnore]
+        public List<IncidentType> IncidentTypes { get
+            {
+                return IncidentTypeUtil.GetTypesFromString(this.IncidentType);
+            }
+        }
+        public IncidentStatus Incident_Status { get; set; }
+        public DispatchModel Dispatch { get; set; }
+        public TacticsTimestamps Tactic_Timestamps { get; set; }
+        public List<UnitResponse> Unit_Responses { get; set; }
+
     }
 
     public enum SubmitterAccountTypes
     {
         CAD,
+        RMS,
+        USER
     }
+
+
 }
