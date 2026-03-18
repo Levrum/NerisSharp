@@ -32,7 +32,7 @@ namespace NerisLibrary
             {
                 message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.Access_Token);
                 string content = SerializationExtensions.SerializeLowerCase<StationModel>(NewStation);
-                message.Content = _CreateJsonContent(content);
+                message.Content = CreateJsonContent(content);
                 HttpResponseMessage response = await _httpClient.SendAsync(message);
                 await CheckStatusCodeAndHandleError(response);
 
@@ -112,7 +112,7 @@ namespace NerisLibrary
                     }
                 }
                 string content = contentNode.ToJsonString();
-                message.Content = _CreateJsonContent(content);
+                message.Content = CreateJsonContent(content);
                 HttpResponseMessage response = await _httpClient.SendAsync(message);
                 await CheckStatusCodeAndHandleError(response);
 

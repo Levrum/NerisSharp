@@ -99,7 +99,7 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
                         nodeContent[field.ToLower()] = null;
                     }
                 }
-                message.Content = _CreateJsonContent(nodeContent.ToJsonString());
+                message.Content = CreateJsonContent(nodeContent.ToJsonString());
                 HttpResponseMessage response = await _httpClient.SendAsync(message);
                 await CheckStatusCodeAndHandleError(response);
                 neris_id = await ParseIdFromCreatedResult(response);

@@ -43,7 +43,7 @@ namespace NerisLibrary
             return response;
         }
 
-        private StringContent _CreateJsonContent(string content)
+        private StringContent CreateJsonContent(string content)
         {
             return new StringContent(content, Encoding.UTF8, "application/json");
         }
@@ -112,6 +112,7 @@ namespace NerisLibrary
         {
             Token,
             Entity,
+            Incident
         }
         private string GetRoute(RouteTypes type)
         {
@@ -123,6 +124,9 @@ namespace NerisLibrary
                     break;
                 case RouteTypes.Entity:
                     routeAppend = "entity/";
+                    break;
+                case RouteTypes.Incident:
+                    routeAppend = "incident/";
                     break;
                 default:
                     break;
