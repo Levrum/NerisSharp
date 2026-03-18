@@ -13,16 +13,9 @@ namespace NerisLibrary.Models.ElementModels.Incident
 
         //ignore? json string writer?
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public SubmitterAccountTypes Submitter_Account_Type { get; set; }
+        public SubmitterAccountTypes? Submitter_Account_Type { get; set; } = null; //cannot be submitted
         public IncidentBaseModel Base { get; set; }
-
-        public string IncidentType { get; set; }
-        [JsonIgnore]
-        public List<IncidentType> IncidentTypes { get
-            {
-                return IncidentTypeUtil.GetTypesFromString(this.IncidentType);
-            }
-        }
+        public List<IncidentType> Incident_Types { get; set; }
         public IncidentStatus Incident_Status { get; set; }
         public DispatchModel Dispatch { get; set; }
         public TacticsTimestamps Tactic_Timestamps { get; set; }
