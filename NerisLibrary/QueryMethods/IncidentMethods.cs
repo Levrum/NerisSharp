@@ -2,9 +2,8 @@
 using NerisLibrary.Models.ElementModels.Incident;
 using NerisLibrary.Utils;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace NerisLibrary
@@ -50,7 +49,31 @@ namespace NerisLibrary
 
                 return await ParseIdFromCreatedResult(response);
             }
+        }
 
+        public async Task<bool> PutIncident(EntityModel baseEntity, IncidentModel incidentToPut)
+        {
+            if (baseEntity == null) throw new ArgumentNullException(nameof(baseEntity));
+            return await PutIncident(baseEntity.Neris_Id, incidentToPut);
+        }
+
+        public async Task<bool> PutIncident(string baseEntityId, IncidentModel incidentToPut)
+        {
+            if (string.IsNullOrWhiteSpace(baseEntityId)) throw new ArgumentNullException(nameof(baseEntityId));
+            if (incidentToPut == null) throw new ArgumentNullException(nameof(incidentToPut));
+
+            string endpoint = GetIncidentRoute(baseEntityId, incidentToPut.Neris_Id);
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, endpoint))
+            {
+                JsonObject contentObject = SerializationExtensions.SerializeToJsonObjectLowerCase(incidentToPut);
+                contentObject.Remove("neris_id");
+                contentObject.Remove("submitter_account_type");
+                contentObject.Remove("incident_status");
+                request.Content = CreateJsonContent(contentObject.ToJsonString());
+                HttpResponseMessage response = await _call(request);
+
+                return true;
+            }
         }
 
         private string GetIncidentRoute(string entityId = null, string incidentId = null)
