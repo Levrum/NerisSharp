@@ -71,8 +71,8 @@ namespace NerisRunner
             string unitId = "FD39023168S001U001";
             UnitResponse unitResponse = new UnitResponse()
             {
-                //Unit_Neris_Id = unitId, //test if required
-                //Reported_Unit_Id = "EMS1" //test if required
+                Unit_Neris_Id = unitId, //test if required
+                Reported_Unit_Id = "EMS1", //test if required
                 Dispatch = baseTime,
                 Enroute_To_Scene = baseTime.AddMinutes(2),
                 On_Scene = baseTime.AddMinutes(10),
@@ -89,8 +89,8 @@ namespace NerisRunner
                 Arrived_At_Hospital = baseTime.AddMinutes(40),
                 Hospital_Cleared = baseTime.AddMinutes(45)
             };
-            unitResponse.Med_Responses.Add(medResonse);
-            return null;
+            unitResponse.Med_Responses = new List<MedReponse> { medResonse };
+            return unitResponse;
         }
     }
 }
