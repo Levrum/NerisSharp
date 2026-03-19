@@ -24,7 +24,7 @@ namespace NerisLibrary.Models.ElementModels.Incident
         public LocationModel Location { get; set; }
         //comments
         public TacticsTimestamps Tactic_Timestamps { get; set; }
-        public List<UnitResponse> Unit_Responses { get; set; }
+        public List<UnitResponse> Unit_Responses { get; set; } = new List<UnitResponse>(); //this field is required so an empty list is required rather than null
 
     }
 }
