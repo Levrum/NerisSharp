@@ -7,6 +7,7 @@ namespace NerisLibrary.Models.ElementModels.Incident
 {
     public class IncidentStatus
     {
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]
         public DateTimeOffset Last_Modified { get; set; }
         public string Created_By { get; set; }
         [JsonConverter(typeof(JsonStringEnumConverter))]
