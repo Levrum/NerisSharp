@@ -7,7 +7,8 @@ namespace NerisLibrary.Models.ElementModels.Incident
 {
     public class DispatchModel
     {
-        public int? Neris_Uid { get; set; } = null;
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]
+        public int Neris_Uid { get; set; } 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]
         public DateTimeOffset Last_Modified { get; set; }
         public string Center_Id { get; set; } //4 digit formatted string

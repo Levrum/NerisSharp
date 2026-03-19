@@ -1,13 +1,14 @@
 ﻿using NerisLibrary.Utils;
-using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace NerisLibrary.Models.ElementModels.Incident
 {
     public class LocationModel
     {
-        public int? Neris_Uid { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]
+        public int Neris_Uid { get; set; }
         public Dictionary<string, string> Additional_Attributes { get; set; }
         public string Place_Type { get; set; } //TODO ADD ENUM
         public string County { get; set; }

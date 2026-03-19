@@ -7,7 +7,8 @@ namespace NerisLibrary.Models.ElementModels.Incident
 {
     public class MedReponse
     {
-        public int? Neris_Uid { get; set; } = null;
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]
+        public int Neris_Uid { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]
         public DateTimeOffset Last_Modified { get; set; }
         public string Hospital_Destination { get; set; }
