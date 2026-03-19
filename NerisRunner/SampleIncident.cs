@@ -64,5 +64,33 @@ namespace NerisRunner
             return model;
 
         }
+
+        public static UnitResponse CreateSampleResponse()
+        {
+            DateTimeOffset baseTime = DateTimeOffset.Parse("2026-03-18 18:48:59-04:00");
+            string unitId = "FD39023168S001U001";
+            UnitResponse unitResponse = new UnitResponse()
+            {
+                //Unit_Neris_Id = unitId, //test if required
+                //Reported_Unit_Id = "EMS1" //test if required
+                Dispatch = baseTime,
+                Enroute_To_Scene = baseTime.AddMinutes(2),
+                On_Scene = baseTime.AddMinutes(10),
+                Unit_Clear = baseTime.AddMinutes(45),
+                Response_Mode = ResponseMode.EMERGENT,
+                Transport_Mode = ResponseMode.NON_EMERGENT
+            };
+
+            MedReponse medResonse = new MedReponse()
+            {
+                Hospital_Destination = "Springfield Hospital",
+                At_Patient = unitResponse.On_Scene,
+                Enroute_To_Hospital = baseTime.AddMinutes(25),
+                Arrived_At_Hospital = baseTime.AddMinutes(40),
+                Hospital_Cleared = baseTime.AddMinutes(45)
+            };
+            unitResponse.Med_Responses.Add(medResonse);
+            return null;
+        }
     }
 }
