@@ -7,7 +7,7 @@ namespace NerisLibrary.Models.ElementModels.Incident
 {
     public class UnitResponse
     {
-        public int Neris_Uid { get; set; }
+        public int? Neris_Uid { get; set; } = null;
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]
         public DateTimeOffset Last_Modified { get; set; }
         public string Unit_Neris_Id { get; set; }
