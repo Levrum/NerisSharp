@@ -26,15 +26,12 @@ namespace NerisLibrary
         public async Task<string> PostStation(string BaseEntityId, StationModel NewStation)
         {
             string stationUri = GetStationRoute(BaseEntityId);
-            await LoginIfTokenExpired();
             string nerisId = string.Empty;
             using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, stationUri))
             {
-                message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.Access_Token);
                 string content = SerializationExtensions.SerializeLowerCase<StationModel>(NewStation);
                 message.Content = CreateJsonContent(content);
-                HttpResponseMessage response = await _httpClient.SendAsync(message);
-                await CheckStatusCodeAndHandleError(response);
+                HttpResponseMessage response = await _call(message);
 
                 //parse new ID out
                 nerisId = await ParseIdFromCreatedResult(response);
@@ -94,13 +91,11 @@ namespace NerisLibrary
             {
                 throw new ArgumentException("StationUpdate MUST have NERIS id to patch");
             }
-            await LoginIfTokenExpired();
 
             string fullRoute = GetStationRoute(BaseEntityId, StationUpdate.Neris_Id);
             string nerisId = string.Empty;
             using (var message = new HttpRequestMessage(HttpMethod.Patch, fullRoute))
             {
-                message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.Access_Token);
                 JsonObject contentNode = SerializationExtensions.SerializeToJsonObjectLowerCase(StationUpdate);
                 contentNode.Remove("neris_id");
                 //check for nulls: 
@@ -113,8 +108,7 @@ namespace NerisLibrary
                 }
                 string content = contentNode.ToJsonString();
                 message.Content = CreateJsonContent(content);
-                HttpResponseMessage response = await _httpClient.SendAsync(message);
-                await CheckStatusCodeAndHandleError(response);
+                HttpResponseMessage response = await _call(message);
 
                 nerisId = await ParseIdFromCreatedResult(response);
             }
@@ -135,14 +129,11 @@ namespace NerisLibrary
             if (string.IsNullOrWhiteSpace(BaseEntityId)) { throw new ArgumentNullException(nameof(BaseEntityId)); }
             if (string.IsNullOrWhiteSpace(StationId)) { throw new ArgumentNullException(nameof(StationId)); }
 
-            await LoginIfTokenExpired();
 
             string fullUrl = GetStationRoute(BaseEntityId, StationId);
             using (var message = new HttpRequestMessage(HttpMethod.Delete, fullUrl))
             {
-                message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.Access_Token);
-                HttpResponseMessage response = await _httpClient.SendAsync(message);
-                await CheckStatusCodeAndHandleError(response);
+                HttpResponseMessage response = await _call(message);
                 return response.IsSuccessStatusCode;
             }
         }
