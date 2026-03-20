@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
+using NerisLibrary.Models.ElementModels.Incident.PatchObjects;
 
 namespace NerisLibrary.Models.ElementModels.Incident
 {
@@ -20,6 +21,18 @@ namespace NerisLibrary.Models.ElementModels.Incident
         public DateTimeOffset? Fire_Under_Control { get; set; } = null;
         public DateTimeOffset? Fire_Knocked_Down { get; set; } = null;
         public DateTimeOffset? Extrication_Complete { get; set; } = null;
+    }
 
+    public class TacticsTimestampPatchProperties
+    {
+        public PatchAction<DateTimeOffset>? Command_Established { get; set; } = null;
+        public PatchAction<DateTimeOffset>? Completed_Sizeup { get; set; } = null;
+        public PatchAction<DateTimeOffset>? Suppression_Complete { get; set; } = null;
+        public PatchAction<DateTimeOffset>? Primary_Search_Begin { get; set; } = null;
+        public PatchAction<DateTimeOffset>? Primary_Search_Complete { get; set; } = null;
+        public PatchAction<DateTimeOffset>? Water_On_Fire { get; set; } = null;
+        public PatchAction<DateTimeOffset>? Fire_Under_Control { get; set; } = null;
+        public PatchAction<DateTimeOffset>? Fire_Knocked_Down { get; set; } = null;
+        public PatchAction<DateTimeOffset>? Extrication_Complete { get; set; } = null;
     }
 }

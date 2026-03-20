@@ -76,6 +76,22 @@ namespace NerisLibrary
             }
         }
 
+        public async Task<bool> PatchIncident(string baseEntityId, IncidentPatchPayload payload)
+        {
+            if (string.IsNullOrWhiteSpace(baseEntityId)) throw new ArgumentNullException(nameof(baseEntityId));
+            if (payload == null) throw new ArgumentNullException(nameof(payload));
+
+            string endpoint = GetIncidentRoute(baseEntityId, payload.Neris_Id);
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Patch, endpoint))
+            {
+                string jsonContent = SerializationExtensions.SerializeLowerCase(payload);
+                request.Content = CreateJsonContent(jsonContent);
+                HttpResponseMessage response = await _call(request);
+
+                return true;
+            }
+        }
+
         private string GetIncidentRoute(string entityId = null, string incidentId = null)
         {
             string baseRoute = GetRoute(RouteTypes.Incident);

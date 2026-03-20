@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NerisLibrary.Models.ElementModels.Incident.PatchObjects;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -28,6 +29,22 @@ namespace NerisLibrary.Models.ElementModels.Incident
         CAD,
         RMS,
         USER
+    }
+    public class IncidentPatchPayload
+    {
+        public IncidentPatchPayload(string nerisId, IncidentPatchProperties patchProperties)
+        {
+            Neris_Id = nerisId;
+            Properties = patchProperties;
+        }    
+        public string Neris_Id { get; set; }
+        public ActionTypes Action { get; } = ActionTypes.PATCH;
+        public IncidentPatchProperties Properties { get; set; }
+    }
+    public class IncidentPatchProperties
+    {
+        public BasePatchObject Tactic_Timestamps { get; set; }
+        public BasePatchObject Base { get; set; }
     }
 
 
