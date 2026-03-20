@@ -31,8 +31,7 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
             {
                 throw new ValidationException("RequestModel is not valid");
             }
-            //check if logged in
-            await LoginIfTokenExpired();
+
 
             //build request uri
             string baseUri = GetRoute(RouteTypes.Entity);
@@ -41,12 +40,8 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
             //make request
             using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Get, uri))
             {
-                message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.Access_Token);
-
-                HttpResponseMessage response = await _httpClient.SendAsync(message);
-                await CheckStatusCodeAndHandleError(response);
+                HttpResponseMessage response = await _call(message);
                 entities = await response.Content.DeserializeCaseInsensitive<EntityPageSet>();
-
             }
             //handle results
             return entities;
@@ -59,17 +54,13 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
             {
                 throw new ArgumentNullException(nameof(EntityId));
             }
-            await LoginIfTokenExpired();
 
             string entityUri = GetRoute(RouteTypes.Entity);
             string entitySearchUri = UriUtils.AppendPath(entityUri, EntityId);
             EntityModel? entityModel = null;
             using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Get, entitySearchUri))
             {
-                message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.Access_Token);
-                HttpResponseMessage response = await _httpClient.SendAsync(message);
-                await CheckStatusCodeAndHandleError(response);
-
+                HttpResponseMessage response = await _call(message);
 
                 entityModel = await response.Content.DeserializeCaseInsensitive<EntityModel>();
             }
@@ -81,7 +72,6 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
             if (EntityToUpdate == null) { throw new ArgumentNullException(nameof(EntityToUpdate)); }
             if (string.IsNullOrWhiteSpace(EntityToUpdate.Neris_Id)) { throw new ArgumentException("Neris_Id cannot be null or whitespace"); }
             string entityId = EntityToUpdate.Neris_Id;
-            await LoginIfTokenExpired();
 
             string baseUri = GetRoute(RouteTypes.Entity);
             string entityUri = UriUtils.AppendPath(baseUri, EntityToUpdate.Neris_Id);
@@ -89,7 +79,6 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
             string neris_id = "";
             using (var message = new HttpRequestMessage(HttpMethod.Patch, entityUri))
             {
-                message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.Access_Token);
                 JsonObject nodeContent = SerializationExtensions.SerializeToJsonObjectLowerCase(EntityToUpdate);
                 nodeContent.Remove("neris_id");
                 if (FieldsToNull != null)
@@ -100,8 +89,7 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
                     }
                 }
                 message.Content = CreateJsonContent(nodeContent.ToJsonString());
-                HttpResponseMessage response = await _httpClient.SendAsync(message);
-                await CheckStatusCodeAndHandleError(response);
+                HttpResponseMessage response = await _call(message);
                 neris_id = await ParseIdFromCreatedResult(response);
             }
             return neris_id;
