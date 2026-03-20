@@ -1,4 +1,6 @@
 ﻿using NerisLibrary.Models.ElementModels.Incident;
+using NerisLibrary.Models.ElementModels.Incident.PatchObjects;
+using NerisLibrary.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -91,6 +93,37 @@ namespace NerisRunner
             };
             unitResponse.Med_Responses = new List<MedReponse> { medResonse };
             return unitResponse;
+        }
+
+        public static IncidentPatchPayload CreateSamplePatch(string incidentId)
+        {
+            //create top level incident patch properties:
+            IncidentPatchProperties patchProps = new IncidentPatchProperties();
+
+            //setup outcome narrative patch
+            IncidentBaseModelPatchProperties baseModelProps = new IncidentBaseModelPatchProperties();
+            baseModelProps.Outcome_Narrative = PatchAction<string>.CreateSetAction("PATCHED OUTCOME: Subject taken to hospital with non-critical injures");
+            
+            //create patch object:
+            PatchObject<IncidentBaseModelPatchProperties> basePatch = new PatchObject<IncidentBaseModelPatchProperties>() { Properties = baseModelProps };
+            //assign to incident patchProps:
+            patchProps.Base = basePatch;
+            string patchSer = SerializationExtensions.SerialiazeLowerCasePrettyPrint(basePatch);
+            Console.WriteLine(patchSer);
+
+            //set a new tactics timestamp
+            DateTimeOffset baseTime = DateTimeOffset.Parse("2026-03-18 18:48:59-04:00");
+            TacticsTimestamps timeStamps = new TacticsTimestamps()
+            {
+                Command_Established = baseTime.AddMinutes(11)
+            };
+            //create patch object
+            SetObject<TacticsTimestamps> tacs = new SetObject<TacticsTimestamps>() { Value = timeStamps };
+            //assign to incident patchProps:
+            patchProps.Tactic_Timestamps = tacs;
+
+            IncidentPatchPayload incidentPatchPayload = new IncidentPatchPayload(incidentId, patchProps);
+            return incidentPatchPayload;
         }
     }
 }

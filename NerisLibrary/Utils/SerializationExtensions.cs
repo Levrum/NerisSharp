@@ -18,6 +18,13 @@ namespace NerisLibrary.Utils
             PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower, 
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         };
+
+        static JsonSerializerOptions PrettyPrintLowerCase = new JsonSerializerOptions()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            WriteIndented = true
+        };
         public static async Task<T> DeserializeCaseInsensitive<T>(this HttpContent response)
         {
             return await response.ReadFromJsonAsync<T>(PropertyCaseInsensitive);
@@ -39,6 +46,12 @@ namespace NerisLibrary.Utils
         {
             JsonNode result = JsonSerializer.SerializeToNode(value, LowerCaseNamingPolicy);
             return result.AsObject();
+        }
+
+        public static string SerialiazeLowerCasePrettyPrint<T>(T value)
+        {
+            string result = JsonSerializer.Serialize(value, PrettyPrintLowerCase);
+            return result;
         }
     }
 }
