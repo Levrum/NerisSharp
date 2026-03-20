@@ -27,19 +27,14 @@ namespace NerisLibrary
             if (string.IsNullOrWhiteSpace(baseStationId)) throw new ArgumentNullException(nameof(baseStationId));
             if (newUnit == null) throw new ArgumentNullException(nameof(newUnit));
 
-            await LoginIfTokenExpired();
-
             string postURI = GetUnitRoute(baseEntityId, baseStationId);
 
             using (var message = new HttpRequestMessage(HttpMethod.Post, postURI))
             {
-                message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken.Access_Token);
 
                 string content = SerializationExtensions.SerializeLowerCase(newUnit);
                 message.Content = CreateJsonContent(content);
-                HttpResponseMessage response = await _httpClient.SendAsync(message);
-                await CheckStatusCodeAndHandleError(response);
-
+                HttpResponseMessage response = await _call(message);
                 return await ParseIdFromCreatedResult(response);
             }
         }
