@@ -95,7 +95,7 @@ namespace NerisRunner
             return unitResponse;
         }
 
-        public static IncidentPatchPayload CreateSamplePatch(string incidentId)
+        public static IncidentPatchPayload CreateSamplePatch(string incidentId, int incidentBaseNerisUid)
         {
             //create top level incident patch properties:
             IncidentPatchProperties patchProps = new IncidentPatchProperties();
@@ -105,7 +105,7 @@ namespace NerisRunner
             baseModelProps.Outcome_Narrative = PatchAction<string>.CreateSetAction("PATCHED OUTCOME: Subject taken to hospital with non-critical injures");
             
             //create patch object:
-            PatchObject<IncidentBaseModelPatchProperties> basePatch = new PatchObject<IncidentBaseModelPatchProperties>() { Properties = baseModelProps };
+            PatchObject basePatch = new PatchObject() { Properties = baseModelProps, Neris_Uid = incidentBaseNerisUid};
             //assign to incident patchProps:
             patchProps.Base = basePatch;
             string patchSer = SerializationExtensions.SerialiazeLowerCasePrettyPrint(basePatch);

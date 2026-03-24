@@ -38,7 +38,8 @@ namespace NerisLibrary.Models.ElementModels.Incident
             Properties = patchProperties;
         }    
         public string Neris_Id { get; set; }
-        public ActionTypes Action { get; } = ActionTypes.PATCH;
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public ActionTypes Action { get; } = ActionTypes.patch;
         public IncidentPatchProperties Properties { get; set; }
     }
     public class IncidentPatchProperties

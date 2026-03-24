@@ -18,7 +18,7 @@ namespace NerisLibrary.Models.ElementModels.Incident.PatchObjects
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public T Value { get
             {
-                if (Action == ActionTypes.UNSET)
+                if (Action == ActionTypes.unset)
                 {
                     return default(T);
                 }
@@ -31,21 +31,21 @@ namespace NerisLibrary.Models.ElementModels.Incident.PatchObjects
         }
         public static PatchAction<T> CreateSetAction(T setValue)
         {
-            return new PatchAction<T>(setValue, ActionTypes.SET);
+            return new PatchAction<T>(setValue, ActionTypes.set);
         }
 
         public static PatchAction<T> CreateUnsetAction()
         {
-            return new PatchAction<T>(default(T), ActionTypes.UNSET);
+            return new PatchAction<T>(default(T), ActionTypes.unset);
         }
     }
 
     public enum ActionTypes
     {
-        APPEND,
-        REMOVE,
-        PATCH,
-        SET,
-        UNSET,
+        append,
+        remove,
+        patch,
+        set,
+        unset,
     }
 }

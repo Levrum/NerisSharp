@@ -5,36 +5,40 @@ using System.Text.Json.Serialization;
 
 namespace NerisLibrary.Models.ElementModels.Incident.PatchObjects
 {
+    [JsonPolymorphic]
+    [JsonDerivedType(typeof(PatchObject))]
+    [JsonDerivedType(typeof(SetObject))]
+    [JsonDerivedType(typeof(UnsetObject))]
     public abstract class BasePatchObject
     {
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public ActionTypes Action { get; internal set; }
     }
 
-    public class PatchObject<T> : BasePatchObject
+    public class PatchObject : BasePatchObject
     {
         public PatchObject()
         {
-            Action = ActionTypes.PATCH;
+            Action = ActionTypes.patch;
         }
-        public string Neris_Uid { get; set; }
-        public T Properties { get; set; }
+        public int Neris_Uid { get; set; }
+        public object Properties { get; set; }
     }
 
-    public class SetObject<T> : BasePatchObject
+    public class SetObject : BasePatchObject
     {
         public SetObject()
         {
-            Action = ActionTypes.SET;
+            Action = ActionTypes.set;
         }
-        public T Value { get; set; }
+        public object Value { get; set; }
     }
 
     public class UnsetObject : BasePatchObject
     {
         public UnsetObject()
         {
-            Action = ActionTypes.UNSET;
+            Action = ActionTypes.unset;
         }
     }
 }
