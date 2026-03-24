@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
+namespace NerisRunner
+{
+    internal class Utils
+    {
+        public static string SerializeJsonPretty<T>(T obj)
+        {
+            JsonSerializerOptions PrettyPrintLowerCase = new JsonSerializerOptions()
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                WriteIndented = true
+            };
+            string retVal = JsonSerializer.Serialize(obj, PrettyPrintLowerCase);
+            return retVal;
+        }
+    }
+}

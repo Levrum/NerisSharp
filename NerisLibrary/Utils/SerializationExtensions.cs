@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace NerisLibrary.Utils
 {
-    public static class SerializationExtensions
+    internal static class SerializationExtensions
     {
         static JsonSerializerOptions PropertyCaseInsensitive = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
         static JsonSerializerOptions LowerCaseNamingPolicy = new JsonSerializerOptions() 
