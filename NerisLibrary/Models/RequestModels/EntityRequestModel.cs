@@ -90,7 +90,8 @@ namespace NerisLibrary.Models.RequestModels
         {
             "Entity_Class_Enum",
             "Entity_Subtype_Enum",
-            "Sort_Ascending"
+            "Sort_Ascending",
+            "SortByValues"
         };
 
         //Method to add to URI
