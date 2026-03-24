@@ -7,6 +7,16 @@ namespace NerisLibrary.Models.ElementModels.Incident
 {
     public class IncidentType
     {
+        public IncidentType(IncidentTypeEnum type1, IncidentTypeEnum? type2 = null, IncidentTypeEnum? type3 = null)
+        {
+            bool success = IncidentTypeUtil.TryCreateIncidentTypeString(out string typeString, type1, type2, type3);
+            Type = typeString;
+            Valid = success;
+        }
+        public IncidentType() //TODO SEPARATE DTO 
+        {
+
+        }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]
         public int Neris_Uid { get; set; }
 
@@ -22,6 +32,8 @@ namespace NerisLibrary.Models.ElementModels.Incident
                 return IncidentTypeUtil.GetTypesFromString(this.Type);
             }
         }
+        [JsonIgnore]
+        public bool Valid { get; set; }
     }
     public static class IncidentTypeUtil
     {
