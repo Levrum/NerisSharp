@@ -20,10 +20,10 @@ namespace NerisLibrary.Models.ElementModels.Incident
         public string Street_Postfix_Direction { get; set; }
         public string Street_Postfix_Modifier { get; set; }
         private string _street_prefix;
-        public string Street_Prefix { get { return _street_prefix; } set { _street_prefix = value.ToUpper(); } } //CAPITALIZED
+        public string Street_Prefix { get { return _street_prefix; } set { _street_prefix = value?.ToUpper(); } } //CAPITALIZED
         public string Street_Preposition_Type_Separator { get; set; }
         private string _street_postfix;
-        public string Street_Postfix { get { return _street_postfix; } set { _street_postfix = value.ToUpper(); } } //CAPITALIZED
+        public string Street_Postfix { get { return _street_postfix; } set { _street_postfix = value?.ToUpper(); } } //CAPITALIZED
         public string Complete_Number { get; set; }
         public string Additional_Info { get; set; }
 
