@@ -11,7 +11,7 @@ namespace NerisRunner
     {
         public static IncidentModel CreateSampleIncident()
         {
-            IncidentTypeUtil.TryCreateIncidentTypeString(out string typeString, IncidentTypeEnum.MEDICAL,
+            IncidentType iType = new IncidentType(IncidentTypeEnum.MEDICAL,
                 IncidentTypeEnum.INJURY, IncidentTypeEnum.FALL);
 
             IncidentType iType = new IncidentType()
