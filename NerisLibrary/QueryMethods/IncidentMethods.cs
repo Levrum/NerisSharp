@@ -1,7 +1,10 @@
-﻿using NerisLibrary.Models.ElementModels;
+﻿using NerisLibrary.Exceptions;
+using NerisLibrary.Models.ElementModels;
 using NerisLibrary.Models.ElementModels.Incident;
+using NerisLibrary.Models.RequestModels;
 using NerisLibrary.Utils;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
@@ -28,6 +31,21 @@ namespace NerisLibrary
                 return model;
             }
         }
+
+        public async Task<IncidentPageSet> GetIncidents(IncidentRequestModel requestModel)
+        {
+            if (requestModel == null) throw new ArgumentNullException(nameof(requestModel));
+            if (!requestModel.Validate()) throw new ValidationException("Parameter requestModel is not valid");
+            string endpoint = GetIncidentRoute();
+            string endpointWithSearchParams = requestModel.CreateQueryURI(endpoint);
+            using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Get, endpointWithSearchParams))
+            {
+                HttpResponseMessage response = await _call(message);
+
+                return await response.Content.DeserializeCaseInsensitive<IncidentPageSet>();
+            }
+        }
+
         public async Task<string> PostIncident(EntityModel baseEntity, IncidentModel newIncident)
         {
             if (baseEntity == null) throw new ArgumentNullException(nameof(baseEntity));
@@ -105,5 +123,12 @@ namespace NerisLibrary
             }
             return baseRoute;
         }
+    }
+
+    public class IncidentPageSet
+    {
+        public string Next_Cursor { get; set; }
+        public string Prev_Cursor { get; set; }
+        public List<IncidentModel> Incidents { get; set; }
     }
 }
