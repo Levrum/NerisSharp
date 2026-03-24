@@ -12,11 +12,8 @@ namespace NerisRunner
         public static IncidentModel CreateSampleIncident()
         {
             IncidentType iType = new IncidentType(IncidentTypeEnum.MEDICAL,
-                IncidentTypeEnum.INJURY, IncidentTypeEnum.FALL);
-
-            IncidentType iType = new IncidentType()
+                IncidentTypeEnum.INJURY, IncidentTypeEnum.FALL)
             {
-                Type = typeString,
                 Primary = true
             };
 
@@ -108,8 +105,6 @@ namespace NerisRunner
             PatchObject basePatch = new PatchObject() { Properties = baseModelProps, Neris_Uid = incidentBaseNerisUid};
             //assign to incident patchProps:
             patchProps.Base = basePatch;
-            string patchSer = SerializationExtensions.SerialiazeLowerCasePrettyPrint(basePatch);
-            Console.WriteLine(patchSer);
 
             //set a new tactics timestamp
             DateTimeOffset baseTime = DateTimeOffset.Parse("2026-03-18 18:48:59-04:00");
@@ -118,7 +113,7 @@ namespace NerisRunner
                 Command_Established = baseTime.AddMinutes(11)
             };
             //create patch object
-            SetObject<TacticsTimestamps> tacs = new SetObject<TacticsTimestamps>() { Value = timeStamps };
+            SetObject tacs = new SetObject() { Value = timeStamps };
             //assign to incident patchProps:
             patchProps.Tactic_Timestamps = tacs;
 
