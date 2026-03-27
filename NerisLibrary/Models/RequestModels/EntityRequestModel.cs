@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace NerisLibrary.Models.RequestModels
 {
-    public class EntityRequestModel
+    public class EntityRequestModel : IRequestModel
     {
         public string Name { get; set; }
         public string Neris_id { get; set; }

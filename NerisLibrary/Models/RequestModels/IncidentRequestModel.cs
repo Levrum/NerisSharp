@@ -10,13 +10,13 @@ using System.Text;
 
 namespace NerisLibrary.Models.RequestModels
 {
-    public class IncidentRequestModel
+    public class IncidentRequestModel : IRequestModel
     {
         public string Neris_Id_Entity { get; set; }
         public string Nuid_Entity_Set { get; set; }
-        public List<IncidentType>  Incident_Types { get; set; } // need to test
-        public IncidentTypeSetOperation? Incident_Types_Set_Operation { get; set; } // need to test
-        public DateTimeOffset? Call_Create_Start { get; set; } = null; // need to test
+        public List<IncidentType>  Incident_Types { get; set; }
+        public IncidentTypeSetOperation? Incident_Types_Set_Operation { get; set; }
+        public DateTimeOffset? Call_Create_Start { get; set; } = null;
         public DateTimeOffset? Call_Create_End { get; set; } = null;
         public string Incident_Number { get; set; }
         public string Dispatch_Incident_Number { get; set; }
@@ -37,7 +37,7 @@ namespace NerisLibrary.Models.RequestModels
         public string Last_Modified { get; set; }
         public string Sort_By { get; set; }
         public bool Sort_Ascending { get; set; } = true;
-        public int Page_Size { get; set; } = 10;
+        public int Page_Size { get; set; } = 10; //max 100 min 1
         public string Cursor { get; set; }
         public bool Geo_Format_Url { get; set; } = true;
 
