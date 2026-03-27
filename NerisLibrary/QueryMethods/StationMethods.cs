@@ -39,6 +39,8 @@ namespace NerisLibrary
         /// <exception cref="ArgumentNullException">If <paramref name="BaseEntityId"/> is null or whitespace, or <paramref name="NewStation"/> is null. </exception>
         public async Task<string> PostStation(string BaseEntityId, StationModel NewStation)
         {
+            throw new NoAccessException();
+
             if (string.IsNullOrWhiteSpace(BaseEntityId)) throw new ArgumentNullException(nameof(BaseEntityId));
             if (NewStation == null) throw new ArgumentNullException(nameof(NewStation));
             string stationUri = GetStationRoute(BaseEntityId);
@@ -95,6 +97,8 @@ namespace NerisLibrary
         /// <exception cref="AuthorizationException">Thrown if the current authentication token is invalid and re-authentication fails.</exception>
         public async Task<string> PatchStation(string BaseEntityId, StationModel StationUpdate, HashSet<string> FieldsToNull = null)
         {
+            throw new NoAccessException();
+
             if (BaseEntityId == null || StationUpdate == null)
             {
                 throw new ArgumentNullException();
@@ -157,6 +161,8 @@ namespace NerisLibrary
         /// white-space characters.</exception>
         public async Task<bool> DeleteStation(string BaseEntityId, string StationId)
         {
+            throw new NoAccessException();
+
             if (string.IsNullOrWhiteSpace(BaseEntityId)) { throw new ArgumentNullException(nameof(BaseEntityId)); }
             if (string.IsNullOrWhiteSpace(StationId)) { throw new ArgumentNullException(nameof(StationId)); }
 

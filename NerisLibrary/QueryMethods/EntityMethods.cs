@@ -88,6 +88,7 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
         /// <exception cref="ArgumentException">Thrown if EntityToUpdate.Neris_Id is null or consists only of white-space characters.</exception>
         public async Task<string> PatchEntity(EntityModel EntityToUpdate, HashSet<string> FieldsToNull = null)
         {
+            throw new NoAccessException();
             if (EntityToUpdate == null) { throw new ArgumentNullException(nameof(EntityToUpdate)); }
             if (string.IsNullOrWhiteSpace(EntityToUpdate.Neris_Id)) { throw new ArgumentException("Neris_Id cannot be null or whitespace"); }
             string entityId = EntityToUpdate.Neris_Id;
