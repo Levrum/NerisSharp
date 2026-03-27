@@ -5,6 +5,9 @@ using System.Text.Json.Serialization;
 
 namespace NerisLibrary.Models.ElementModels.Incident
 {
+    /// <summary>
+    /// Supplemental class for Medical Response modeling timestamps for medical transport events.
+    /// </summary>
     public class MedReponse
     {
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]

@@ -5,14 +5,31 @@ using System.Text.Json.Serialization;
 
 namespace NerisLibrary.Models.ElementModels.Incident
 {
+    /// <summary>
+    /// Represents a classification of an incident, including its type information and related metadata.
+    /// The Type property contains a string the contains each of the (max 3) incident types separated by || characters.
+    /// The TypeList contains a list of types as Enums, these types are parsed from the type list. 
+    /// </summary>
     public class IncidentType
     {
+        /// <summary>
+        /// Initializes a new instance of the IncidentType class using one or more specified incident type values.
+        /// </summary>
+        /// <remarks>The resulting instance represents a combination of up to three incident types. The
+        /// validity of the combination is determined during construction and reflected in the Valid property.</remarks>
+        /// <param name="type1">The primary incident type to include. This value is required.</param>
+        /// <param name="type2">An optional secondary incident type to include. Specify null if not needed.</param>
+        /// <param name="type3">An optional tertiary incident type to include. Specify null if not needed.</param>
         public IncidentType(IncidentTypeEnum type1, IncidentTypeEnum? type2 = null, IncidentTypeEnum? type3 = null)
         {
             bool success = IncidentTypeUtil.TryCreateIncidentTypeString(out string typeString, type1, type2, type3);
             Type = typeString;
             Valid = success;
         }
+        /// <summary>
+        /// Try not to use, instead use the other constructor that takes Incident Type Enums.
+        /// This will ensure Incident Types are (mostly) valid. 
+        /// </summary>
         public IncidentType() //TODO SEPARATE DTO 
         {
 
@@ -35,8 +52,28 @@ namespace NerisLibrary.Models.ElementModels.Incident
         [JsonIgnore]
         public bool Valid { get; set; }
     }
+
+    /// <summary>
+    /// Utility class for Incident Types. Contains 3 hashsets that indicate whether a type is a Primary, Tertiary, or Secondary type.
+    /// Does not validate whether types belong together.
+    /// </summary>
     public static class IncidentTypeUtil
     {
+        /// <summary>
+        /// Attempts to create a formatted incident type string from one, two, or three incident type values.
+        /// </summary>
+        /// <remarks>The resulting string is constructed by concatenating the incident type values,
+        /// separated by double pipe characters ("||"). Only valid combinations of incident types are accepted. If any
+        /// provided incident type is not valid for its position, the method returns <see langword="false"/> and
+        /// <paramref name="typeString"/> is set to an empty string.</remarks>
+        /// <param name="typeString">When this method returns, contains the formatted incident type string if the operation succeeds; otherwise,
+        /// an empty string.</param>
+        /// <param name="type1">The primary incident type to include in the string. Must be a valid Primary Incident Type.</param>
+        /// <param name="type2">An optional secondary incident type to include. Must be a valid Secondary Incident Type.</param>
+        /// <param name="type3">An optional tertiary incident type to include. Must be a valid Tertiary Incident Type</param>
+        /// <returns><see langword="true"/> if the incident type string was successfully created; otherwise, <see
+        /// langword="false"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="type3"/> is specified but <paramref name="type2"/> is not.</exception>
         public static bool TryCreateIncidentTypeString(out string typeString, IncidentTypeEnum type1, IncidentTypeEnum? type2 = null, IncidentTypeEnum? type3 = null)
         {
             typeString = string.Empty;
@@ -72,6 +109,15 @@ namespace NerisLibrary.Models.ElementModels.Incident
             return true;
         }
 
+        /// <summary>
+        /// Parses a delimited string and returns a list of corresponding incident type enumeration values.
+        /// </summary>
+        /// <remarks>Invalid or unrecognized incident type names in the input string are ignored. The
+        /// method does not throw an exception for invalid values.</remarks>
+        /// <param name="incidentTypeString">A string containing one or more incident type names, separated by the delimiter "||". Each substring should
+        /// match a valid value of the IncidentTypeEnum enumeration.</param>
+        /// <returns>A list of IncidentTypeEnum values parsed from the input string. Returns an empty list if the input is null
+        /// or if no valid values are found.</returns>
         public static List<IncidentTypeEnum> GetTypesFromString(string incidentTypeString)
         {
             List<IncidentTypeEnum> toReturn = new List<IncidentTypeEnum>();
@@ -86,6 +132,9 @@ namespace NerisLibrary.Models.ElementModels.Incident
             return toReturn;
         }
 
+        /// <summary>
+        /// List of Primary Incident Types
+        /// </summary>
         public static readonly HashSet<IncidentTypeEnum> IncidentType1 = new HashSet<IncidentTypeEnum>
         {
             IncidentTypeEnum.FIRE,
@@ -97,6 +146,9 @@ namespace NerisLibrary.Models.ElementModels.Incident
             IncidentTypeEnum.LAWENFORCE,
         };
 
+        /// <summary>
+        /// List of Secondary Incident Types. Note that not checking combinations is not supported e.g. OUTSIDE_FIRE does not combine with MEDICAL.
+        /// </summary>
         public static readonly HashSet<IncidentTypeEnum> IncidentType2 = new HashSet<IncidentTypeEnum>
         {
             IncidentTypeEnum.OUTSIDE_FIRE,
@@ -122,6 +174,9 @@ namespace NerisLibrary.Models.ElementModels.Incident
             IncidentTypeEnum.CANCELLED
         };
 
+        /// <summary>
+        /// List of Secondary Incident Types. Note that not checking combinations is not supported e.g CONSTRUCTION_WASTE does not combine with FALL.
+        /// </summary>
         public static readonly HashSet<IncidentTypeEnum> IncidentType3 = new HashSet<IncidentTypeEnum>
         {
             IncidentTypeEnum.CONSTRUCTION_WASTE, IncidentTypeEnum.OTHER_OUTSIDE_FIRE, IncidentTypeEnum.OUTSIDE_TANK_FIRE, IncidentTypeEnum.TRASH_RUBBISH_FIRE, IncidentTypeEnum.VEGETATION_GRASS_FIRE, IncidentTypeEnum.WILDFIRE_WILDLAND, IncidentTypeEnum.WILDFIRE_URBAN_INTERFACE,
@@ -146,6 +201,9 @@ namespace NerisLibrary.Models.ElementModels.Incident
         };
 
     }
+    /// <summary>
+    /// Full list of possible incident types.
+    /// </summary>
     public enum IncidentTypeEnum
     {
         FIRE,

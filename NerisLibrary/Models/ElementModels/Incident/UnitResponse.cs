@@ -5,6 +5,9 @@ using System.Text.Json.Serialization;
 
 namespace NerisLibrary.Models.ElementModels.Incident
 {
+    /// <summary>
+    /// Models a Unit's response to an incident including Ids and timestamps of events.
+    /// </summary>
     public class UnitResponse
     {
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]

@@ -6,6 +6,9 @@ using System.Text.Json.Serialization;
 
 namespace NerisLibrary.Models.ElementModels.Incident
 {
+    /// <summary>
+    /// Top level class for holding incident information. Mainly contains metadata, incident type, and objects for more specific information.
+    /// </summary>
     public class IncidentModel
     {
         public string Neris_Id { get; set; }

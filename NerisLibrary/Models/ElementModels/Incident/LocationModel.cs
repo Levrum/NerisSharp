@@ -5,6 +5,9 @@ using System.Text.Json.Serialization;
 
 namespace NerisLibrary.Models.ElementModels.Incident
 {
+    /// <summary>
+    /// Class containing information about the addressed location of the incident. Contains all info for a street address plus some additional info.
+    /// </summary>
     public class LocationModel
     {
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]

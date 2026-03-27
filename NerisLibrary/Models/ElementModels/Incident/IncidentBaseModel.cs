@@ -6,6 +6,9 @@ using System.Text.Json.Serialization;
 
 namespace NerisLibrary.Models.ElementModels.Incident
 {
+    /// <summary>
+    /// Model for containing base information about the incident including Location and Narrative. Generally high level details.
+    /// </summary>
     public class IncidentBaseModel
     {
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]

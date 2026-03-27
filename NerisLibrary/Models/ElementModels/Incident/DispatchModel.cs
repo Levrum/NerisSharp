@@ -5,6 +5,11 @@ using System.Text.Json.Serialization;
 
 namespace NerisLibrary.Models.ElementModels.Incident
 {
+    /// <summary>
+    /// Contains info regarding the call when dispatched. Includes Dispatch center, original code, internal id, DateTimes for when call was processed by dispatch.
+    /// Also contains versions of the Tactics Timestamps and Unit Responses. Unclear how these relate to the ones on the Incident model, NERIS system does not copy them to one another.
+    /// Similarly contains a location.
+    /// </summary>
     public class DispatchModel
     {
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]
@@ -17,7 +22,7 @@ namespace NerisLibrary.Models.ElementModels.Incident
         public string Incident_Code { get; set; }
         public string Disposition { get; set; }
         public bool? Automatic_Alarm { get; set; } = null;
-        public string Incident_Clear { get; set; }
+        public DateTimeOffset? Incident_Clear { get; set; } = null;
         public DateTimeOffset Call_Arrival { get; set; }
         public DateTimeOffset Call_Answered { get; set; }
         public DateTimeOffset Call_Create { get; set; }

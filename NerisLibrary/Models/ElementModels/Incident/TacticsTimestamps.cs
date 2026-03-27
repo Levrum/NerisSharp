@@ -6,6 +6,9 @@ using NerisLibrary.Models.ElementModels.Incident.PatchObjects;
 
 namespace NerisLibrary.Models.ElementModels.Incident
 {
+    /// <summary>
+    /// Contains DateTimeOffsets for timing events that occur during an incident.
+    /// </summary>
     public class TacticsTimestamps
     {
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]
