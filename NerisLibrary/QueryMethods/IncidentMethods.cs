@@ -13,12 +13,30 @@ namespace NerisLibrary
 {
     public partial class NerisBase
     {
+        /// <summary>
+        /// Retrieves a specific incident by its unique identifier for the specified base entity.
+        /// </summary>
+        /// <param name="baseEntity">The base entity of which the incident to search belongs. Cannot be null.</param>
+        /// <param name="incidentId">The unique identifier of the incident to retrieve. Cannot be null or whitespace.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the incident model if found;
+        /// otherwise, null.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if either <paramref name="baseEntityId"/> or <paramref name="incidentId"/> is null or consists only
+        /// of white-space characters.</exception>
         public async Task<IncidentModel> GetIncidentById(EntityModel baseEntity, string incidentId)
         {
             if (baseEntity == null) throw new ArgumentNullException(nameof(baseEntity));
             return await GetIncidentById(baseEntity.Neris_Id, incidentId);
         }
 
+        /// <summary>
+        /// Retrieves a specific incident by its unique identifier for the specified base entity.
+        /// </summary>
+        /// <param name="baseEntityId">The unique identifier of the base entity to which the incident belongs. Cannot be null or whitespace.</param>
+        /// <param name="incidentId">The unique identifier of the incident to retrieve. Cannot be null or whitespace.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the incident model if found;
+        /// otherwise, null.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if either <paramref name="baseEntityId"/> or <paramref name="incidentId"/> is null or consists only
+        /// of white-space characters.</exception>
         public async Task<IncidentModel> GetIncidentById(string baseEntityId, string incidentId)
         {
             if (string.IsNullOrWhiteSpace(baseEntityId)) throw new ArgumentNullException(nameof(baseEntityId));
@@ -32,6 +50,15 @@ namespace NerisLibrary
             }
         }
 
+        /// <summary>
+        /// Retrieves a paged set of incidents that match the specified search criteria.
+        /// </summary>
+        /// <param name="requestModel">An object containing the search parameters and pagination options for filtering incidents. Cannot be null
+        /// and must pass validation.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains an IncidentPageSet with the
+        /// incidents matching the search criteria and pagination information.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if requestModel is null.</exception>
+        /// <exception cref="ValidationException">Thrown if requestModel fails validation.</exception>
         public async Task<IncidentPageSet> GetIncidents(IncidentRequestModel requestModel)
         {
             if (requestModel == null) throw new ArgumentNullException(nameof(requestModel));
@@ -46,12 +73,31 @@ namespace NerisLibrary
             }
         }
 
+        /// <summary>
+        /// Creates a new incident for the specified entity and returns the unique identifier of the created incident.
+        /// </summary>
+        /// <param name="baseEntity">The entity to which the incident will be associated. Cannot be null.</param>
+        /// <param name="newIncident">An object containing the details of the incident to create. Cannot be null.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the unique identifier of the
+        /// newly created incident as a string.</returns>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="baseEntity"/> is null or if its id is empty, or consists only of white-space characters.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="newIncident"/> is null.</exception>
         public async Task<string> PostIncident(EntityModel baseEntity, IncidentModel newIncident)
         {
             if (baseEntity == null) throw new ArgumentNullException(nameof(baseEntity));
             return await PostIncident(baseEntity.Neris_Id, newIncident);
         }
 
+        /// <summary>
+        /// Creates a new incident for the specified entity and returns the unique identifier of the created incident.
+        /// </summary>
+        /// <param name="baseEntityId">The unique identifier of the entity to which the incident will be associated. Cannot be null, empty, or
+        /// consist only of white-space characters.</param>
+        /// <param name="newIncident">An object containing the details of the incident to create. Cannot be null.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the unique identifier of the
+        /// newly created incident as a string.</returns>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="baseEntityId"/> is null, empty, or consists only of white-space characters.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="newIncident"/> is null.</exception>
         public async Task<string> PostIncident(string baseEntityId, IncidentModel newIncident)
         {
             if (string.IsNullOrWhiteSpace(baseEntityId)) throw new ArgumentException("Entity Id must not be null or whitespace");
@@ -69,12 +115,32 @@ namespace NerisLibrary
             }
         }
 
+
+        /// <summary>
+        /// Updates an existing incident for the specified entity using the provided incident data.
+        /// </summary>
+        /// <param name="baseEntity">The entity to which the incident belongs. Cannot be null.</param>
+        /// <param name="incidentToPut">The incident data to update. Cannot be null.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the incident
+        /// was updated successfully.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="baseEntity"/> is null or its id is empty, or consists only of white-space characters, or if
+        /// <paramref name="incidentToPut"/> is null.</exception>
         public async Task<bool> PutIncident(EntityModel baseEntity, IncidentModel incidentToPut)
         {
             if (baseEntity == null) throw new ArgumentNullException(nameof(baseEntity));
             return await PutIncident(baseEntity.Neris_Id, incidentToPut);
         }
 
+        /// <summary>
+        /// Updates an existing incident for the specified entity using the provided incident data.
+        /// </summary>
+        /// <param name="baseEntityId">The unique identifier of the entity to which the incident belongs. Cannot be null, empty, or consist only of
+        /// white-space characters.</param>
+        /// <param name="incidentToPut">The incident data to update. Cannot be null.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the incident
+        /// was updated successfully.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="baseEntityId"/> is null, empty, or consists only of white-space characters, or if
+        /// <paramref name="incidentToPut"/> is null.</exception>
         public async Task<bool> PutIncident(string baseEntityId, IncidentModel incidentToPut)
         {
             if (string.IsNullOrWhiteSpace(baseEntityId)) throw new ArgumentNullException(nameof(baseEntityId));
@@ -94,21 +160,23 @@ namespace NerisLibrary
             }
         }
 
-        public async Task<bool> PatchIncident(string baseEntityId, IncidentPatchPayload payload)
-        {
-            if (string.IsNullOrWhiteSpace(baseEntityId)) throw new ArgumentNullException(nameof(baseEntityId));
-            if (payload == null) throw new ArgumentNullException(nameof(payload));
+        
+        //NOT FULLY IMPLEMENTED.
+        //public async Task<bool> PatchIncident(string baseEntityId, IncidentPatchPayload payload)
+        //{
+        //    if (string.IsNullOrWhiteSpace(baseEntityId)) throw new ArgumentNullException(nameof(baseEntityId));
+        //    if (payload == null) throw new ArgumentNullException(nameof(payload));
 
-            string endpoint = GetIncidentRoute(baseEntityId, payload.Neris_Id);
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Patch, endpoint))
-            {
-                string jsonContent = SerializationExtensions.SerializeLowerCase(payload);
-                request.Content = CreateJsonContent(jsonContent);
-                HttpResponseMessage response = await _call(request);
+        //    string endpoint = GetIncidentRoute(baseEntityId, payload.Neris_Id);
+        //    using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Patch, endpoint))
+        //    {
+        //        string jsonContent = SerializationExtensions.SerializeLowerCase(payload);
+        //        request.Content = CreateJsonContent(jsonContent);
+        //        HttpResponseMessage response = await _call(request);
 
-                return true;
-            }
-        }
+        //        return true;
+        //    }
+        //}
 
         private string GetIncidentRoute(string entityId = null, string incidentId = null)
         {
@@ -125,6 +193,9 @@ namespace NerisLibrary
         }
     }
 
+    /// <summary>
+    /// Represents a page's worth of results from the NERIS api. Contains a list of Incidents and the cursors for retrieving other pages.
+    /// </summary>
     public class IncidentPageSet
     {
         public string Next_Cursor { get; set; }

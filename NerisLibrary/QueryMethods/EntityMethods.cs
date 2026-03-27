@@ -47,7 +47,14 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
             return entities;
 
         }
-
+        
+        /// <summary>
+        /// Retrieves the entity associated with the specified entity identifier.
+        /// </summary>
+        /// <param name="EntityId">The unique identifier of the entity to retrieve. Cannot be null.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the entity model if found;
+        /// otherwise, null.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if EntityId is null.</exception>
         public async Task<EntityModel?> GetEntity(string EntityId)
         {
             if (EntityId == null)
@@ -67,6 +74,18 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
             return entityModel;
         }
 
+        /// <summary>
+        /// Updates an existing entity with the specified values and optionally sets selected fields to null.
+        /// </summary>
+        /// <remarks>Only the fields present in EntityToUpdate are updated. Fields specified in
+        /// FieldsToNull are explicitly set to null in the entity. The method performs a PATCH request to the underlying
+        /// data store.</remarks>
+        /// <param name="EntityToUpdate">The entity model containing updated values. The Neris_Id property must be set to identify the entity to
+        /// update.</param>
+        /// <param name="FieldsToNull">A set of field names to be set to null in the updated entity. If null, no fields are explicitly set to null.</param>
+        /// <returns>A string containing the identifier of the updated entity.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if EntityToUpdate is null.</exception>
+        /// <exception cref="ArgumentException">Thrown if EntityToUpdate.Neris_Id is null or consists only of white-space characters.</exception>
         public async Task<string> PatchEntity(EntityModel EntityToUpdate, HashSet<string> FieldsToNull = null)
         {
             if (EntityToUpdate == null) { throw new ArgumentNullException(nameof(EntityToUpdate)); }
