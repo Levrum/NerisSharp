@@ -1,4 +1,5 @@
-﻿using NerisLibrary.Exceptions;
+﻿using Microsoft.AspNetCore.WebUtilities;
+using NerisLibrary.Exceptions;
 using NerisLibrary.Models.ElementModels;
 using NerisLibrary.Models.ElementModels.Incident;
 using NerisLibrary.Models.RequestModels;
@@ -22,10 +23,10 @@ namespace NerisLibrary
         /// otherwise, null.</returns>
         /// <exception cref="ArgumentNullException">Thrown if either <paramref name="baseEntityId"/> or <paramref name="incidentId"/> is null or consists only
         /// of white-space characters.</exception>
-        public async Task<IncidentModel> GetIncidentById(EntityModel baseEntity, string incidentId)
+        public async Task<IncidentModel> GetIncidentById(EntityModel baseEntity, string incidentId, bool geoformatGeoJson = false)
         {
             if (baseEntity == null) throw new ArgumentNullException(nameof(baseEntity));
-            return await GetIncidentById(baseEntity.Neris_Id, incidentId);
+            return await GetIncidentById(baseEntity.Neris_Id, incidentId, geoformatGeoJson);
         }
 
         /// <summary>
@@ -37,11 +38,15 @@ namespace NerisLibrary
         /// otherwise, null.</returns>
         /// <exception cref="ArgumentNullException">Thrown if either <paramref name="baseEntityId"/> or <paramref name="incidentId"/> is null or consists only
         /// of white-space characters.</exception>
-        public async Task<IncidentModel> GetIncidentById(string baseEntityId, string incidentId)
+        public async Task<IncidentModel> GetIncidentById(string baseEntityId, string incidentId, bool geoformatGeoJson = false)
         {
             if (string.IsNullOrWhiteSpace(baseEntityId)) throw new ArgumentNullException(nameof(baseEntityId));
             if (string.IsNullOrWhiteSpace(incidentId)) throw new ArgumentNullException(nameof(incidentId));
             string endpoint = GetIncidentRoute(baseEntityId, incidentId);
+            if (geoformatGeoJson) //for some reason, this doesn't matter, you'll get a url back either way.
+            {
+                endpoint = QueryHelpers.AddQueryString(endpoint, "geo_format", "geojson");
+            }
             using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Get, endpoint))
             {
                 HttpResponseMessage response = await _call(message);
@@ -68,7 +73,6 @@ namespace NerisLibrary
             using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Get, endpointWithSearchParams))
             {
                 HttpResponseMessage response = await _call(message);
-
                 return await response.Content.DeserializeCaseInsensitive<IncidentPageSet>();
             }
         }
