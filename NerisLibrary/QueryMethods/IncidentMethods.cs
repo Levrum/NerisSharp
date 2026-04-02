@@ -64,7 +64,7 @@ namespace NerisLibrary
         /// incidents matching the search criteria and pagination information.</returns>
         /// <exception cref="ArgumentNullException">Thrown if requestModel is null.</exception>
         /// <exception cref="ValidationException">Thrown if requestModel fails validation.</exception>
-        public async Task<IncidentPageSet> GetIncidents(IncidentRequestModel requestModel)
+        public async Task<IncidentPageSet> GetIncidentsPage(IncidentRequestModel requestModel)
         {
             if (requestModel == null) throw new ArgumentNullException(nameof(requestModel));
             if (!requestModel.Validate()) throw new ValidationException("Parameter requestModel is not valid");
@@ -84,7 +84,7 @@ namespace NerisLibrary
             requestModel.Page_Size = 100; //minimze the number of calls to make
             do
             {
-                IncidentPageSet pageSet = await GetIncidents(requestModel);
+                IncidentPageSet pageSet = await GetIncidentsPage(requestModel);
                 nextCursor = pageSet.Next_Cursor;
                 requestModel.Cursor = nextCursor;
                 toReturn.AddRange(pageSet.Incidents);
