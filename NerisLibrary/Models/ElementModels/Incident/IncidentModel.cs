@@ -18,7 +18,7 @@ namespace NerisLibrary.Models.ElementModels.Incident
         //ignore? json string writer?
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public SubmitterAccountTypes? Submitter_Account_Type { get; set; } = null; //cannot be submitted
-        public IncidentBaseModel Base { get; set; }
+        public IncidentBase Base { get; set; }
         public List<IncidentType> Incident_Types { get; set; }
         public IncidentStatus Incident_Status { get; set; }
         public DispatchModel Dispatch { get; set; }

@@ -11,7 +11,7 @@ namespace NerisLibrary.Models.ElementModels.Incident
     /// <summary>
     /// Model for containing base information about the incident including Location and Narrative. Generally high level details.
     /// </summary>
-    public class IncidentBaseModel
+    public class IncidentBase
     {
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]
         public int Neris_Uid { get; set; }

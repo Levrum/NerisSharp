@@ -30,7 +30,7 @@ namespace NerisRunner
             };
             Console.WriteLine(locationModel.StreetAddress());
 
-            IncidentBaseModel modelBase = new IncidentBaseModel()
+            IncidentBase modelBase = new IncidentBase()
             {
                 People_Present = true,
                 Outcome_Narrative = "SAMPLE Subject taken to hospital by EMS unit with minor injuries",
