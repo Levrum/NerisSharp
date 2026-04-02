@@ -39,7 +39,7 @@ namespace NerisLibrary.Models.RequestModels
         public bool Sort_Ascending { get; set; } = true;
         public int Page_Size { get; set; } = 10; //max 100 min 1
         public string Cursor { get; set; }
-        public bool Geo_Format_Url { get; set; } = true;
+        public bool Geo_Format_Json { get; set; } = true;
 
         public HashSet<string> SortByValues { get; } = new HashSet<string>()
         {
@@ -96,7 +96,7 @@ namespace NerisLibrary.Models.RequestModels
             Dictionary<string, string> queryValues = new Dictionary<string, string>();
             //add sort:
             queryValues.Add("sort_direction", this.Sort_Ascending ? "ASCENDING" : "DESCENDING");
-            queryValues.Add("geo_format", this.Geo_Format_Url ? "url" : "geojson");
+            queryValues.Add("geo_format", this.Geo_Format_Json ? "geojson" : "url");
 
             //add the rest through reflection:
             PropertyInfo[] properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
