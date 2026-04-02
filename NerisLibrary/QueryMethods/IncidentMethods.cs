@@ -77,6 +77,22 @@ namespace NerisLibrary
             }
         }
 
+        public async Task<List<IncidentModel>> GetAllIncidents(IncidentRequestModel requestModel) 
+        {
+            string nextCursor = string.Empty;
+            List<IncidentModel> toReturn = new List<IncidentModel>();
+            requestModel.Page_Size = 100; //minimze the number of calls to make
+            do
+            {
+                IncidentPageSet pageSet = await GetIncidents(requestModel);
+                nextCursor = pageSet.Next_Cursor;
+                requestModel.Cursor = nextCursor;
+                toReturn.AddRange(pageSet.Incidents);
+            } while (!string.IsNullOrWhiteSpace(nextCursor));
+
+            return toReturn;
+        }
+
         /// <summary>
         /// Creates a new incident for the specified entity and returns the unique identifier of the created incident.
         /// </summary>
