@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
 namespace NerisLibrary.Models.ElementModels.Incident
@@ -25,8 +27,44 @@ namespace NerisLibrary.Models.ElementModels.Incident
         public List<string> Displacement_Causes { get; set; } //ENUM
         public LocationModel Location { get; set; }
         //location use
-        public string Point { get; set; }
-        public string Polygon { get; set; }
+        public JsonNode Point { get; set; }
+
+        /// <summary>
+        /// Attempts to extract latitude and longitude coordinates from the current object's point data.
+        /// </summary>
+        /// <remarks>This method may thrown an exception if the point geojson format has changed. If so, contact David</remarks>
+        /// <param name="latlong">When this method returns, contains the extracted latitude and longitude if the operation succeeds;
+        /// otherwise, contains the default value.</param>
+        /// <returns>true if the latitude and longitude were successfully extracted; otherwise, false.</returns>
+        public bool TryGetLatLong(out LatLong latlong)
+        {
+            latlong = new LatLong();
+            if (Point == null)
+            {
+                return false;
+            }
+            if (Point.GetValueKind() == JsonValueKind.Object)
+            {
+                //good
+                JsonNode geometryNode = Point["geometry"];
+                JsonNode coords = geometryNode["coordinates"];
+                if (coords.GetValueKind() == JsonValueKind.Array)
+                {
+                    JsonArray coordArray = coords.AsArray();
+                    latlong.Longitude = coordArray[0].GetValue<double>();
+                    latlong.Latitude = coordArray[1].GetValue<double>();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                
+            }else
+            {
+                return false;
+            }
+        }
     }
 
     public class IncidentBaseModelPatchProperties
@@ -44,4 +82,11 @@ namespace NerisLibrary.Models.ElementModels.Incident
         public PatchAction<string> Point { get; set; }
         public PatchAction<string> Polygon { get; set; }
     }
+
+    public struct LatLong
+    {
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+    }
+
 }
