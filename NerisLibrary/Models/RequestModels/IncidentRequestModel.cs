@@ -59,6 +59,11 @@ namespace NerisLibrary.Models.RequestModels
                 valid = false;
             }
 
+            if (string.IsNullOrWhiteSpace(Neris_Id_Entity))
+            {
+                valid = false;
+            }
+
             //last modified = too hard
             if (this.Sort_By != null && !SortByValues.Contains(this.Sort_By))
             {
