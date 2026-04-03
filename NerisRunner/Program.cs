@@ -59,9 +59,6 @@ namespace NerisRunner
             Cad_Designation_1 = "ENG1",
             };
 
-            var result = await nb.GetEntities(erm);
-            Console.WriteLine(result.Entities[0].Name);
 
         }
     }
-}
