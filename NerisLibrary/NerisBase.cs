@@ -111,7 +111,8 @@ namespace NerisLibrary
                 new KeyValuePair<string, string>("generate_refresh_token", "true")
             };
             AccessTokenModel? tokenModel = null;
-            using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, GetRoute(RouteTypes.Token)))
+            string sroute = GetRoute(RouteTypes.Token);
+            using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, sroute ))
             {
                 message.Headers.Authorization = new AuthenticationHeaderValue("Basic", encodedCredentials);
                 message.Content = new FormUrlEncodedContent(formContent);

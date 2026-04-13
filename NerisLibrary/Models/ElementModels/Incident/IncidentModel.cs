@@ -25,6 +25,17 @@ namespace NerisLibrary.Models.ElementModels.Incident
         public TacticsTimestamps Tactic_Timestamps { get; set; }
         public List<UnitResponse> Unit_Responses { get; set; }
 
+        public string Prettyprint()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(Dispatch.Incident_Number + " ");
+            sb.Append(Dispatch.Call_Create.DateTime.ToShortDateString() + " " + Dispatch.Call_Create.DateTime.ToLongTimeString() + " ");
+            string snature0 = "{unknown}";
+            if (Incident_Types?.Count > 0) { snature0 = this.Incident_Types[0].Type; }
+            sb.Append(snature0 + " ");
+            sb.Append(Dispatch.Location.StreetAddress() + " ");
+            return (sb.ToString());
+        }
     }
 
     public enum SubmitterAccountTypes
