@@ -14,6 +14,7 @@ namespace NerisLibrary.Models.ElementModels.Incident
         public string Neris_Id { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]
         public DateTimeOffset Last_Modified { get; set; }
+        public DepartmentInfo Department { get; set; }
 
         //ignore? json string writer?
         [JsonConverter(typeof(JsonStringEnumConverter))]
@@ -25,6 +26,11 @@ namespace NerisLibrary.Models.ElementModels.Incident
         public TacticsTimestamps Tactic_Timestamps { get; set; }
         public List<UnitResponse> Unit_Responses { get; set; }
 
+    }
+
+    public class DepartmentInfo
+    {
+        public string Time_Zone { get; set; }
     }
 
     public enum SubmitterAccountTypes

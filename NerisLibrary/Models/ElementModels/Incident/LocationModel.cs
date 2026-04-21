@@ -27,10 +27,13 @@ namespace NerisLibrary.Models.ElementModels.Incident
         public string Street_Preposition_Type_Separator { get; set; }
         private string _street_postfix;
         public string Street_Postfix { get { return _street_postfix; } set { _street_postfix = value?.ToUpper(); } } //CAPITALIZED
-        public string Complete_Number { get; set; }
+        public int? Number { get; set; }
+        public string Complete_Number { get; set; } //this is null for some reason?
+        public string Unit_Value { get; set; }
+        public string Distance_Marker { get; set; }
         public string Additional_Info { get; set; }
 
-        public string StreetAddress()
+        public string GetStreetAddress()
         {
             //StringBuilder sb = new StringBuilder();
             //sb.Append(Street_Prefix_Modifier);
@@ -42,6 +45,8 @@ namespace NerisLibrary.Models.ElementModels.Incident
             //sb.AppendFormat(" {0}", Street_Postfix_Direction);
             //sb.AppendFormat(" {0}", Street_Postfix_Modifier);
             List<string> streetsInOrder = new List<string>();
+            string? number = (Complete_Number == null) ? Number?.ToString() ?? null : Complete_Number;
+            streetsInOrder.AddIfNotNull(number);
             streetsInOrder.AddIfNotNull(Street_Prefix_Modifier);
             streetsInOrder.AddIfNotNull(Street_Prefix_Direction);
             streetsInOrder.AddIfNotNull(Street_Prefix);
