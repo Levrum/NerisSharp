@@ -14,6 +14,7 @@ namespace NerisLibrary.Models.ElementModels.Incident
         public string Neris_Id { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]
         public DateTimeOffset Last_Modified { get; set; }
+        public DepartmentInfo Department { get; set; }
 
         //ignore? json string writer?
         [JsonConverter(typeof(JsonStringEnumConverter))]
@@ -36,6 +37,11 @@ namespace NerisLibrary.Models.ElementModels.Incident
             sb.Append(Dispatch.Location.StreetAddress() + " ");
             return (sb.ToString());
         }
+    }
+
+    public class DepartmentInfo
+    {
+        public string Time_Zone { get; set; }
     }
 
     public enum SubmitterAccountTypes

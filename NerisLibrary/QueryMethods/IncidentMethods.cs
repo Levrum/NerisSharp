@@ -77,6 +77,14 @@ namespace NerisLibrary
             }
         }
 
+        /// <summary>
+        /// Retrieves all incidents that match the specified request criteria.
+        /// </summary>
+        /// <remarks>This method automatically handles pagination and returns the complete set of matching
+        /// incidents. The operation may be time-consuming if the result set is large.</remarks>
+        /// <param name="requestModel">An object containing the filter and pagination options for retrieving incidents. Must not be null. The
+        /// properties of this model determine which incidents are returned.</param>
+        /// <returns>A list of incidents matching the specified criteria. The list will be empty if no incidents are found.</returns>
         public async Task<List<IncidentModel>> GetAllIncidents(IncidentRequestModel requestModel) 
         {
             string nextCursor = string.Empty;
@@ -91,6 +99,11 @@ namespace NerisLibrary
             } while (!string.IsNullOrWhiteSpace(nextCursor));
 
             return toReturn;
+        }
+
+        public List<IncidentModel> GetAllIncidentsSync(IncidentRequestModel requestModel)
+        {
+            return SyncRunner.RunSync(() => GetAllIncidents(requestModel));
         }
 
         /// <summary>

@@ -28,7 +28,7 @@ namespace NerisRunner
                 Street_Postfix = "STREET",
                 Additional_Info = "SAMPLE INCIDENT DID NOT OCCUR"
             };
-            Console.WriteLine(locationModel.StreetAddress());
+            Console.WriteLine(locationModel.GetStreetAddress());
 
             IncidentBase modelBase = new IncidentBase()
             {
