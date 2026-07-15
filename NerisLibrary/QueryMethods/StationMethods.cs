@@ -39,8 +39,7 @@ namespace NerisLibrary
         /// <exception cref="ArgumentNullException">If <paramref name="BaseEntityId"/> is null or whitespace, or <paramref name="NewStation"/> is null. </exception>
         public async Task<string> PostStation(string BaseEntityId, StationModel NewStation)
         {
-            throw new NoAccessException();
-
+            CheckWriteAllowed();
             if (string.IsNullOrWhiteSpace(BaseEntityId)) throw new ArgumentNullException(nameof(BaseEntityId));
             if (NewStation == null) throw new ArgumentNullException(nameof(NewStation));
             string stationUri = GetStationRoute(BaseEntityId);

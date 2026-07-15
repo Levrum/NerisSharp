@@ -133,8 +133,7 @@ namespace NerisLibrary
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="newIncident"/> is null.</exception>
         public async Task<string> PostIncident(string baseEntityId, IncidentModel newIncident)
         {
-            throw new NoAccessException();
-
+            CheckWriteAllowed();
             if (string.IsNullOrWhiteSpace(baseEntityId)) throw new ArgumentException("Entity Id must not be null or whitespace");
             if (newIncident == null) throw new ArgumentNullException(nameof(newIncident));
             string endpoint = GetIncidentRoute(baseEntityId);
@@ -178,8 +177,7 @@ namespace NerisLibrary
         /// <paramref name="incidentToPut"/> is null.</exception>
         public async Task<bool> PutIncident(string baseEntityId, IncidentModel incidentToPut)
         {
-            throw new NoAccessException();
-
+            CheckWriteAllowed();
             if (string.IsNullOrWhiteSpace(baseEntityId)) throw new ArgumentNullException(nameof(baseEntityId));
             if (incidentToPut == null) throw new ArgumentNullException(nameof(incidentToPut));
 

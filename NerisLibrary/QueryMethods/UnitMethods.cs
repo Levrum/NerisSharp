@@ -43,8 +43,7 @@ namespace NerisLibrary
         /// is null or, for string parameters, consists only of whitespace.</exception>
         public async Task<string> PostUnit(string baseEntityId, string baseStationId, UnitModel newUnit)
         {
-            throw new NoAccessException();
-
+            CheckWriteAllowed();
             if (string.IsNullOrWhiteSpace(baseEntityId)) throw new ArgumentNullException(nameof(baseEntityId));
             if (string.IsNullOrWhiteSpace(baseStationId)) throw new ArgumentNullException(nameof(baseStationId));
             if (newUnit == null) throw new ArgumentNullException(nameof(newUnit));
@@ -96,8 +95,7 @@ namespace NerisLibrary
         /// <exception cref="ArgumentException">Thrown if <paramref name="unitToUpdate"/> does not contain a valid Neris ID.</exception>
         public async Task<string> PatchUnit(string baseEntityId, string baseStationId, UnitModel unitToUpdate, HashSet<string> fieldsToNull = null)
         {
-            throw new NoAccessException();
-
+            CheckWriteAllowed();
             if (string.IsNullOrWhiteSpace(baseEntityId)) throw new ArgumentNullException(nameof(baseEntityId));
             if (string.IsNullOrWhiteSpace(baseStationId)) throw new ArgumentNullException(nameof(baseStationId));
             if (unitToUpdate == null) throw new ArgumentNullException(nameof(unitToUpdate));
@@ -154,8 +152,7 @@ namespace NerisLibrary
         /// name="unitToDeletId"/> are null or consists only of white-space characters.</exception>
         public async Task<bool> DeleteUnit(string baseEntityId, string baseStationId, string unitToDeletId)
         {
-            throw new NoAccessException();
-
+            CheckWriteAllowed();
             if (string.IsNullOrWhiteSpace(baseEntityId)) throw new ArgumentNullException(nameof(baseEntityId));
             if (string.IsNullOrWhiteSpace(baseStationId)) throw new ArgumentNullException(nameof(baseStationId));
             if (string.IsNullOrWhiteSpace(unitToDeletId)) throw new ArgumentNullException(nameof(unitToDeletId));
