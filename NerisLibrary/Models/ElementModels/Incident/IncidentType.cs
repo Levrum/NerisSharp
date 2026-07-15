@@ -125,7 +125,8 @@ namespace NerisLibrary.Models.ElementModels.Incident
             string[] substrings = incidentTypeString.Split("||");
             foreach (string typeString in substrings)
             {
-                if (Enum.TryParse<IncidentTypeEnum>(typeString, out IncidentTypeEnum type)){
+                if (Enum.TryParse<IncidentTypeEnum>(typeString, out IncidentTypeEnum type))
+                {
                     toReturn.Add(type);
                 }
             }

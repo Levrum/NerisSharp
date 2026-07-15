@@ -54,13 +54,11 @@ namespace NerisLibrary.Models.ElementModels.Incident
                     latlong.Longitude = coordArray[0].GetValue<double>();
                     latlong.Latitude = coordArray[1].GetValue<double>();
                     return true;
-                }
-                else
+                } else
                 {
                     return false;
                 }
-                
-            }else
+            } else
             {
                 return false;
             }

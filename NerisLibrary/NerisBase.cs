@@ -25,7 +25,7 @@ namespace NerisLibrary
         private HttpClient _httpClient { get; set; }
         private AccessTokenModel? _accessToken { get; set; }
         private bool _denyWriteActions { get; set; }
-        public bool Initialized { get {  return _accessToken != null && _accessToken.Access_Token != string.Empty; } } 
+        public bool Initialized { get { return _accessToken != null && _accessToken.Access_Token != string.Empty; } }
 
         /// <summary>
         /// Takes the Config Object, an HttpClient to use, and a logger if available to use.
@@ -85,8 +85,7 @@ namespace NerisLibrary
                     default:
                         break;
                 }
-            }
-            catch (Exception ex)
+            } catch (Exception ex)
             {
                 LogError(ex, "Error Logging In");
                 throw ex;
@@ -160,8 +159,7 @@ namespace NerisLibrary
             if (success)
             {
                 return nerisIdJson.ToString();
-            }
-            else
+            } else
             {
                 return string.Empty;
             }
@@ -201,9 +199,9 @@ namespace NerisLibrary
             if (_logger != null)
             {
                 _logger.LogError(ex, message);
-            }else 
-            { 
-                Console.WriteLine(ex.Message); 
+            } else
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }

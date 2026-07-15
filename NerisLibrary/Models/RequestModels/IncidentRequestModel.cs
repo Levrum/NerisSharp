@@ -14,7 +14,7 @@ namespace NerisLibrary.Models.RequestModels
     {
         public string Neris_Id_Entity { get; set; }
         public string Nuid_Entity_Set { get; set; }
-        public List<IncidentType>  Incident_Types { get; set; }
+        public List<IncidentType> Incident_Types { get; set; }
         public IncidentTypeSetOperation? Incident_Types_Set_Operation { get; set; }
         public DateTimeOffset? Call_Create_Start { get; set; } = null;
         public DateTimeOffset? Call_Create_End { get; set; } = null;
@@ -64,7 +64,7 @@ namespace NerisLibrary.Models.RequestModels
                 valid = false;
             }
 
-            if (Page_Size < 1 ||  Page_Size > 100)
+            if (Page_Size < 1 || Page_Size > 100)
             {
                 valid = false;
             }
@@ -119,10 +119,10 @@ namespace NerisLibrary.Models.RequestModels
 
                 if (property.PropertyType == typeof(DateTimeOffset) || property.PropertyType == typeof(DateTimeOffset?))
                 {
-                    DateTimeOffset dto = (DateTimeOffset) value;
+                    DateTimeOffset dto = (DateTimeOffset)value;
                     string dateIsoFormat = dto.ToString("O", CultureInfo.InvariantCulture);
                     queryValues.Add(name, dateIsoFormat);
-                }else
+                } else
                 {
                     queryValues.Add(name, value.ToString());
                 }

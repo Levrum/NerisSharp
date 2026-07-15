@@ -16,7 +16,9 @@ namespace NerisLibrary.Models.ElementModels.Incident.PatchObjects
         public ActionTypes Action { get; private set; }
         private T _value;
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public T Value { get
+        public T Value
+        {
+            get
             {
                 if (Action == ActionTypes.unset)
                 {

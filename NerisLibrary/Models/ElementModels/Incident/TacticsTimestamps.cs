@@ -1,8 +1,8 @@
-﻿using System;
+﻿using NerisLibrary.Models.ElementModels.Incident.PatchObjects;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
-using NerisLibrary.Models.ElementModels.Incident.PatchObjects;
 
 namespace NerisLibrary.Models.ElementModels.Incident
 {

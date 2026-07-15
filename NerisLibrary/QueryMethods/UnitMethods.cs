@@ -1,13 +1,13 @@
-﻿using NerisLibrary.Models.ElementModels;
-using NerisLibrary.Exceptions;
+﻿using NerisLibrary.Exceptions;
+using NerisLibrary.Models.ElementModels;
+using NerisLibrary.Utils;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using NerisLibrary.Utils;
+using System.Text;
 using System.Text.Json.Nodes;
+using System.Threading.Tasks;
 
 namespace NerisLibrary
 {
@@ -119,7 +119,7 @@ namespace NerisLibrary
 
                 return await ParseIdFromCreatedResult(response);
             }
-            
+
         }
 
         /// <summary>

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.WebUtilities;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
-using Microsoft.AspNetCore.WebUtilities;
 
 namespace NerisLibrary.Models.RequestModels
 {
@@ -11,28 +11,36 @@ namespace NerisLibrary.Models.RequestModels
         public string Name { get; set; }
         public string Neris_id { get; set; }
         private string _state;
-        public string State { get
+        public string State
+        {
+            get
             {
                 return _state;
             }
-            set 
+            set
             {
                 _state = value.ToUpper();
-            } 
+            }
         }
         public EntityClassTypes? Entity_Class_Enum { get; set; } = null;
-        public string Entity_Class{ get {
+        public string Entity_Class
+        {
+            get
+            {
                 return Entity_Class_Enum?.ToString() ?? null;
-            } 
+            }
         }
         public EntitySubtypes? Entity_Subtype_Enum { get; set; } = null;
-        public string Entity_Subtype { get {
+        public string Entity_Subtype
+        {
+            get
+            {
                 return Entity_Subtype_Enum?.ToString() ?? null;
-            } 
+            }
         }
         public string Last_Modified { get; set; }
         public int Page_Number { get; set; } = 1;
-        public int Page_Size { get; set;} = 10;
+        public int Page_Size { get; set; } = 10;
         public string Sort_by { get; set; }
         public bool Sort_Ascending { get; set; } = true;
 
@@ -107,7 +115,8 @@ namespace NerisLibrary.Models.RequestModels
             foreach (PropertyInfo property in properties)
             {
                 //skip excluded:
-                if (excludedFields.Contains(property.Name)){
+                if (excludedFields.Contains(property.Name))
+                {
                     continue;
                 }
 

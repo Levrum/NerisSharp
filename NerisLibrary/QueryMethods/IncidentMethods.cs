@@ -85,7 +85,7 @@ namespace NerisLibrary
         /// <param name="requestModel">An object containing the filter and pagination options for retrieving incidents. Must not be null. The
         /// properties of this model determine which incidents are returned.</param>
         /// <returns>A list of incidents matching the specified criteria. The list will be empty if no incidents are found.</returns>
-        public async Task<List<IncidentModel>> GetAllIncidents(IncidentRequestModel requestModel) 
+        public async Task<List<IncidentModel>> GetAllIncidents(IncidentRequestModel requestModel)
         {
             string nextCursor = string.Empty;
             List<IncidentModel> toReturn = new List<IncidentModel>();
@@ -138,7 +138,7 @@ namespace NerisLibrary
             if (newIncident == null) throw new ArgumentNullException(nameof(newIncident));
             string endpoint = GetIncidentRoute(baseEntityId);
 
-            using (HttpRequestMessage request =  new HttpRequestMessage(HttpMethod.Post, endpoint))
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, endpoint))
             {
                 string jsonContent = SerializationExtensions.SerializeLowerCase(newIncident);
                 request.Content = CreateJsonContent(jsonContent);
@@ -195,7 +195,7 @@ namespace NerisLibrary
             }
         }
 
-        
+
         //NOT FULLY IMPLEMENTED.
         //public async Task<bool> PatchIncident(string baseEntityId, IncidentPatchPayload payload)
         //{
@@ -216,7 +216,7 @@ namespace NerisLibrary
         private string GetIncidentRoute(string entityId = null, string incidentId = null)
         {
             string baseRoute = GetRoute(RouteTypes.Incident);
-            if (entityId != null) 
+            if (entityId != null)
             {
                 baseRoute = UriUtils.AppendPath(baseRoute, entityId);
                 if (incidentId != null)

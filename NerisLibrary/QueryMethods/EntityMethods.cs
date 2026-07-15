@@ -47,7 +47,7 @@ namespace NerisLibrary //must use top level namespace for partial class to acces
             return entities;
 
         }
-        
+
         /// <summary>
         /// Retrieves the entity associated with the specified entity identifier.
         /// </summary>

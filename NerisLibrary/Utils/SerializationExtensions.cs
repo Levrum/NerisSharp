@@ -13,9 +13,9 @@ namespace NerisLibrary.Utils
     internal static class SerializationExtensions
     {
         static JsonSerializerOptions PropertyCaseInsensitive = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
-        static JsonSerializerOptions LowerCaseNamingPolicy = new JsonSerializerOptions() 
-        { 
-            PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower, 
+        static JsonSerializerOptions LowerCaseNamingPolicy = new JsonSerializerOptions()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         };
 
