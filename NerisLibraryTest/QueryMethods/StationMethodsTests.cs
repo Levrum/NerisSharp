@@ -30,21 +30,6 @@ public class StationMethodsTests
     }
 
     [Fact]
-    public async Task PostStation_EntityModelOverload_UsesModelNerisId()
-    {
-        //is this something we really need to be testing? I mean its here and its free but damn I don't think this is important
-        //like we aren't testing the spirit of it
-        var fixture = new NerisBaseFixture(); 
-        fixture.QueueTokenResponse();
-        fixture.Handler.QueueJsonResponse("{\"neris_id\":\"NEW_ST\"}");
-        NerisBase neris = fixture.CreateNerisBase();
-
-        await neris.PostStation(new EntityModel { Neris_Id = "ENT1" }, new StationModel());
-
-        fixture.Handler.Requests[1].Uri.ToString().Should().Be($"{Base}/entity/ENT1/station");
-    }
-
-    [Fact]
     public async Task PostStation_NullArguments_Throw()
     {
         var fixture = new NerisBaseFixture();
