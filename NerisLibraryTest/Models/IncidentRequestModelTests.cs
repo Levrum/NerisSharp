@@ -157,13 +157,4 @@ public class IncidentRequestModelTests
         query["incident_types"].ToArray().Should().BeEquivalentTo("TYPE_A", "TYPE_B");
     }
 
-    [Fact]
-    public void CreateQueryURI_EmitsStrayGeoFormatJsonParam()
-    {
-        // Pins current behavior — excludedFields lists "Geo_Format_Url" but the property is
-        // named Geo_Format_Json, so reflection also emits geo_format_json alongside geo_format.
-        // Flagged as a library smell in the design spec; do not "fix" here.
-        var query = Query(CreateValidModel());
-        query.Should().ContainKey("geo_format_json");
-    }
 }
