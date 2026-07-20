@@ -86,7 +86,7 @@ public class IncidentRequestModelTests
     public void Validate_InvalidIncidentType_ReturnsFalse()
     {
         var model = CreateValidModel();
-        model.Incident_Types = new List<IncidentType> { new IncidentType() }; // DTO ctor leaves Valid = false
+        model.Incident_Types = new List<IncidentType> { new IncidentType() }; //Uninitialized Incident Type is invalid
         model.Validate().Should().BeFalse();
     }
 
@@ -148,13 +148,13 @@ public class IncidentRequestModelTests
         var model = CreateValidModel();
         model.Incident_Types = new List<IncidentType>
         {
-            new IncidentType { Type = "TYPE_A", Valid = true },
-            new IncidentType { Type = "TYPE_B", Valid = true }
+            new IncidentType (IncidentTypeEnum.FIRE),
+            new IncidentType (IncidentTypeEnum.MEDICAL)
         };
 
         var query = Query(model);
 
-        query["incident_types"].ToArray().Should().BeEquivalentTo("TYPE_A", "TYPE_B");
+        query["incident_types"].ToArray().Should().BeEquivalentTo("FIRE", "MEDICAL");
     }
 
 }
