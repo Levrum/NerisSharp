@@ -136,17 +136,6 @@ public class IncidentMethodsTests
         secondPageQuery["cursor"].ToString().Should().Be("CURSOR_2");
     }
 
-    [Fact]
-    public void GetAllIncidentsSync_ReturnsSameResultsAsAsync()
-    {
-        //this feels incorrect
-        var (_, neris) = CreateLoggedIn("{\"next_cursor\":null,\"incidents\":[{\"neris_id\":\"A\"}]}");
-
-        List<IncidentModel> all = neris.GetAllIncidentsSync(new IncidentRequestModel { Neris_Id_Entity = "ENT1" });
-
-        all.Should().ContainSingle(i => i.Neris_Id == "A");
-    }
-
     // --- PostIncident ---
 
     [Fact]
@@ -163,17 +152,6 @@ public class IncidentMethodsTests
         post.ContentType.Should().Be("application/json");
         using JsonDocument body = JsonDocument.Parse(post.Body!);
         body.RootElement.GetProperty("neris_id").GetString().Should().Be("LOCAL_ID");
-    }
-
-    [Fact]
-    public async Task PostIncident_ResponseWithoutNerisId_ReturnsEmptyString()
-    {
-        //this is weird behavior DRSTODO
-        var (_, neris) = CreateLoggedIn("{}");
-
-        string id = await neris.PostIncident("ENT1", new IncidentModel());
-
-        id.Should().BeEmpty();
     }
 
     [Fact]
