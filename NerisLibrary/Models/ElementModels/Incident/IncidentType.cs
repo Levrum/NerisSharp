@@ -29,8 +29,9 @@ namespace NerisLibrary.Models.ElementModels.Incident
         /// <summary>
         /// Try not to use, instead use the other constructor that takes Incident Type Enums.
         /// This will ensure Incident Types are (mostly) valid. 
+        /// This constructor is required for deserialization from JSON and should not be used directly in application code.
         /// </summary>
-        public IncidentType() //TODO SEPARATE DTO 
+        public IncidentType() 
         {
 
         }
@@ -50,7 +51,7 @@ namespace NerisLibrary.Models.ElementModels.Incident
             }
         }
         [JsonIgnore]
-        public bool Valid { get; set; } = false;
+        public bool Valid { get; private set; } = false;
     }
 
     /// <summary>

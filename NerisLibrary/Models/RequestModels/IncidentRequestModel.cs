@@ -96,6 +96,7 @@ namespace NerisLibrary.Models.RequestModels
         };
         //Method to add to URI
         //uses reflection to add each property minus those excluded into a dictonary to build the query
+        //should this throw an error if not valid?
         public string CreateQueryURI(string baseUri)
         {
             Dictionary<string, string> queryValues = new Dictionary<string, string>();
