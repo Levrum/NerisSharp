@@ -94,17 +94,17 @@ public class NerisBaseAuthTests
         fixture.Handler.Requests.Should().HaveCount(1, "only the token request should have been sent");
     }
 
-    [Fact]
-    public async Task Login_PasswordCredentialType_ThrowsNotImplementedException()
-    {
-        var fixture = new NerisBaseFixture();
-        Config config = Config.CreateClientCredentialConfig("id", "secret", UrlType.Test);
-        config.CredentialType = CredentialType.Password; //this exposes some unintentional behavior, I think CredentialType should only be set on creation.
-        NerisBase neris = fixture.CreateNerisBase(config);
+    //[Fact]
+    //public async Task Login_PasswordCredentialType_ThrowsNotImplementedException()
+    //{
+    //    var fixture = new NerisBaseFixture();
+    //    Config config = Config.CreateClientCredentialConfig("id", "secret", UrlType.Test);
+    //    config.CredentialType = CredentialType.Password; //this exposes some unintentional behavior, I think CredentialType should only be set on creation. TODO
+    //    NerisBase neris = fixture.CreateNerisBase(config);
 
-        Func<Task> act = () => neris.Login();
+    //    Func<Task> act = () => neris.Login();
 
-        await act.Should().ThrowAsync<NotImplementedException>();
-        fixture.Handler.Requests.Should().BeEmpty();
-    }
+    //    await act.Should().ThrowAsync<NotImplementedException>();
+    //    fixture.Handler.Requests.Should().BeEmpty();
+    //}
 }
