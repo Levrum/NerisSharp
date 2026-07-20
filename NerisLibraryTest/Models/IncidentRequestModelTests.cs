@@ -125,7 +125,10 @@ public class IncidentRequestModelTests
     {
         var model = CreateValidModel();
         model.Geo_Format_Json = geoJson;
-        Query(model)["geo_format"].ToString().Should().Be(expected);
+        var query = Query(model);
+        query["geo_format"].ToString().Should().Be(expected);
+        query.Should().NotContainKey("geo_format_json", "excluded fields must not appear");
+
     }
 
     [Fact]
