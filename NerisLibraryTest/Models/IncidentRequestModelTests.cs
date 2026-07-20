@@ -49,13 +49,11 @@ public class IncidentRequestModelTests
     }
 
     [Fact]
-    public void State_SetNull_ThrowsNullReferenceException()
+    public void State_SetNull_ShouldBeNull()
     {
-        // Pins current behavior — setter calls value.ToUpper() with no null check.
-        // Flagged as a library bug in the design spec; do not "fix" here.
         var model = CreateValidModel();
-        Action act = () => model.State = null!;
-        act.Should().Throw<NullReferenceException>();
+        model.State = null!;
+        model.State.Should().BeNull();
     }
 
     [Theory]

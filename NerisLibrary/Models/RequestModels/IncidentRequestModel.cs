@@ -31,7 +31,7 @@ namespace NerisLibrary.Models.RequestModels
             }
             set
             {
-                _state = value.ToUpper();
+                _state = value?.ToUpper() ?? null;
             }
         }
         public string Last_Modified { get; set; }

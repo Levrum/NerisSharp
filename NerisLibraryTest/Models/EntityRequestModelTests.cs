@@ -31,13 +31,11 @@ public class EntityRequestModelTests
     }
 
     [Fact]
-    public void State_SetNull_ThrowsNullReferenceException()
+    public void State_SetNull_ShouldBeNull()
     {
-        // Pins current behavior — setter calls value.ToUpper() with no null check,
-        // same bug as IncidentRequestModel.State. Flagged in the design spec; do not "fix" here.
         var model = new EntityRequestModel();
-        Action act = () => model.State = null!;
-        act.Should().Throw<NullReferenceException>();
+        model.State = null;
+        model.State.Should().BeNull();
     }
 
     [Fact]
@@ -49,9 +47,9 @@ public class EntityRequestModelTests
         => new EntityRequestModel { Sort_by = "name" }.Validate().Should().BeTrue();
 
     [Fact]
-    public void CreateQueryURI_IncludesStringPropertiesAndSortDirection()
+    public void CreateQueryURI_IncludesPropertiesAndSortDirection()
     {
-        var model = new EntityRequestModel { Name = "Test FD", Neris_id = "ENT1", Sort_Ascending = false };
+        var model = new EntityRequestModel { Name = "Test FD", Neris_id = "ENT1", Sort_Ascending = false, Page_Number = 2, Page_Size = 20 };
 
         var query = Query(model);
 
@@ -59,19 +57,8 @@ public class EntityRequestModelTests
         query["neris_id"].ToString().Should().Be("ENT1");
         query["sort_direction"].ToString().Should().Be("DESCENDING");
         query.Should().NotContainKey("state", "null properties are skipped");
-    }
-
-    [Fact]
-    public void CreateQueryURI_IntProperties_AreNotIncluded()
-    {
-        // Pins current behavior — CreateQueryURI only reflects string properties, so
-        // Page_Number and Page_Size are never sent. Flagged as a library smell; do not "fix" here.
-        var model = new EntityRequestModel { Page_Number = 3, Page_Size = 50 };
-
-        var query = Query(model);
-
-        query.Should().NotContainKey("page_number");
-        query.Should().NotContainKey("page_size");
+        query["page_number"].ToString().Should().Be("2");
+        query["page_size"].ToString().Should().Be("20");
     }
 
     [Fact]

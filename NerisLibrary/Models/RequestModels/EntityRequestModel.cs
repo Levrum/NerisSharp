@@ -19,7 +19,7 @@ namespace NerisLibrary.Models.RequestModels
             }
             set
             {
-                _state = value.ToUpper();
+                _state = value?.ToUpper() ?? null;
             }
         }
         public EntityClassTypes? Entity_Class_Enum { get; set; } = null;
@@ -120,8 +120,8 @@ namespace NerisLibrary.Models.RequestModels
                     continue;
                 }
 
-                //only use string properties
-                if (property.PropertyType == typeof(string))
+                //only use string or int properties
+                if (property.PropertyType == typeof(string) || property.PropertyType == typeof(int))
                 {
                     string name = property.Name.ToLower();
                     object value = property.GetValue(this);
