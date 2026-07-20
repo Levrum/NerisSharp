@@ -21,17 +21,17 @@ public class AccessTokenModelTests
         model.expires_at.Should().BeBefore(DateTime.UtcNow);
     }
 
-    [Fact]
-    public async Task DeserializeCaseInsensitive_TokenJson_MapsSnakeCaseFieldsAndComputesExpiry()
-    {
-        var content = new StringContent(
-            "{\"access_token\":\"tok\",\"refresh_token\":\"ref\",\"expires_in\":1800}",
-            Encoding.UTF8, "application/json");
+    //[Fact]
+    //public async Task DeserializeCaseInsensitive_TokenJson_MapsSnakeCaseFieldsAndComputesExpiry()
+    //{
+    //    var content = new StringContent(
+    //        "{\"access_token\":\"tok\",\"refresh_token\":\"ref\",\"expires_in\":1800}",
+    //        Encoding.UTF8, "application/json");
 
-        AccessTokenModel? model = await content.DeserializeCaseInsensitive<AccessTokenModel>();
+    //    AccessTokenModel? model = await content.DeserializeCaseInsensitive<AccessTokenModel>();
 
-        model!.Access_Token.Should().Be("tok");
-        model.Refresh_Token.Should().Be("ref");
-        model.expires_at.Should().BeCloseTo(DateTime.UtcNow.AddSeconds(1800), TimeSpan.FromSeconds(5));
-    } //unneeded, this is tested in utils. 
+    //    model!.Access_Token.Should().Be("tok");
+    //    model.Refresh_Token.Should().Be("ref");
+    //    model.expires_at.Should().BeCloseTo(DateTime.UtcNow.AddSeconds(1800), TimeSpan.FromSeconds(5));
+    //} //unneeded, this is tested in utils. 
 }
