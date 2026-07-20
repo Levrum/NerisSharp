@@ -91,7 +91,7 @@ namespace NerisLibrary.Models.RequestModels
         {
             "Sort_Ascending",
             "Incident_Types",
-            "Geo_Format_Url",
+            "Geo_Format_Json",
             "SortByValues"
         };
         //Method to add to URI
