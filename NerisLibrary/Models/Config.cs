@@ -11,7 +11,7 @@ namespace NerisLibrary.Models
     public sealed class Config
     {
         public Uri Url { get; set; } = null;
-        public CredentialType CredentialType { get; set; } = CredentialType.Password;
+        public CredentialType CredentialType { get; private set; } = CredentialType.Password;
         public string UserName { get; set; } = "";
         public string Password { get; set; } = "";
         public string ClientId { get; set; } = "";

@@ -31,7 +31,7 @@ namespace NerisLibrary.Models.RequestModels
             }
             set
             {
-                _state = value.ToUpper();
+                _state = value?.ToUpper() ?? null;
             }
         }
         public string Last_Modified { get; set; }
@@ -91,11 +91,12 @@ namespace NerisLibrary.Models.RequestModels
         {
             "Sort_Ascending",
             "Incident_Types",
-            "Geo_Format_Url",
+            "Geo_Format_Json",
             "SortByValues"
         };
         //Method to add to URI
         //uses reflection to add each property minus those excluded into a dictonary to build the query
+        //should this throw an error if not valid?
         public string CreateQueryURI(string baseUri)
         {
             Dictionary<string, string> queryValues = new Dictionary<string, string>();
