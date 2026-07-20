@@ -50,7 +50,7 @@ namespace NerisLibrary.Models.ElementModels.Incident
             }
         }
         [JsonIgnore]
-        public bool Valid { get; set; }
+        public bool Valid { get; set; } = false;
     }
 
     /// <summary>
