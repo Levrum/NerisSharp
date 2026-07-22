@@ -14,7 +14,20 @@ namespace NerisRunner
             {
                 PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-                WriteIndented = true
+                WriteIndented = true,
+                Converters = { new JsonStringEnumConverter() }
+            };
+            string retVal = JsonSerializer.Serialize(obj, PrettyPrintLowerCase);
+            return retVal;
+        }
+
+        public static string SerializeJsonPrettyWithNulls<T>(T obj)
+        {
+            JsonSerializerOptions PrettyPrintLowerCase = new JsonSerializerOptions()
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
+                WriteIndented = true,
+                Converters = {new JsonStringEnumConverter()}
             };
             string retVal = JsonSerializer.Serialize(obj, PrettyPrintLowerCase);
             return retVal;

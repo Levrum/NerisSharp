@@ -11,7 +11,6 @@ namespace NerisLibrary.Models.ElementModels
         public bool Dedicated_Staffing { get; set; } = true;
         public string Neris_Id { get; set; }
         public int? Version { get; set; } = null;
-        [JsonConverter(typeof(JsonStringEnumConverter))]
         public UnitTypes? Type { get; set; } = null;
         public string Cad_Designation_1 { get; set; }
         public string Cad_Designation_2 { get; set; }

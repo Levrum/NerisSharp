@@ -24,10 +24,7 @@ namespace NerisLibrary.Models.ElementModels.Incident
         public DateTimeOffset? Canceled_Enroute { get; set; } = null;
         public DateTimeOffset? Staging { get; set; } = null;
         public DateTimeOffset? Unit_Clear { get; set; } = null;
-        [JsonConverter(typeof(JsonStringEnumConverter))]
         public ResponseMode? Response_Mode { get; set; } = null;
-
-        [JsonConverter(typeof(JsonStringEnumConverter))]
         public ResponseMode? Transport_Mode { get; set; } = null;
         public List<MedReponse> Med_Responses { get; set; }
     }

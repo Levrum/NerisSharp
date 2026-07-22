@@ -10,7 +10,6 @@ namespace NerisLibrary.Models.ElementModels.Incident
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]
         public DateTimeOffset Last_Modified { get; set; }
         public string Created_By { get; set; }
-        [JsonConverter(typeof(JsonStringEnumConverter))]
         public IncidentStatusTypes Incident_Status { get; set; }
     }
     public enum IncidentStatusTypes

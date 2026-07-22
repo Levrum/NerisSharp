@@ -12,7 +12,6 @@ namespace NerisLibrary.Models.ElementModels.Incident.PatchObjects
             Value = value;
             Action = action;
         }
-        [JsonConverter(typeof(JsonStringEnumConverter))]
         public ActionTypes Action { get; private set; }
         private T _value;
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
