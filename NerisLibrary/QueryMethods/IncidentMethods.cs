@@ -115,7 +115,7 @@ namespace NerisLibrary
         /// newly created incident as a string.</returns>
         /// <exception cref="ArgumentException">Thrown if <paramref name="baseEntity"/> is null or if its id is empty, or consists only of white-space characters.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="newIncident"/> is null.</exception>
-        public async Task<string> PostIncident(EntityModel baseEntity, IncidentModel newIncident)
+        public async Task<string> PostIncident(EntityModel baseEntity, IncidentModelPayload newIncident)
         {
             if (baseEntity == null) throw new ArgumentNullException(nameof(baseEntity));
             return await PostIncident(baseEntity.Neris_Id, newIncident);
@@ -131,7 +131,7 @@ namespace NerisLibrary
         /// newly created incident as a string.</returns>
         /// <exception cref="ArgumentException">Thrown if <paramref name="baseEntityId"/> is null, empty, or consists only of white-space characters.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="newIncident"/> is null.</exception>
-        public async Task<string> PostIncident(string baseEntityId, IncidentModel newIncident)
+        public async Task<string> PostIncident(string baseEntityId, IncidentModelPayload newIncident)
         {
             CheckWriteAllowed();
             if (string.IsNullOrWhiteSpace(baseEntityId)) throw new ArgumentException("Entity Id must not be null or whitespace");
@@ -159,7 +159,7 @@ namespace NerisLibrary
         /// was updated successfully.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="baseEntity"/> is null or its id is empty, or consists only of white-space characters, or if
         /// <paramref name="incidentToPut"/> is null.</exception>
-        public async Task<bool> PutIncident(EntityModel baseEntity, IncidentModel incidentToPut)
+        public async Task<bool> PutIncident(EntityModel baseEntity, IncidentModelPayload incidentToPut)
         {
             if (baseEntity == null) throw new ArgumentNullException(nameof(baseEntity));
             return await PutIncident(baseEntity.Neris_Id, incidentToPut);
@@ -175,7 +175,7 @@ namespace NerisLibrary
         /// was updated successfully.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="baseEntityId"/> is null, empty, or consists only of white-space characters, or if
         /// <paramref name="incidentToPut"/> is null.</exception>
-        public async Task<bool> PutIncident(string baseEntityId, IncidentModel incidentToPut)
+        public async Task<bool> PutIncident(string baseEntityId, IncidentModelPayload incidentToPut)
         {
             CheckWriteAllowed();
             if (string.IsNullOrWhiteSpace(baseEntityId)) throw new ArgumentNullException(nameof(baseEntityId));

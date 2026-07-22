@@ -143,7 +143,7 @@ public class IncidentMethodsTests
     {
         var (fixture, neris) = CreateLoggedIn("{\"neris_id\":\"NEW_INC\"}");
 
-        string id = await neris.PostIncident("ENT1", new IncidentModel { Neris_Id = "LOCAL_ID" });
+        string id = await neris.PostIncident("ENT1", new IncidentModelPayload { Neris_Id = "LOCAL_ID" });
 
         id.Should().Be("NEW_INC");
         RecordedRequest post = fixture.Handler.Requests[1];
@@ -160,7 +160,7 @@ public class IncidentMethodsTests
         var fixture = new NerisBaseFixture();
         NerisBase neris = fixture.CreateNerisBase();
 
-        Func<Task> act = () => neris.PostIncident("  ", new IncidentModel());
+        Func<Task> act = () => neris.PostIncident("  ", new IncidentModelPayload());
 
         await act.Should().ThrowExactlyAsync<ArgumentException>();
     }
@@ -182,7 +182,7 @@ public class IncidentMethodsTests
     public async Task PutIncident_StripsServerManagedFieldsFromBody()
     {
         var (fixture, neris) = CreateLoggedIn("{}");
-        var incident = new IncidentModel
+        var incident = new IncidentModelPayload
         {
             Neris_Id = "INC1",
             Submitter_Account_Type = SubmitterAccountTypes.CAD,
@@ -207,7 +207,7 @@ public class IncidentMethodsTests
         var fixture = new NerisBaseFixture();
         NerisBase neris = fixture.CreateNerisBase();
 
-        await ((Func<Task>)(() => neris.PutIncident("  ", new IncidentModel())))
+        await ((Func<Task>)(() => neris.PutIncident("  ", new IncidentModelPayload())))
             .Should().ThrowAsync<ArgumentNullException>();
         await ((Func<Task>)(() => neris.PutIncident("ENT1", null!)))
             .Should().ThrowAsync<ArgumentNullException>();
