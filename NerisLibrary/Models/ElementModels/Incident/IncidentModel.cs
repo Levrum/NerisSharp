@@ -27,8 +27,9 @@ namespace NerisLibrary.Models.ElementModels.Incident
             this.Tactic_Timestamps = toCopy.Tactic_Timestamps;
             this.Unit_Responses = toCopy.Unit_Responses;
             this.Aids = toCopy.Aids;
-            this.Smoke_Alarm = toCopy.Smoke_Alarm;
             this.Fire_Detail = toCopy.Fire_Detail;
+            this.Smoke_Alarm = toCopy.Smoke_Alarm;
+            this.Fire_Alarm = toCopy.Fire_Alarm;
         }
         public string Neris_Id { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]
@@ -43,15 +44,20 @@ namespace NerisLibrary.Models.ElementModels.Incident
         public TacticsTimestamps Tactic_Timestamps { get; set; }
         public List<UnitResponse> Unit_Responses { get; set; }
         public List<IncidentAid> Aids { get; set; }
+        /// <summary>
+        /// Fire Module only possible if at least one FIRE incident type is present.
+        /// </summary>
+        public FireDetail Fire_Detail { get; set; }
 
         /// <summary>
         /// Required for structure fire types
         /// </summary>
         public SmokeAlarm Smoke_Alarm { get; set; }
+
         /// <summary>
-        /// Fire Module only possible if at least one FIRE incident type is present.
+        /// Required for structure fire types.
         /// </summary>
-        public FireDetail Fire_Detail { get; set; }
+        public FireAlarm Fire_Alarm { get; set; }
 
     }
     public class IncidentModel : IncidentModelBase
