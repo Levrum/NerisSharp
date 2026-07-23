@@ -31,6 +31,7 @@ namespace NerisLibrary.Models.ElementModels.Incident
             this.Smoke_Alarm = toCopy.Smoke_Alarm;
             this.Fire_Alarm = toCopy.Fire_Alarm;
             this.Other_Alarm = toCopy.Other_Alarm;
+            this.Fire_Suppression = toCopy.Fire_Suppression;
         }
         public string Neris_Id { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]
@@ -65,6 +66,11 @@ namespace NerisLibrary.Models.ElementModels.Incident
         /// Required for structure fire types
         /// </summary>
         public OtherAlarm Other_Alarm { get; set; }
+
+        /// <summary>
+        /// Required for structure fire types
+        /// </summary>
+        public FireSuppression Fire_Suppression { get; set; }
 
     }
     public class IncidentModel : IncidentModelBase
