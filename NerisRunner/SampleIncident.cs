@@ -106,7 +106,7 @@ namespace NerisRunner
         {
             FireDetail fd = new FireDetail();
             fd.Water_Supply = WaterSupplyEnum.TANK_WATER;
-            fd.Suppresion_Appliances = new List<SuppresionAppliancesEnum>() { SuppresionAppliancesEnum.MEDIUM_DIAMETER_FIRE_HOSE, SuppresionAppliancesEnum.SMALL_DIAMETER_FIRE_HOSE };
+            fd.Suppresion_Appliances = new List<SuppressionAppliancesEnum>() { SuppressionAppliancesEnum.MEDIUM_DIAMETER_FIRE_HOSE, SuppressionAppliancesEnum.SMALL_DIAMETER_FIRE_HOSE };
             fd.Investigation_Needed = InvestigationNeededEnum.NO;
             fd.Investigation_Types = new List<InvestigationTypeEnum>() { InvestigationTypeEnum.INVESTIGATED_ON_SCENE_RESOURCE };
             LocationDetail locationDetail = new LocationDetail()

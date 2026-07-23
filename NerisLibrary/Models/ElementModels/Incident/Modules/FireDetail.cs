@@ -12,7 +12,7 @@ namespace NerisLibrary.Models.ElementModels.Incident.Modules
         public WaterSupplyEnum Water_Supply { get; set; }
         public InvestigationNeededEnum Investigation_Needed { get; set; }
         public List<InvestigationTypeEnum> Investigation_Types { get; set; }
-        public List<SuppresionAppliancesEnum> Suppresion_Appliances { get; set; }
+        public List<SuppressionAppliancesEnum> Suppresion_Appliances { get; set; }
     }
 
     public enum WaterSupplyEnum
@@ -50,7 +50,7 @@ namespace NerisLibrary.Models.ElementModels.Incident.Modules
         NONE,
     }
 
-    public enum SuppresionAppliancesEnum
+    public enum SuppressionAppliancesEnum
     {
         AIRATTACK_HELITACK,
         BOOSTER_FIRE_HOSE,
