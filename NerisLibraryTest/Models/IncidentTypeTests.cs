@@ -52,7 +52,8 @@ namespace NerisLibraryTest.Models
         [Fact]
         public void IncidentType_Type3WithNoType2_ThrowsArgumentNullException()
         {
-            Func<IncidentType> act = () => { 
+            Func<IncidentType> act = () =>
+            {
                 IncidentType incidentType = new IncidentType(IncidentTypeEnum.FIRE, null, IncidentTypeEnum.STRUCTURAL_INVOLVEMENT_FIRE);
                 return incidentType;
             };

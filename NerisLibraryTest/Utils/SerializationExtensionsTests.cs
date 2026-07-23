@@ -1,9 +1,9 @@
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Nodes;
 using FluentAssertions;
 using NerisLibrary.Models.ElementModels.Incident;
 using NerisLibrary.Utils;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace NerisLibraryTest.Utils;
 
@@ -19,7 +19,7 @@ public class SerializationExtensionsTests
     private class SampleEnumClass
     {
         public AidTypeEnum Aid_Type { get; set; }
-        public List<AidTypeEnum> Aid_Type_List { get; set; } 
+        public List<AidTypeEnum> Aid_Type_List { get; set; }
     }
 
     [Fact]
