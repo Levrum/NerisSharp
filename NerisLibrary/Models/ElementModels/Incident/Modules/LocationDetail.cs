@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Json.Serialization;
+﻿using System.Collections.Generic;
 
 
 namespace NerisLibrary.Models.ElementModels.Incident.Modules
 {
     public class LocationDetail
     {
-        public FireLocationTypeEnum Type { get; set; }
+        public LocationDetailType Type { get; set; }
 
         /// <summary>
         /// Structure Fire Type Only
@@ -94,7 +91,7 @@ namespace NerisLibrary.Models.ElementModels.Incident.Modules
 
     }
 
-    public enum FireLocationTypeEnum
+    public enum LocationDetailType
     {
         STRUCTURE,
         OUTSIDE
