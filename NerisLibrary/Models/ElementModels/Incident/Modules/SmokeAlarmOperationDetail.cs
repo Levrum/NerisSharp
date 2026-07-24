@@ -12,12 +12,12 @@ namespace NerisLibrary.Models.ElementModels.Incident.Modules
         public SmokeAlarmOperationDetailTypeEnum Type { get; set; }
 
         /// <summary>
-        /// Alerted Type Only
+        /// OPERATED_ALERTED_OCCUPANT Type Only
         /// </summary>
         public OccupantActionEnum? Occupant_Action { get; set; }
 
         /// <summary>
-        /// Failed Type Only
+        /// FAILED_TO_OPERATE Type Only
         /// </summary>
         public FailureReasonEnum? Failure_Reason { get; set; }
     }
