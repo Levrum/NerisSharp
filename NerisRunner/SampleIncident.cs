@@ -38,7 +38,7 @@ namespace NerisRunner
                 Street_Postfix = "STREET",
                 Additional_Info = "SAMPLE INCIDENT DID NOT OCCUR"
             };
-            Console.WriteLine(locationModel.GetStreetAddress());
+            //Console.WriteLine(locationModel.GetStreetAddress());
 
             IncidentBase modelBase = new IncidentBase()
             {
@@ -111,7 +111,7 @@ namespace NerisRunner
             fd.Investigation_Types = new List<InvestigationTypeEnum>() { InvestigationTypeEnum.INVESTIGATED_ON_SCENE_RESOURCE };
             LocationDetail locationDetail = new LocationDetail()
             {
-                Type = FireLocationTypeEnum.STRUCTURE,
+                Type = LocationDetailType.STRUCTURE,
                 Progression_Evident = false,
                 Floor_Of_Origin = 1,
                 Arrival_Condition = ArrivalConditionEnum.SMOKE_SHOWING,

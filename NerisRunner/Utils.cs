@@ -32,5 +32,12 @@ namespace NerisRunner
             string retVal = JsonSerializer.Serialize(obj, PrettyPrintLowerCase);
             return retVal;
         }
+
+        public static int GetEnumValueCount<T>()
+        {
+            Type t = typeof(T);
+            if (!t.IsEnum) throw new ArgumentException("Must be enum type");
+            return Enum.GetNames(t).Length;
+        }
     }
 }
