@@ -149,6 +149,50 @@ namespace NerisLibrary
             }
         }
 
+        /// <summary>
+        /// Creates a new incident for the specified entity and returns the unique identifier of the created incident.
+        /// </summary>
+        /// <param name="baseEntity">The entity to which the incident will be associated. Cannot be null.</param>
+        /// <param name="newIncident">An object containing the details of the incident to create. Cannot be null.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the unique identifier of the
+        /// newly created incident as a string.</returns>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="baseEntity"/> is null or if its id is empty, or consists only of white-space characters.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="newIncident"/> is null.</exception>
+        public async Task<bool> ValidateIncident(EntityModel baseEntity, IncidentModelPayload newIncident)
+        {
+            if (baseEntity == null) throw new ArgumentNullException(nameof(baseEntity));
+            return await ValidateIncident(baseEntity.Neris_Id, newIncident);
+        }
+
+        /// <summary>
+        /// Creates a new incident for the specified entity and returns the unique identifier of the created incident.
+        /// </summary>
+        /// <param name="baseEntityId">The unique identifier of the entity to which the incident will be associated. Cannot be null, empty, or
+        /// consist only of white-space characters.</param>
+        /// <param name="newIncident">An object containing the details of the incident to create. Cannot be null.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the unique identifier of the
+        /// newly created incident as a string.</returns>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="baseEntityId"/> is null, empty, or consists only of white-space characters.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="newIncident"/> is null.</exception>
+        public async Task<bool> ValidateIncident(string baseEntityId, IncidentModelPayload newIncident)
+        {
+            CheckWriteAllowed();
+            if (string.IsNullOrWhiteSpace(baseEntityId)) throw new ArgumentException("Entity Id must not be null or whitespace");
+            if (newIncident == null) throw new ArgumentNullException(nameof(newIncident));
+            string endpoint = GetIncidentRoute(baseEntityId);
+            endpoint = UriUtils.AppendPath(endpoint, "validate");
+
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, endpoint))
+            {
+                string jsonContent = SerializationExtensions.SerializeLowerCase(newIncident);
+                request.Content = CreateJsonContent(jsonContent);
+
+                HttpResponseMessage response = await _call(request);
+
+                return response.IsSuccessStatusCode;
+            }
+        }
+
 
         /// <summary>
         /// Updates an existing incident for the specified entity using the provided incident data.
