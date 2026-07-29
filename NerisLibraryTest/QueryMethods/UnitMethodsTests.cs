@@ -1,9 +1,9 @@
-using System.Net;
-using System.Text.Json;
 using FluentAssertions;
 using NerisLibrary;
 using NerisLibrary.Models.ElementModels;
 using NerisLibraryTest.TestHelpers;
+using System.Net;
+using System.Text.Json;
 
 namespace NerisLibraryTest.QueryMethods;
 

@@ -24,7 +24,7 @@ namespace NerisLibrary.Models.ElementModels.Incident
         public int? Displacement_Count { get; set; }
         public string Department_Neris_Id { get; set; }
         public string Incident_Number { get; set; }
-        public List<string> Displacement_Causes { get; set; } //ENUM
+        public List<DisplacementCausesEnum> Displacement_Causes { get; set; }
         public LocationModel Location { get; set; }
         //location use
         public JsonNode Point { get; set; }
@@ -85,6 +85,17 @@ namespace NerisLibrary.Models.ElementModels.Incident
     {
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+    }
+
+    public enum DisplacementCausesEnum
+    {
+        COLLAPSE,
+        FIRE,
+        HAZARDOUS_SITUATION,
+        OTHER,
+        SMOKE,
+        UTILITIES,
+        WATER,
     }
 
 }

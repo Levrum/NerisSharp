@@ -1,4 +1,5 @@
 ﻿using NerisLibrary.Models.ElementModels.Incident;
+using NerisLibrary.Models.ElementModels.Incident.Modules;
 using NerisLibrary.Models.ElementModels.Incident.PatchObjects;
 using NerisLibrary.Utils;
 using System;
@@ -9,13 +10,22 @@ namespace NerisRunner
 {
     internal static class SampleIncidentFactory
     {
-        public static IncidentModel CreateSampleIncident()
+        private static string CreateIncidentNumber() 
         {
-            IncidentType iType = new IncidentType(IncidentTypeEnum.MEDICAL,
-                IncidentTypeEnum.INJURY, IncidentTypeEnum.FALL)
-            {
-                Primary = true
-            };
+            var now = DateTime.Now;
+            string number = String.Format("{0}{1}{2}-{3}", now.Month, now.Day, now.Hour, now.Millisecond);
+            return number;
+        }
+        public static IncidentModelPayload CreateSampleIncident(IncidentType incidentType)
+        {
+            //IncidentType iType = new IncidentType(IncidentTypeEnum.MEDICAL,
+            //    IncidentTypeEnum.INJURY, IncidentTypeEnum.FALL)
+            //{
+            //    Primary = true
+            //};
+            incidentType.Primary = true;
+
+            string incidentNumber = CreateIncidentNumber();
 
             LocationModel locationModel = new LocationModel()
             {
@@ -28,7 +38,7 @@ namespace NerisRunner
                 Street_Postfix = "STREET",
                 Additional_Info = "SAMPLE INCIDENT DID NOT OCCUR"
             };
-            Console.WriteLine(locationModel.GetStreetAddress());
+            //Console.WriteLine(locationModel.GetStreetAddress());
 
             IncidentBase modelBase = new IncidentBase()
             {
@@ -36,13 +46,13 @@ namespace NerisRunner
                 Outcome_Narrative = "SAMPLE Subject taken to hospital by EMS unit with minor injuries",
                 Location = locationModel,
                 Department_Neris_Id = "FD39023168",
-                Incident_Number = "1234"
+                Incident_Number = incidentNumber
             };
 
             DispatchModel dispatch = new DispatchModel()
             {
                 Center_Id = "1122",
-                Incident_Number = "1234",
+                Incident_Number = incidentNumber,
                 Automatic_Alarm = false,
                 Call_Arrival = DateTimeOffset.UtcNow.AddMinutes(-10),
                 Call_Answered = DateTimeOffset.UtcNow.AddMinutes(-9),
@@ -53,9 +63,9 @@ namespace NerisRunner
 
 
 
-            IncidentModel model = new IncidentModel()
+            IncidentModelPayload model = new IncidentModelPayload()
             {
-                Incident_Types = new List<IncidentType>() { iType },
+                Incident_Types = new List<IncidentType>() { incidentType },
                 Base = modelBase,
                 Dispatch = dispatch,
             };
@@ -90,6 +100,38 @@ namespace NerisRunner
             };
             unitResponse.Med_Responses = new List<MedReponse> { medResonse };
             return unitResponse;
+        }
+
+        public static FireDetail CreateFireDetail()
+        {
+            FireDetail fd = new FireDetail();
+            fd.Water_Supply = WaterSupplyEnum.TANK_WATER;
+            fd.Suppresion_Appliances = new List<SuppressionAppliancesEnum>() { SuppressionAppliancesEnum.MEDIUM_DIAMETER_FIRE_HOSE, SuppressionAppliancesEnum.SMALL_DIAMETER_FIRE_HOSE };
+            fd.Investigation_Needed = InvestigationNeededEnum.NO;
+            fd.Investigation_Types = new List<InvestigationTypeEnum>() { InvestigationTypeEnum.INVESTIGATED_ON_SCENE_RESOURCE };
+            LocationDetail locationDetail = new LocationDetail()
+            {
+                Type = LocationDetailType.STRUCTURE,
+                Progression_Evident = false,
+                Floor_Of_Origin = 1,
+                Arrival_Condition = ArrivalConditionEnum.SMOKE_SHOWING,
+                Room_Of_Origin_Type = RoomOfOriginTypeEnum.KITCHEN,
+                Cause = CauseEnum.COOKING,
+                Damage_Type = DamageTypeEnum.MINOR_DAMAGE
+            };
+            fd.Location_Detail = locationDetail;
+            return fd;
+        }
+
+        public static IncidentAid CreateAid()
+        {
+            IncidentAid aid = new IncidentAid()
+            {
+                Aid_Direction = AidDirectionEnum.RECEIVED,
+                Aid_Type = AidTypeEnum.SUPPORT_AID,
+                Department_Neris_Id = "FD24027214"
+            };
+            return aid;
         }
 
         public static IncidentPatchPayload CreateSamplePatch(string incidentId, int incidentBaseNerisUid)

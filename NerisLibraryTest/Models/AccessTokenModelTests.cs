@@ -1,7 +1,7 @@
-using System.Text;
 using FluentAssertions;
 using NerisLibrary.Models.ElementModels;
 using NerisLibrary.Utils;
+using System.Text;
 
 namespace NerisLibraryTest.Models;
 

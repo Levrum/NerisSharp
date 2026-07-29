@@ -1,4 +1,3 @@
-using System.Text.Json;
 using FluentAssertions;
 using Microsoft.AspNetCore.WebUtilities;
 using NerisLibrary;
@@ -6,6 +5,7 @@ using NerisLibrary.Exceptions;
 using NerisLibrary.Models.ElementModels;
 using NerisLibrary.Models.RequestModels;
 using NerisLibraryTest.TestHelpers;
+using System.Text.Json;
 
 namespace NerisLibraryTest.QueryMethods;
 

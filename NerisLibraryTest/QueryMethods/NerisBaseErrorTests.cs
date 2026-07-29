@@ -1,9 +1,9 @@
-using System.Net;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NerisLibrary;
 using NerisLibraryTest.TestHelpers;
+using System.Net;
 
 namespace NerisLibraryTest.QueryMethods;
 

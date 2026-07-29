@@ -11,8 +11,8 @@ public class WriteProtectionTests
 {
     public static IEnumerable<object[]> WriteActions()
     {
-        yield return Case("PostIncident", n => n.PostIncident("ENT1", new IncidentModel()));
-        yield return Case("PutIncident", n => n.PutIncident("ENT1", new IncidentModel { Neris_Id = "INC1" }));
+        yield return Case("PostIncident", n => n.PostIncident("ENT1", new IncidentModelPayload()));
+        yield return Case("PutIncident", n => n.PutIncident("ENT1", new IncidentModelPayload { Neris_Id = "INC1" }));
         yield return Case("PatchEntity", n => n.PatchEntity(new EntityModel { Neris_Id = "ENT1" }));
         yield return Case("PostStation", n => n.PostStation("ENT1", new StationModel()));
         yield return Case("PatchStation", n => n.PatchStation("ENT1", new StationModel { Neris_Id = "ST1" }));

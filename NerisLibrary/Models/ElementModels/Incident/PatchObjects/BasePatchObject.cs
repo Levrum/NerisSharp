@@ -11,7 +11,6 @@ namespace NerisLibrary.Models.ElementModels.Incident.PatchObjects
     [JsonDerivedType(typeof(UnsetObject))]
     public abstract class BasePatchObject
     {
-        [JsonConverter(typeof(JsonStringEnumConverter))]
         public ActionTypes Action { get; internal set; }
     }
 

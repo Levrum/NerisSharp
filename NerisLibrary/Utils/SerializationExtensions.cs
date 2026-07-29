@@ -12,46 +12,37 @@ namespace NerisLibrary.Utils
 {
     internal static class SerializationExtensions
     {
-        static JsonSerializerOptions PropertyCaseInsensitive = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
-        static JsonSerializerOptions LowerCaseNamingPolicy = new JsonSerializerOptions()
+        static JsonSerializerOptions PropertyCaseInsensitive = new JsonSerializerOptions() //reading policy
         {
-            PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumConverter() }
         };
-
-        static JsonSerializerOptions PrettyPrintLowerCase = new JsonSerializerOptions()
+        static JsonSerializerOptions LowerCaseNamingPolicy = new JsonSerializerOptions() //Writing policy
         {
             PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            WriteIndented = true
+            Converters = { new JsonStringEnumConverter() }
         };
+
+        //used for deserializing responses
         public static async Task<T> DeserializeCaseInsensitive<T>(this HttpContent response)
         {
             return await response.ReadFromJsonAsync<T>(PropertyCaseInsensitive);
         }
 
+        //used for serializing payloads
         public static string SerializeLowerCase<T>(T value)
         {
             string result = JsonSerializer.Serialize(value, LowerCaseNamingPolicy);
             return result;
         }
 
-        public static JsonNode SerializeToNodeLowerCase<T>(T value)
-        {
-            JsonNode result = JsonSerializer.SerializeToNode(value, LowerCaseNamingPolicy);
-            return result;
-        }
-
+        //used for serializing updates that need to be edited after serialization (removing ids, nulling fields in json).
         public static JsonObject SerializeToJsonObjectLowerCase<T>(T value)
         {
             JsonNode result = JsonSerializer.SerializeToNode(value, LowerCaseNamingPolicy);
             return result.AsObject();
         }
 
-        public static string SerialiazeLowerCasePrettyPrint<T>(T value)
-        {
-            string result = JsonSerializer.Serialize(value, PrettyPrintLowerCase);
-            return result;
-        }
     }
 }
