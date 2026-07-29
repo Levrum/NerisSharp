@@ -40,6 +40,14 @@ namespace NerisRunner.RandomModules
             }
         }
 
+        public static T GetRandomEnum<T>() where T : Enum
+        {
+            Random rng = new Random();
+            int numberOfEnumValues = Utils.GetEnumValueCount<T>();
+            int enumValue = rng.Next(numberOfEnumValues);
+            return (T)Enum.ToObject(typeof(T), enumValue);
+        }
+
         public static bool TryGetRandomEnumOrNull<T>(out T result, bool excludeNull = false) where T : Enum
         {
             Random rng = new Random();
@@ -57,6 +65,20 @@ namespace NerisRunner.RandomModules
                 
                 result = (T)Enum.ToObject(t, rng.Next(numberOfEnumValues));
                 return true;
+            }
+        }
+
+        public static string GetRandomGuidStringOrNull()
+        {
+            Random rng = new Random();
+            int result = rng.Next(10);
+            if (result < 9)
+            {
+                return Guid.NewGuid().ToString();
+            }
+            else
+            {
+                return null;
             }
         }
     }

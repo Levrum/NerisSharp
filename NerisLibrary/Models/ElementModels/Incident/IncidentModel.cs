@@ -32,6 +32,9 @@ namespace NerisLibrary.Models.ElementModels.Incident
             this.Fire_Alarm = toCopy.Fire_Alarm;
             this.Other_Alarm = toCopy.Other_Alarm;
             this.Fire_Suppression = toCopy.Fire_Suppression;
+            this.Cooking_Fire_Suppression = toCopy.Cooking_Fire_Suppression;
+            this.Medical_Details = toCopy.Medical_Details;
+
         }
         public string Neris_Id { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]
@@ -71,6 +74,16 @@ namespace NerisLibrary.Models.ElementModels.Incident
         /// Required for structure fire types
         /// </summary>
         public FireSuppression Fire_Suppression { get; set; }
+
+        /// <summary>
+        /// Required for Confined Cooking Appliance Fire types
+        /// </summary>
+        public CookingFireSuppression Cooking_Fire_Suppression { get; set; }
+
+        /// <summary>
+        /// Requires a Medical Incident type
+        /// </summary>
+        public List<MedicalDetail> Medical_Details { get; set; }
 
     }
     public class IncidentModel : IncidentModelBase
