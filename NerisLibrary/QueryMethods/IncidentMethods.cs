@@ -176,7 +176,6 @@ namespace NerisLibrary
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="newIncident"/> is null.</exception>
         public async Task<bool> ValidateIncident(string baseEntityId, IncidentModelPayload newIncident)
         {
-            CheckWriteAllowed();
             if (string.IsNullOrWhiteSpace(baseEntityId)) throw new ArgumentException("Entity Id must not be null or whitespace");
             if (newIncident == null) throw new ArgumentNullException(nameof(newIncident));
             string endpoint = GetIncidentRoute(baseEntityId);
