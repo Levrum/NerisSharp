@@ -1,9 +1,6 @@
 ﻿using FluentAssertions;
 using NerisSharp.Models.ElementModels.Incident;
 using NerisSharp.Utils;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace NerisSharpTest.Utils
 {

@@ -1,7 +1,5 @@
 using FluentAssertions;
 using NerisSharp.Models.ElementModels;
-using NerisSharp.Utils;
-using System.Text;
 
 namespace NerisSharpTest.Models;
 

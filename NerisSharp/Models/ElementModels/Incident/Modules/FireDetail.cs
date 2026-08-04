@@ -1,8 +1,4 @@
-﻿using NerisSharp.Utils;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Json.Serialization;
+﻿using System.Collections.Generic;
 
 namespace NerisSharp.Models.ElementModels.Incident.Modules
 {

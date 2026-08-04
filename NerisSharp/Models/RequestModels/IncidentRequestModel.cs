@@ -3,10 +3,7 @@ using NerisSharp.Models.ElementModels.Incident;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
-using System.Text;
 
 namespace NerisSharp.Models.RequestModels
 {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NerisSharp.Utils
+﻿namespace NerisSharp.Utils
 {
     internal class UriUtils
     {

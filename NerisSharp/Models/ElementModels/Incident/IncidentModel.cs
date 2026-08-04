@@ -3,7 +3,6 @@ using NerisSharp.Models.ElementModels.Incident.PatchObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
 
 namespace NerisSharp.Models.ElementModels.Incident

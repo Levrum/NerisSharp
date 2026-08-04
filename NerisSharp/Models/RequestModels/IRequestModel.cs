@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NerisSharp.Models.RequestModels
+﻿namespace NerisSharp.Models.RequestModels
 {
     public interface IRequestModel
     {

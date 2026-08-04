@@ -1,9 +1,5 @@
 ﻿using FluentAssertions;
 using NerisSharp.Models.ElementModels.Incident;
-using System;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 
 namespace NerisSharpTest.Models
 {

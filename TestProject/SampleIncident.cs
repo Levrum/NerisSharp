@@ -1,10 +1,8 @@
 ﻿using NerisSharp.Models.ElementModels.Incident;
 using NerisSharp.Models.ElementModels.Incident.Modules;
 using NerisSharp.Models.ElementModels.Incident.PatchObjects;
-using NerisSharp.Utils;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace TestProject
 {

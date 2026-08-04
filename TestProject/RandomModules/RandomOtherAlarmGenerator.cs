@@ -1,7 +1,4 @@
 ﻿using NerisSharp.Models.ElementModels.Incident.Modules;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TestProject.RandomModules
 {
