@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NerisLibrary\NerisSharp.csproj" />
+    <ProjectReference Include="..\NerisSharp\NerisSharp.csproj" />
   </ItemGroup>
 
   <ItemGroup>
