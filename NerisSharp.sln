@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.37012.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerisLibrary", "NerisLibrary\NerisLibrary.csproj", "{207177C1-F71B-4FA1-907D-CEC5960D83E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerisSharp", "NerisLibrary\NerisSharp.csproj", "{207177C1-F71B-4FA1-907D-CEC5960D83E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerisRunner", "NerisRunner\NerisRunner.csproj", "{C462D51D-29DC-4D91-BB11-CCEF17FD6872}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "NerisRunner\TestProject.csproj", "{C462D51D-29DC-4D91-BB11-CCEF17FD6872}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerisLibraryTest", "NerisLibraryTest\NerisLibraryTest.csproj", "{074E05C0-35CE-4E18-9B56-E4FA6B4C6EAD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerisSharpTest", "NerisLibraryTest\NerisSharpTest.csproj", "{074E05C0-35CE-4E18-9B56-E4FA6B4C6EAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
