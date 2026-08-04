@@ -1,4 +1,4 @@
-namespace NerisLibraryTest.TestHelpers;
+namespace NerisSharpTest.TestHelpers;
 
 /// <summary>
 /// Snapshot of one outgoing request, captured before the library disposes the HttpRequestMessage.

@@ -1,19 +1,19 @@
-﻿using NerisLibrary.Models.ElementModels.Incident;
-using NerisLibrary.Models.ElementModels.Incident.Modules;
-using NerisLibrary.Models.ElementModels.Incident.PatchObjects;
-using NerisLibrary.Utils;
+﻿using NerisSharp.Utils;
+using NerisSharp.Models.ElementModels.Incident;
+using NerisSharp.Models.ElementModels.Incident.Modules;
+using NerisSharp.Models.ElementModels.Incident.PatchObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NerisRunner
+namespace TestProject
 {
     internal static class SampleIncidentFactory
     {
         private static string CreateIncidentNumber() 
         {
             var now = DateTime.Now;
-            string number = String.Format("{0}{1}{2}-{3}", now.Month, now.Day, now.Hour, now.Millisecond);
+            string number = string.Format("{0}{1}{2}-{3}", now.Month, now.Day, now.Hour, now.Millisecond);
             return number;
         }
         public static IncidentModelPayload CreateSampleIncident(IncidentType incidentType)

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NerisLibrary.Models.RequestModels
+namespace NerisSharp.Models.RequestModels
 {
     public interface IRequestModel
     {

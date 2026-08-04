@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NerisLibrary.Models.ElementModels
+namespace NerisSharp.Models.ElementModels
 {
     public abstract class NerisPageSet
     {

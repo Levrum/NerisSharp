@@ -1,11 +1,11 @@
-﻿using NerisLibrary.Models.ElementModels.Incident.Modules;
+﻿using NerisSharp.Models.ElementModels.Incident.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NerisRunner.RandomModules
+namespace TestProject.RandomModules
 {
     internal static class RandomMedicalDetailGenerator
     {
@@ -13,12 +13,12 @@ namespace NerisRunner.RandomModules
         {
             MedicalDetail medDetail = new MedicalDetail();
             medDetail.Patient_Care_Evaluation = RandomModulesUtils.GetRandomEnum<PatientCareEvaluationEnum>();
-            if (RandomModulesUtils.TryGetRandomEnumOrNull<PatientStatusEnum>(out PatientStatusEnum status))
+            if (RandomModulesUtils.TryGetRandomEnumOrNull(out PatientStatusEnum status))
             {
                 medDetail.Patient_Status = status;
             }
 
-            if (RandomModulesUtils.TryGetRandomEnumOrNull<TransportDispositionEnum>(out TransportDispositionEnum td))
+            if (RandomModulesUtils.TryGetRandomEnumOrNull(out TransportDispositionEnum td))
             {
                 medDetail.Transport_Disposition = td;
             }

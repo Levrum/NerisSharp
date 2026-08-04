@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace NerisLibrary.Models.RequestModels
+namespace NerisSharp.Models.RequestModels
 {
     public class EntityRequestModel : IRequestModel
     {

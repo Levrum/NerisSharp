@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
 
-namespace NerisLibrary.Models.ElementModels.Incident
+namespace NerisSharp.Models.ElementModels.Incident
 {
     /// <summary>
     /// Models a Unit's response to an incident including Ids and timestamps of events.

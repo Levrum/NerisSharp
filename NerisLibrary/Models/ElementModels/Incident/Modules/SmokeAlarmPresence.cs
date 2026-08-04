@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace NerisLibrary.Models.ElementModels.Incident.Modules
+namespace NerisSharp.Models.ElementModels.Incident.Modules
 {
     public class SmokeAlarmPresence
     {

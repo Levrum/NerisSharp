@@ -1,10 +1,11 @@
-﻿using NerisLibrary.Models.ElementModels.Incident.Modules;
+﻿using NerisSharp.Models.ElementModels.Incident.Modules;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using TestProject;
 
-namespace NerisRunner.RandomModules
+namespace TestProject.RandomModules
 {
     internal static class RandomModulesUtils
     {
@@ -52,7 +53,7 @@ namespace NerisRunner.RandomModules
         {
             Random rng = new Random();
             Type t = typeof(T);
-            result = default(T);
+            result = default;
             int numberOfEnumValues = Utils.GetEnumValueCount<T>();
             int toAdd = (excludeNull) ? 0 : 1;
             int enumVaue = rng.Next(numberOfEnumValues + toAdd);

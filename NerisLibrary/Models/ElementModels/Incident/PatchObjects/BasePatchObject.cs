@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
 
-namespace NerisLibrary.Models.ElementModels.Incident.PatchObjects
+namespace NerisSharp.Models.ElementModels.Incident.PatchObjects
 {
     [JsonPolymorphic]
     [JsonDerivedType(typeof(PatchObject))]

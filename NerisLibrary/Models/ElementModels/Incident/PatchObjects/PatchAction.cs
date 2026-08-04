@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
 
-namespace NerisLibrary.Models.ElementModels.Incident.PatchObjects
+namespace NerisSharp.Models.ElementModels.Incident.PatchObjects
 {
     public class PatchAction<T>
     {
@@ -21,7 +21,7 @@ namespace NerisLibrary.Models.ElementModels.Incident.PatchObjects
             {
                 if (Action == ActionTypes.unset)
                 {
-                    return default(T);
+                    return default;
                 }
                 return _value;
             }
@@ -37,7 +37,7 @@ namespace NerisLibrary.Models.ElementModels.Incident.PatchObjects
 
         public static PatchAction<T> CreateUnsetAction()
         {
-            return new PatchAction<T>(default(T), ActionTypes.unset);
+            return new PatchAction<T>(default, ActionTypes.unset);
         }
     }
 

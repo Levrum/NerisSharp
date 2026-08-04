@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
 
-namespace NerisLibrary.Models.ElementModels.Incident
+namespace NerisSharp.Models.ElementModels.Incident
 {
     /// <summary>
     /// Supplemental class for Medical Response modeling timestamps for medical transport events.

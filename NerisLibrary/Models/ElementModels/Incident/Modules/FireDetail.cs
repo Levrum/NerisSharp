@@ -1,10 +1,10 @@
-﻿using NerisLibrary.Utils;
+﻿using NerisSharp.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
 
-namespace NerisLibrary.Models.ElementModels.Incident.Modules
+namespace NerisSharp.Models.ElementModels.Incident.Modules
 {
     public class FireDetail
     {

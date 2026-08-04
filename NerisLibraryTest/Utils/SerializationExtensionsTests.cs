@@ -1,11 +1,11 @@
 using FluentAssertions;
-using NerisLibrary.Models.ElementModels.Incident;
-using NerisLibrary.Utils;
+using NerisSharp.Utils;
+using NerisSharp.Models.ElementModels.Incident;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
-namespace NerisLibraryTest.Utils;
+namespace NerisSharpTest.Utils;
 
 public class SerializationExtensionsTests
 {

@@ -1,14 +1,14 @@
 using FluentAssertions;
 using Microsoft.AspNetCore.WebUtilities;
-using NerisLibrary;
-using NerisLibrary.Exceptions;
-using NerisLibrary.Models.ElementModels;
-using NerisLibrary.Models.ElementModels.Incident;
-using NerisLibrary.Models.RequestModels;
-using NerisLibraryTest.TestHelpers;
+using NerisSharp;
+using NerisSharp.Models.ElementModels.Incident;
+using NerisSharp.Models.RequestModels;
+using NerisSharp.Exceptions;
+using NerisSharp.Models.ElementModels;
+using NerisSharpTest.TestHelpers;
 using System.Text.Json;
 
-namespace NerisLibraryTest.QueryMethods;
+namespace NerisSharpTest.QueryMethods;
 
 public class IncidentMethodsTests
 {

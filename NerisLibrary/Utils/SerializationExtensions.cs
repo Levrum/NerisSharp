@@ -8,7 +8,7 @@ using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace NerisLibrary.Utils
+namespace NerisSharp.Utils
 {
     internal static class SerializationExtensions
     {

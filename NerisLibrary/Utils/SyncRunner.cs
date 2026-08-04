@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NerisLibrary.Utils
+namespace NerisSharp.Utils
 {
     public static class SyncRunner
     {

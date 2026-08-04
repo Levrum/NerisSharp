@@ -1,8 +1,8 @@
 using FluentAssertions;
-using NerisLibrary;
-using NerisLibrary.Models.ElementModels;
+using NerisSharp;
+using NerisSharp.Models.ElementModels;
 
-namespace NerisLibraryTest.TestHelpers;
+namespace NerisSharpTest.TestHelpers;
 
 public class FixtureSmokeTests
 {

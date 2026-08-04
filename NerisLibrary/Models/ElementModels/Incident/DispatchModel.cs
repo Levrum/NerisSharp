@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
 
-namespace NerisLibrary.Models.ElementModels.Incident
+namespace NerisSharp.Models.ElementModels.Incident
 {
     /// <summary>
     /// Contains info regarding the call when dispatched. Includes Dispatch center, original code, internal id, DateTimes for when call was processed by dispatch.

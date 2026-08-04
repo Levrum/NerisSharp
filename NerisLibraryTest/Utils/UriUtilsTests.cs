@@ -1,7 +1,7 @@
 using FluentAssertions;
-using NerisLibrary.Utils;
+using NerisSharp.Utils;
 
-namespace NerisLibraryTest.Utils;
+namespace NerisSharpTest.Utils;
 
 public class UriUtilsTests
 {

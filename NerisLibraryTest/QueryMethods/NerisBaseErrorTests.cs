@@ -1,11 +1,11 @@
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
-using NerisLibrary;
-using NerisLibraryTest.TestHelpers;
+using NerisSharp;
+using NerisSharpTest.TestHelpers;
 using System.Net;
 
-namespace NerisLibraryTest.QueryMethods;
+namespace NerisSharpTest.QueryMethods;
 
 public class NerisBaseErrorTests
 {

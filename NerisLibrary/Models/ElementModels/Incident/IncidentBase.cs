@@ -1,4 +1,4 @@
-﻿using NerisLibrary.Models.ElementModels.Incident.PatchObjects;
+﻿using NerisSharp.Models.ElementModels.Incident.PatchObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,7 +6,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
-namespace NerisLibrary.Models.ElementModels.Incident
+namespace NerisSharp.Models.ElementModels.Incident
 {
     /// <summary>
     /// Model for containing base information about the incident including Location and Narrative. Generally high level details.

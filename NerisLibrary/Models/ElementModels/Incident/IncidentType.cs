@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
 
-namespace NerisLibrary.Models.ElementModels.Incident
+namespace NerisSharp.Models.ElementModels.Incident
 {
     /// <summary>
     /// Represents a classification of an incident, including its type information and related metadata.
@@ -126,7 +126,7 @@ namespace NerisLibrary.Models.ElementModels.Incident
             string[] substrings = incidentTypeString.Split("||");
             foreach (string typeString in substrings)
             {
-                if (Enum.TryParse<IncidentTypeEnum>(typeString, out IncidentTypeEnum type))
+                if (Enum.TryParse(typeString, out IncidentTypeEnum type))
                 {
                     toReturn.Add(type);
                 }

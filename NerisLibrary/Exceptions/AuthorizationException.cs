@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NerisLibrary.Exceptions
+namespace NerisSharp.Exceptions
 {
     public class AuthorizationException : Exception
     {

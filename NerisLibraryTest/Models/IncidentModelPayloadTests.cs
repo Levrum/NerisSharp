@@ -1,9 +1,9 @@
 using FluentAssertions;
-using NerisLibrary.Models.ElementModels.Incident;
-using NerisLibrary.Models.ElementModels.Incident.Modules;
+using NerisSharp.Models.ElementModels.Incident;
+using NerisSharp.Models.ElementModels.Incident.Modules;
 using System.Reflection;
 
-namespace NerisLibraryTest.Models;
+namespace NerisSharpTest.Models;
 
 /// <summary>
 /// Covers IncidentModelPayload's copy constructor — the conversion every consumer runs

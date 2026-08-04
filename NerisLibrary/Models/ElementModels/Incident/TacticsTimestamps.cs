@@ -1,10 +1,10 @@
-﻿using NerisLibrary.Models.ElementModels.Incident.PatchObjects;
+﻿using NerisSharp.Models.ElementModels.Incident.PatchObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
 
-namespace NerisLibrary.Models.ElementModels.Incident
+namespace NerisSharp.Models.ElementModels.Incident
 {
     /// <summary>
     /// Contains DateTimeOffsets for timing events that occur during an incident.

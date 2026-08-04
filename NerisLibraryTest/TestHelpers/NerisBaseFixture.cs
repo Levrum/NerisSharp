@@ -1,9 +1,9 @@
 using Microsoft.Extensions.Logging;
 using Moq;
-using NerisLibrary;
-using NerisLibrary.Models;
+using NerisSharp;
+using NerisSharp.Models;
 
-namespace NerisLibraryTest.TestHelpers;
+namespace NerisSharpTest.TestHelpers;
 
 /// <summary>
 /// Builds a NerisBase wired to a FakeHttpMessageHandler with a Test-environment config.

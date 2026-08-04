@@ -1,11 +1,11 @@
 using FluentAssertions;
-using NerisLibrary;
-using NerisLibrary.Exceptions;
-using NerisLibrary.Models.ElementModels;
-using NerisLibrary.Models.ElementModels.Incident;
-using NerisLibraryTest.TestHelpers;
+using NerisSharp;
+using NerisSharp.Models.ElementModels;
+using NerisSharp.Models.ElementModels.Incident;
+using NerisSharpTest.TestHelpers;
+using NerisSharp.Exceptions;
 
-namespace NerisLibraryTest.QueryMethods;
+namespace NerisSharpTest.QueryMethods;
 
 public class WriteProtectionTests
 {

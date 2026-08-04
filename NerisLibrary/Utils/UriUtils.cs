@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NerisLibrary.Utils
+namespace NerisSharp.Utils
 {
     internal class UriUtils
     {

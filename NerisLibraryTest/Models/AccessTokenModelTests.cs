@@ -1,9 +1,9 @@
 using FluentAssertions;
-using NerisLibrary.Models.ElementModels;
-using NerisLibrary.Utils;
+using NerisSharp.Models.ElementModels;
+using NerisSharp.Utils;
 using System.Text;
 
-namespace NerisLibraryTest.Models;
+namespace NerisSharpTest.Models;
 
 public class AccessTokenModelTests
 {

@@ -1,7 +1,7 @@
-﻿using NerisLibrary.Exceptions;
-using NerisLibrary.Models.ElementModels;
-using NerisLibrary.Models.RequestModels;
-using NerisLibrary.Utils;
+﻿using NerisSharp.Exceptions;
+using NerisSharp.Models.ElementModels;
+using NerisSharp.Models.RequestModels;
+using NerisSharp.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
-namespace NerisLibrary //must use top level namespace for partial class to access all methods.
+namespace NerisSharp //must use top level namespace for partial class to access all methods.
 {
     public partial class NerisBase
     {

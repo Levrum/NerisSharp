@@ -1,4 +1,4 @@
-﻿using NerisLibrary.Models.ElementModels.Incident.Modules;
+﻿using NerisSharp.Models.ElementModels.Incident.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,9 +6,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NerisRunner.RandomModules
+namespace TestProject.RandomModules
 {
-    internal static class RandomFIreSuppressionGenerator
+    internal static class RandomFireSuppressionGenerator
     {
         public static FireSuppression Generate(bool forcePresent = false)
         {

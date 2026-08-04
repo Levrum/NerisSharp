@@ -1,12 +1,12 @@
-﻿using NerisLibrary.Models.ElementModels.Incident.Modules;
-using NerisLibrary.Models.ElementModels.Incident.PatchObjects;
+﻿using NerisSharp.Models.ElementModels.Incident.Modules;
+using NerisSharp.Models.ElementModels.Incident.PatchObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 
-namespace NerisLibrary.Models.ElementModels.Incident
+namespace NerisSharp.Models.ElementModels.Incident
 {
     /// <summary>
     /// Top level class for holding incident information. Mainly contains metadata, incident type, and objects for more specific information.

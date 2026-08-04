@@ -1,7 +1,7 @@
 using System.Net;
 using System.Text;
 
-namespace NerisLibraryTest.TestHelpers;
+namespace NerisSharpTest.TestHelpers;
 
 /// <summary>
 /// Replays scripted responses in FIFO order and records every request sent through it.

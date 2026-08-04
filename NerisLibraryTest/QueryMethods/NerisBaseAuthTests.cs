@@ -1,11 +1,11 @@
 using FluentAssertions;
-using NerisLibrary;
-using NerisLibrary.Exceptions;
-using NerisLibrary.Models;
-using NerisLibraryTest.TestHelpers;
+using NerisSharp;
+using NerisSharp.Exceptions;
+using NerisSharp.Models;
+using NerisSharpTest.TestHelpers;
 using System.Text;
 
-namespace NerisLibraryTest.QueryMethods;
+namespace NerisSharpTest.QueryMethods;
 
 public class NerisBaseAuthTests
 {

@@ -1,9 +1,9 @@
 using FluentAssertions;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
-using NerisLibrary.Models.RequestModels;
+using NerisSharp.Models.RequestModels;
 
-namespace NerisLibraryTest.Models;
+namespace NerisSharpTest.Models;
 
 public class EntityRequestModelTests
 {

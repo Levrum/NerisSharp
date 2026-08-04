@@ -1,11 +1,11 @@
 using FluentAssertions;
-using NerisLibrary;
-using NerisLibrary.Models.ElementModels;
-using NerisLibraryTest.TestHelpers;
+using NerisSharp;
+using NerisSharp.Models.ElementModels;
+using NerisSharpTest.TestHelpers;
 using System.Net;
 using System.Text.Json;
 
-namespace NerisLibraryTest.QueryMethods;
+namespace NerisSharpTest.QueryMethods;
 
 public class StationMethodsTests
 {

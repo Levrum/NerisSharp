@@ -1,11 +1,11 @@
 using FluentAssertions;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
-using NerisLibrary.Models.ElementModels.Incident;
-using NerisLibrary.Models.RequestModels;
+using NerisSharp.Models.ElementModels.Incident;
+using NerisSharp.Models.RequestModels;
 using System.Globalization;
 
-namespace NerisLibraryTest.Models;
+namespace NerisSharpTest.Models;
 
 public class IncidentRequestModelTests
 {

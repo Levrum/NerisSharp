@@ -1,7 +1,7 @@
 using FluentAssertions;
-using NerisLibrary.Models;
+using NerisSharp.Models;
 
-namespace NerisLibraryTest.Models;
+namespace NerisSharpTest.Models;
 
 public class ConfigTests
 {

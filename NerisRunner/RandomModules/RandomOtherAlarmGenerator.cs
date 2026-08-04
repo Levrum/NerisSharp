@@ -1,9 +1,9 @@
-﻿using NerisLibrary.Models.ElementModels.Incident.Modules;
+﻿using NerisSharp.Models.ElementModels.Incident.Modules;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NerisRunner.RandomModules
+namespace TestProject.RandomModules
 {
     internal static class RandomOtherAlarmGenerator
     {

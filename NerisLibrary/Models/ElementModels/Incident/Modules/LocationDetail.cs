@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 
-namespace NerisLibrary.Models.ElementModels.Incident.Modules
+namespace NerisSharp.Models.ElementModels.Incident.Modules
 {
     public class LocationDetail
     {

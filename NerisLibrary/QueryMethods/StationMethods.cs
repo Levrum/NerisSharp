@@ -1,6 +1,6 @@
-﻿using NerisLibrary.Exceptions;
-using NerisLibrary.Models.ElementModels;
-using NerisLibrary.Utils;
+﻿using NerisSharp.Exceptions;
+using NerisSharp.Models.ElementModels;
+using NerisSharp.Utils;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
-namespace NerisLibrary
+namespace NerisSharp
 {
     public partial class NerisBase
     {

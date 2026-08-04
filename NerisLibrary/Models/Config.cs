@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using static System.Net.WebRequestMethods;
 
-namespace NerisLibrary.Models
+namespace NerisSharp.Models
 {
     /// <summary>
     /// Class for holding NERIS Connection settings and properties including type of connection, credentials, and endpoint.

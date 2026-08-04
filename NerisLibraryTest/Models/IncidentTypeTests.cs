@@ -1,11 +1,11 @@
 ﻿using FluentAssertions;
-using NerisLibrary.Models.ElementModels.Incident;
+using NerisSharp.Models.ElementModels.Incident;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
-namespace NerisLibraryTest.Models
+namespace NerisSharpTest.Models
 {
     public class IncidentTypeTests
     {

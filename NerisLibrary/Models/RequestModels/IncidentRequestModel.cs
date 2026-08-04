@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
-using NerisLibrary.Models.ElementModels.Incident;
+using NerisSharp.Models.ElementModels.Incident;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace NerisLibrary.Models.RequestModels
+namespace NerisSharp.Models.RequestModels
 {
     public class IncidentRequestModel : IRequestModel
     {
