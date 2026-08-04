@@ -8,6 +8,7 @@ namespace TestProject
 {
     internal static class SampleIncidentFactory
     {
+        //add a test comment
         private static string CreateIncidentNumber()
         {
             var now = DateTime.Now;
