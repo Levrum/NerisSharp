@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using NerisSharp.Exceptions;
-using NerisSharp.Models.RequestModels;
 using NerisSharp.Models;
 using NerisSharp.Models.ElementModels;
+using NerisSharp.Models.RequestModels;
 using NerisSharp.Utils;
 using System;
 using System.Collections.Generic;

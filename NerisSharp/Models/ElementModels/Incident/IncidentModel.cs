@@ -104,7 +104,7 @@ namespace NerisSharp.Models.ElementModels.Incident
                     this.Special_Modifiers = specialMods;
                 }
             }
-            
+
         }
         public List<IncidentSpecialModifierEnum> Special_Modifiers { get; set; }
     }

@@ -1,10 +1,10 @@
 using FluentAssertions;
 using Microsoft.AspNetCore.WebUtilities;
 using NerisSharp;
-using NerisSharp.Models.ElementModels.Incident;
-using NerisSharp.Models.RequestModels;
 using NerisSharp.Exceptions;
 using NerisSharp.Models.ElementModels;
+using NerisSharp.Models.ElementModels.Incident;
+using NerisSharp.Models.RequestModels;
 using NerisSharpTest.TestHelpers;
 using System.Text.Json;
 

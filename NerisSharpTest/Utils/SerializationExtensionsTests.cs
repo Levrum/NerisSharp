@@ -1,6 +1,6 @@
 using FluentAssertions;
-using NerisSharp.Utils;
 using NerisSharp.Models.ElementModels.Incident;
+using NerisSharp.Utils;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;

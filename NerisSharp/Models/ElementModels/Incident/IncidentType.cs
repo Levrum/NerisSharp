@@ -31,7 +31,7 @@ namespace NerisSharp.Models.ElementModels.Incident
         /// This will ensure Incident Types are (mostly) valid. 
         /// This constructor is required for deserialization from JSON and should not be used directly in application code.
         /// </summary>
-        public IncidentType() 
+        public IncidentType()
         {
 
         }

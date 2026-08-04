@@ -1,9 +1,9 @@
 using FluentAssertions;
 using NerisSharp;
+using NerisSharp.Exceptions;
 using NerisSharp.Models.ElementModels;
 using NerisSharp.Models.ElementModels.Incident;
 using NerisSharpTest.TestHelpers;
-using NerisSharp.Exceptions;
 
 namespace NerisSharpTest.QueryMethods;
 
