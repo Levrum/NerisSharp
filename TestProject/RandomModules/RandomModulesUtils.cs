@@ -29,8 +29,7 @@ namespace TestProject.RandomModules
             if (numberOfValuesToAdd < 0)
             {
                 return null;
-            }
-            else
+            } else
             {
                 List<T> values = new List<T>();
                 for (int i = 0; i < numberOfValuesToAdd; i++)
@@ -60,10 +59,9 @@ namespace TestProject.RandomModules
             if (enumVaue == numberOfEnumValues)
             {
                 return false;
-            }
-            else
+            } else
             {
-                
+
                 result = (T)Enum.ToObject(t, rng.Next(numberOfEnumValues));
                 return true;
             }
@@ -76,8 +74,7 @@ namespace TestProject.RandomModules
             if (result < 9)
             {
                 return Guid.NewGuid().ToString();
-            }
-            else
+            } else
             {
                 return null;
             }

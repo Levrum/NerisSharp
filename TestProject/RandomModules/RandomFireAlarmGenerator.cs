@@ -18,8 +18,8 @@ namespace TestProject.RandomModules
             fireAlarmPresence.Type = RandomModulesUtils.GetRandomPresence(forcePresent);
 
             //Present Type has some extra fields:
-            if (fireAlarmPresence.Type == AlarmPresenceEnum.PRESENT) 
-            { 
+            if (fireAlarmPresence.Type == AlarmPresenceEnum.PRESENT)
+            {
                 //alarm types
                 fireAlarmPresence.Alarm_Types = RandomModulesUtils.GetRandomListEnumsOrNull<FireAlarmTypeEnum>();
 

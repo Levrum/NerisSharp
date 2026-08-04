@@ -39,11 +39,11 @@ namespace TestProject.RandomModules
                     {
                         bool occupantActionPresent = RandomModulesUtils.TryGetRandomEnumOrNull(out OccupantActionEnum occupantActionEnum);
                         detail.Occupant_Action = (occupantActionPresent) ? occupantActionEnum : null;
-                    }else if (operationType == SmokeAlarmOperationDetailTypeEnum.FAILED_TO_OPERATE)
+                    } else if (operationType == SmokeAlarmOperationDetailTypeEnum.FAILED_TO_OPERATE)
                     {
                         bool failureReasonPresent = RandomModulesUtils.TryGetRandomEnumOrNull(out FailureReasonEnum failureReasonEnum);
                         detail.Failure_Reason = (failureReasonPresent) ? failureReasonEnum : null;
-                    }else
+                    } else
                     {
                         //no op
                     }

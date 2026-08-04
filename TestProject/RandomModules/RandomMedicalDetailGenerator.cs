@@ -9,7 +9,7 @@ namespace TestProject.RandomModules
 {
     internal static class RandomMedicalDetailGenerator
     {
-        public static MedicalDetail Generate() 
+        public static MedicalDetail Generate()
         {
             MedicalDetail medDetail = new MedicalDetail();
             medDetail.Patient_Care_Evaluation = RandomModulesUtils.GetRandomEnum<PatientCareEvaluationEnum>();

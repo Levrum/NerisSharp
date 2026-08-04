@@ -1,7 +1,7 @@
-﻿using NerisSharp.Utils;
-using NerisSharp.Models.ElementModels.Incident;
+﻿using NerisSharp.Models.ElementModels.Incident;
 using NerisSharp.Models.ElementModels.Incident.Modules;
 using NerisSharp.Models.ElementModels.Incident.PatchObjects;
+using NerisSharp.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,7 +10,7 @@ namespace TestProject
 {
     internal static class SampleIncidentFactory
     {
-        private static string CreateIncidentNumber() 
+        private static string CreateIncidentNumber()
         {
             var now = DateTime.Now;
             string number = string.Format("{0}{1}{2}-{3}", now.Month, now.Day, now.Hour, now.Millisecond);
@@ -142,9 +142,9 @@ namespace TestProject
             //setup outcome narrative patch
             IncidentBaseModelPatchProperties baseModelProps = new IncidentBaseModelPatchProperties();
             baseModelProps.Outcome_Narrative = PatchAction<string>.CreateSetAction("PATCHED OUTCOME: Subject taken to hospital with non-critical injures");
-            
+
             //create patch object:
-            PatchObject basePatch = new PatchObject() { Properties = baseModelProps, Neris_Uid = incidentBaseNerisUid};
+            PatchObject basePatch = new PatchObject() { Properties = baseModelProps, Neris_Uid = incidentBaseNerisUid };
             //assign to incident patchProps:
             patchProps.Base = basePatch;
 

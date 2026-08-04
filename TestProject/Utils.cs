@@ -27,7 +27,7 @@ namespace TestProject
             {
                 PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
                 WriteIndented = true,
-                Converters = {new JsonStringEnumConverter()}
+                Converters = { new JsonStringEnumConverter() }
             };
             string retVal = JsonSerializer.Serialize(obj, PrettyPrintLowerCase);
             return retVal;
