@@ -3,6 +3,15 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
+    <PackageId>Levrum.NerisSharp</PackageId>
+    <Title>NerisSharp</Title>
+    <Company>Levrum</Company>
+    <Authors>levrum-david</Authors>
+    <Description>A C# Library to interact with the NERIS API</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>neris;fire;ems</PackageTags>
+    <PackageIcon>logo_mark only.png</PackageIcon>
+    <VersionPrefix>1.0.1</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +22,17 @@
 
   <ItemGroup>
     <InternalsVisibleTo Include="NerisSharpTest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\Resources\logo_mark only.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-# NerisDLL
+# NerisSharp
 
 A .NET client library for the [NERIS](https://neris.fsri.org/) API (National Emergency Response
 Information System), the FSRI-hosted data platform for fire and EMS reporting.
@@ -7,29 +7,29 @@ The library wraps the REST endpoints at `api.neris.fsri.org` in typed models and
 consuming application can read and write Entities, Incidents, Stations, and Units without hand-rolling
 HTTP requests, OAuth token refresh, or the snake_case JSON conventions the API expects.
 
-`NerisLibrary` targets `netstandard2.1`, so it can be referenced from .NET Framework 4.8, .NET Core 3.x,
+`NerisSharp` targets `netstandard2.1`, so it can be referenced from .NET Framework 4.8, .NET Core 3.x,
 and modern .NET.
 
 ## Installation
 
 > **Not yet published.** A NuGet package is planned. Until then, clone the repository and add a project
-> reference to `NerisLibrary/NerisLibrary.csproj`, or build the DLL and reference it directly.
+> reference to `NerisSharp/NerisSharp.csproj`, or build the DLL and reference it directly.
 
 Once published, installation will look like:
 
 ```bash
-dotnet add package NerisLibrary
+dotnet add package Levrum.NerisSharp
 ```
 
 ```powershell
-Install-Package NerisLibrary
+Install-Package Levrum.NerisSharp
 ```
 
 ## Quick start
 
 ```csharp
-using NerisLibrary;
-using NerisLibrary.Models;
+using NerisSharp;
+using NerisSharp.Models;
 
 // HttpClient is owned by the caller and should be long-lived, not created per call.
 var httpClient = new HttpClient();
@@ -51,11 +51,11 @@ List<IncidentModel> incidents = await neris.GetAllIncidents(request);
 
 | Path | Purpose |
 | --- | --- |
-| `NerisLibrary/` | The class library that models NERIS data and allows for interaction with the NERIS API |
-| `NerisLibraryTest/` | Test Suite with Xunit. |
-| `NerisRunner/` | Console harness for manual testing against the live or test API. |
+| `NerisSharp/` | The class library that models NERIS data and allows for interaction with the NERIS API |
+| `NerisSharpTest/` | Test Suite with Xunit. |
+| `TestProject/` | Console harness for manual testing against the live or test API. |
 
-Inside `NerisLibrary/`:
+Inside `NerisSharp/`:
 
 - `NerisBase.cs` - constructor, authentication, route building, shared `_call` helper, error
   handling, and logging.
@@ -186,10 +186,10 @@ Prefer the async methods where you have the choice. The SyncRunner has not been 
 ## Building
 
 ```bash
-dotnet build NerisDLL.sln
-dotnet test NerisLibraryTest/NerisLibraryTest.csproj
-dotnet run --project NerisRunner        # manual harness; needs credentials
+dotnet build NerisSharp.sln
+dotnet test NerisSharpTest/NerisSharpTest.csproj
+dotnet run --project TestProject        # manual harness; needs credentials
 ```
 
-`NerisRunner` is a scratch harness rather than a test suite — it exercises methods against the live or
+`TestProject` is a scratch harness rather than a test suite — it exercises methods against the live or
 test API and expects credentials to be supplied in `Program.cs`.
