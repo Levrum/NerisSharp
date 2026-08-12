@@ -20,11 +20,11 @@ namespace NerisSharp.Models
         }
 
         // Username/PW Auth is not implemented.
-        //public static Config CreatePasswordConfig(string username, string password, UrlType BaseUrl = UrlType.Live)
-        //{
-        //    var config = new Config(BaseUrl) { CredentialType = CredentialType.Password, UserName = username, Password = password };
-        //    return config;
-        //}
+        public static Config CreatePasswordConfig(string username, string password, UrlType BaseUrl = UrlType.Live)
+        {
+            var config = new Config(BaseUrl) { CredentialType = CredentialType.Password, UserName = username, Password = password };
+            return config;
+        }
 
         /// <summary>
         /// Create a Config option for use with Client Id and Secret Authentication.

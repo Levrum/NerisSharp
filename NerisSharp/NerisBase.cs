@@ -24,6 +24,12 @@ namespace NerisSharp
         private AccessTokenModel? _accessToken { get; set; }
         private bool _denyWriteActions { get; set; }
         public bool Initialized { get { return _accessToken != null && _accessToken.Access_Token != string.Empty; } }
+        public bool RequiresChallengeResponse { get
+            {
+                return _challengeResponse != null;
+            }
+        }
+        private ChallengeResponse _challengeResponse { get; set; }
 
         /// <summary>
         /// Takes the Config Object, an HttpClient to use, and a logger if available to use.
@@ -78,7 +84,8 @@ namespace NerisSharp
                         }
                     case CredentialType.Password:
                         {
-                            throw new NotImplementedException();
+                            await LoginUserNamePassword();
+                            break;
                         }
                     default:
                         break;
@@ -90,11 +97,31 @@ namespace NerisSharp
             }
         }
 
+        //need to rework.
         private async Task LoginIfTokenExpired()
         {
-            if (!Initialized || _accessToken.expires_at <= DateTime.UtcNow)
+            if (RequiresChallengeResponse) //don't reauth if a challenge is hanging
+            {
+                throw new MFARequiredException();
+            }
+            if (!Initialized) //log in if not logged in
             {
                 await Login();
+            }else if (_accessToken.expires_at <= DateTime.UtcNow.AddMinutes(5)) //if token expired or will expire in 5 min
+            {
+                if (_config.CredentialType == CredentialType.Password && _accessToken.Refresh_Token != null)
+                {
+                    //refresh
+                    await LoginRefreshToken();
+                }else
+                {
+                    //no refresh token or using Client Credential Flow. Login as normal. Note this may trigger a challenge so check for that.
+                    await Login();
+                }
+            }
+            if (RequiresChallengeResponse)
+            {
+                throw new MFARequiredException();
             }
             if (!Initialized)
             {
@@ -121,6 +148,79 @@ namespace NerisSharp
             }
 
             _accessToken = tokenModel;
+        }
+
+        private async Task LoginUserNamePassword()
+        {
+            var formContent = new List<KeyValuePair<string, string>>() 
+            { 
+                new KeyValuePair<string, string>("grant_type", "password"),
+                new KeyValuePair<string, string>("username", _config.UserName),
+                new KeyValuePair<string, string>("password", _config.Password),
+                new KeyValuePair<string, string>("generate_refresh_token", "true")
+            };
+            ChallengeResponse? challengeResponse = null;
+            using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, GetRoute(RouteTypes.Token)))
+            {
+                message.Content = new FormUrlEncodedContent(formContent);
+
+                HttpResponseMessage response = await _httpClient.SendAsync(message);
+                await CheckStatusCodeAndHandleError(response);
+                challengeResponse = await response.Content.DeserializeCaseInsensitive<ChallengeResponse>();
+            }
+            if (challengeResponse == null)
+            {
+                throw new AuthorizationException();
+            }
+            _challengeResponse = challengeResponse;
+        }
+
+        public async Task LoginChallenge(string code)
+        {
+            if (_challengeResponse == null || _config.CredentialType == CredentialType.ClientCredentials)
+            {
+                throw new AuthorizationException();
+            }
+            var formContent = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("grant_type", _challengeResponse.Challenge_Name),
+                new KeyValuePair<string, string>("username", _config.UserName),
+                new KeyValuePair<string, string>("session", _challengeResponse.Session),
+                new KeyValuePair<string, string>(_challengeResponse.Challenge_Name, code),
+                new KeyValuePair<string, string>("generate_refresh_token", "true")
+            };
+            AccessTokenModel tokenModel = null;
+            using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, GetRoute(RouteTypes.Token)))
+            {
+                message.Content = new FormUrlEncodedContent(formContent);
+
+                HttpResponseMessage response = await _httpClient.SendAsync(message);
+                await CheckStatusCodeAndHandleError(response);
+                tokenModel = await response.Content.DeserializeCaseInsensitive<AccessTokenModel>();
+            }
+            _challengeResponse = null;
+            _accessToken = tokenModel;
+        }
+
+        private async Task LoginRefreshToken()
+        {
+            var formContent = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("grant_type", "refresh_token"),
+                new KeyValuePair<string, string>("refresh_token", _accessToken.Refresh_Token),
+                new KeyValuePair<string, string>("generate_refresh_token", "true")
+            };
+            AccessTokenModel? tokenModel = null;
+            using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, GetRoute(RouteTypes.Token)))
+            {
+                message.Content = new FormUrlEncodedContent(formContent);
+                HttpResponseMessage response = await _httpClient.SendAsync(message);
+                await CheckStatusCodeAndHandleError(response);
+                tokenModel = await response.Content.DeserializeCaseInsensitive<AccessTokenModel>();
+            }
+            if (tokenModel != null) {
+                _accessToken = tokenModel;
+            }
         }
 
         private enum RouteTypes
