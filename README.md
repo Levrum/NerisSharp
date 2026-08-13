@@ -106,7 +106,7 @@ if (neris.RequiresChallengeResponse)
 }
 ```
 
-If you attempt to access the API while an MFA challenge is required, the library will throw an MFARequiredException to inform you. 
+If you attempt to access the API while an MFA challenge is required, the library will throw an `MFARequiredException` to inform you. 
 
 #### General Config
 `NerisBase` takes the config, an `HttpClient`, and optionally an `ILogger<NerisBase>`. Without a logger,
