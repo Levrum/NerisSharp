@@ -28,4 +28,30 @@ public class ConfigTests
         config.ClientId.Should().Be("my-id");
         config.ClientSecret.Should().Be("my-secret");
     }
+
+    [Fact]
+    public void CreatePasswordConfig_StoresCredentialsAndType()
+    {
+        Config config = Config.CreatePasswordConfig("my-user", "my-password", UrlType.Test);
+
+        config.CredentialType.Should().Be(CredentialType.Password);
+        config.UserName.Should().Be("my-user");
+        config.Password.Should().Be("my-password");
+        config.ClientId.Should().BeEmpty();
+        config.ClientSecret.Should().BeEmpty();
+    }
+
+    [Fact]
+    public void CreatePasswordConfig_Default_UsesLiveUrl()
+    {
+        Config config = Config.CreatePasswordConfig("my-user", "my-password");
+        config.Url.Should().Be(new Uri("https://api.neris.fsri.org/v1/"));
+    }
+
+    [Fact]
+    public void CreatePasswordConfig_TestUrlType_UsesTestUrl()
+    {
+        Config config = Config.CreatePasswordConfig("my-user", "my-password", UrlType.Test);
+        config.Url.Should().Be(new Uri("https://api-test.neris.fsri.org/v1/"));
+    }
 }

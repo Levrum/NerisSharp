@@ -12,11 +12,9 @@ and modern .NET.
 
 ## Installation
 
-> **Not yet published.** A NuGet package is planned. Until then, clone the repository and add a project
-> reference to `NerisSharp/NerisSharp.csproj`, or build the DLL and reference it directly.
+A Nuget package is available.
 
-Once published, installation will look like:
-
+Install through your IDE's Nuget package manager by searching for Levrum.NerisSharp or from command line using:
 ```bash
 dotnet add package Levrum.NerisSharp
 ```
@@ -24,6 +22,9 @@ dotnet add package Levrum.NerisSharp
 ```powershell
 Install-Package Levrum.NerisSharp
 ```
+
+To use the source code, clone the repository and add a project
+> reference to `NerisSharp/NerisSharp.csproj`, or build the DLL and reference it directly.
 
 ## Quick start
 
@@ -72,14 +73,42 @@ Inside `NerisSharp/`:
 
 ### Configuration and authentication
 
-Only the OAuth2 **client credentials** flow is implemented. Username/password configuration is not currently supported.
+Client Credential and Username/Password Authentication are both supported. 
+
+#### Client Credential Authentication
+Client credential authentication is preferred to Username/Password as Username/Password authentication requires completing an MFA challenge.
+Supply a Client Id and Secret from NERIS. View NERIS documentation to learn how to create client credentials, this process may differ depending on if you are a
+vendor/integration partner or fire service professional. 
+
 
 ```csharp
 // UrlType.Live  -> https://api.neris.fsri.org/v1/
 // UrlType.Test  -> https://api-test.neris.fsri.org/v1/
 var config = Config.CreateClientCredentialConfig(clientId, clientSecret, UrlType.Live);
 ```
+After supplying Client credentials, the library will handle all authentication automatically.
 
+
+#### Username Password Authentication
+Supply your NERIS username and password to the config. You will have to manually login and supply your MFA challenge code.
+
+```csharp
+// UrlType.Live  -> https://api.neris.fsri.org/v1/
+// UrlType.Test  -> https://api-test.neris.fsri.org/v1/
+var config = Config.CreatePasswordConfig(username, password, UrlType.Live);
+NerisBase neris = new NerisBase(config, httpClient);
+await neris.Login();
+if (neris.RequiresChallengeResponse)
+{
+    //supply challenge code. Example with Console.
+    string code = Console.ReadLine();
+    neris.LoginChallenge(code);
+}
+```
+
+If you attempt to access the API while an MFA challenge is required, the library will throw an `MFARequiredException` to inform you. 
+
+#### General Config
 `NerisBase` takes the config, an `HttpClient`, and optionally an `ILogger<NerisBase>`. Without a logger,
 messages go to the console.
 
@@ -182,6 +211,7 @@ Prefer the async methods where you have the choice. The SyncRunner has not been 
   message.
 - `ArgumentNullException` / `ArgumentException` — null or whitespace ids, checked before the request is
   built.
+- `MFARequiredException` - the API was accessed while an MFA challenge is still hanging. Use the LoginChallenge() method to complete the challenge before attempting to access the API.
 
 ## Building
 
