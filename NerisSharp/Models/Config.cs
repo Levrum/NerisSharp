@@ -19,7 +19,14 @@ namespace NerisSharp.Models
             Url = (BaseUrl == UrlType.Live) ? new Uri("https://api.neris.fsri.org/v1/") : new Uri("https://api-test.neris.fsri.org/v1/");
         }
 
-        // Username/PW Auth is not implemented.
+        /// <summary>
+        /// Create a Config option for use with Username and Password Authentication.
+        /// </summary>
+        /// <remarks>NERIS may answer a password login with an MFA challenge; see NerisBase.LoginChallenge.</remarks>
+        /// <param name="username">NERIS username to authenticate with</param>
+        /// <param name="password">Password for the given username</param>
+        /// <param name="BaseUrl">Which NERIS endpoint to connect to, options are live or test, default is live.</param>
+        /// <returns></returns>
         public static Config CreatePasswordConfig(string username, string password, UrlType BaseUrl = UrlType.Live)
         {
             var config = new Config(BaseUrl) { CredentialType = CredentialType.Password, UserName = username, Password = password };
