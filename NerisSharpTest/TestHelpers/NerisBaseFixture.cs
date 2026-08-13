@@ -1,8 +1,8 @@
 using Microsoft.Extensions.Logging;
-using System.Net;
 using Moq;
 using NerisSharp;
 using NerisSharp.Models;
+using System.Net;
 
 namespace NerisSharpTest.TestHelpers;
 

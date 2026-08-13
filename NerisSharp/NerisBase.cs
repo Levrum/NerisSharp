@@ -30,7 +30,9 @@ namespace NerisSharp
         /// </summary>
         /// <remarks>While this is true every API call throws <see cref="MFARequiredException"/>; call
         /// <see cref="LoginChallenge(string)"/> with the one-time code to complete the login.</remarks>
-        public bool RequiresChallengeResponse { get
+        public bool RequiresChallengeResponse
+        {
+            get
             {
                 return _challengeResponse != null;
             }
@@ -113,13 +115,13 @@ namespace NerisSharp
             if (!Initialized) //log in if not logged in
             {
                 await Login();
-            }else if (_accessToken.expires_at <= DateTime.UtcNow.AddMinutes(5)) //if token expired or will expire in 5 min
+            } else if (_accessToken.expires_at <= DateTime.UtcNow.AddMinutes(5)) //if token expired or will expire in 5 min
             {
                 if (_config.CredentialType == CredentialType.Password && !string.IsNullOrWhiteSpace(_accessToken.Refresh_Token))
                 {
                     //refresh
                     await LoginRefreshToken();
-                }else
+                } else
                 {
                     //no refresh token or using Client Credential Flow. Login as normal. Note this may trigger a challenge so check for that.
                     await Login();
@@ -158,8 +160,8 @@ namespace NerisSharp
 
         private async Task LoginUserNamePassword()
         {
-            var formContent = new List<KeyValuePair<string, string>>() 
-            { 
+            var formContent = new List<KeyValuePair<string, string>>()
+            {
                 new KeyValuePair<string, string>("grant_type", "password"),
                 new KeyValuePair<string, string>("username", _config.UserName),
                 new KeyValuePair<string, string>("password", _config.Password),
@@ -177,12 +179,10 @@ namespace NerisSharp
                 if (response.StatusCode == HttpStatusCode.Accepted)
                 {
                     challengeResponse = await response.Content.DeserializeCaseInsensitive<ChallengeResponse>();
-                }
-                else if (response.StatusCode == HttpStatusCode.OK)
+                } else if (response.StatusCode == HttpStatusCode.OK)
                 {
                     tokenModel = await response.Content.DeserializeCaseInsensitive<AccessTokenModel>();
-                }
-                else
+                } else
                 {
                     throw new AuthorizationException();
                 }
@@ -249,7 +249,8 @@ namespace NerisSharp
                 await CheckStatusCodeAndHandleError(response);
                 tokenModel = await response.Content.DeserializeCaseInsensitive<AccessTokenModel>();
             }
-            if (tokenModel != null) {
+            if (tokenModel != null)
+            {
                 _accessToken = tokenModel;
             }
         }
