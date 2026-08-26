@@ -5,14 +5,14 @@ Information System), the FSRI-hosted data platform for fire and EMS reporting.
 
 The library wraps the REST endpoints at `api.neris.fsri.org` in typed models and async methods, so a
 consuming application can read and write Entities, Incidents, Stations, and Units without hand-rolling
-HTTP requests, OAuth token refresh, or the snake_case JSON conventions the API expects.
+HTTP requests or OAuth token requests.
 
 `NerisSharp` targets `netstandard2.1`, so it can be referenced from .NET Framework 4.8, .NET Core 3.x,
 and modern .NET.
 
 ## Installation
 
-A Nuget package is available.
+A [Nuget](https://www.nuget.org/packages/Levrum.NerisSharp/) package is available.
 
 Install through your IDE's Nuget package manager by searching for Levrum.NerisSharp or from command line using:
 ```bash
@@ -23,8 +23,7 @@ dotnet add package Levrum.NerisSharp
 Install-Package Levrum.NerisSharp
 ```
 
-To use the source code, clone the repository and add a project
-> reference to `NerisSharp/NerisSharp.csproj`, or build the DLL and reference it directly.
+To use the source code, clone the repository and add a project reference to `NerisSharp/NerisSharp.csproj`, or build the DLL and reference it directly.
 
 ## Quick start
 
@@ -35,7 +34,7 @@ using NerisSharp.Models;
 // HttpClient is owned by the caller and should be long-lived, not created per call.
 var httpClient = new HttpClient();
 
-//Create a config object with your credentials and pass to NerisBase. No explicit login step.
+//Create a config object with your credentials and pass to NerisBase. See below for different types of credential flows.
 var config = Config.CreateClientCredentialConfig(clientId, clientSecret, UrlType.Test);
 var neris = new NerisBase(config, httpClient);
 
@@ -53,7 +52,7 @@ List<IncidentModel> incidents = await neris.GetAllIncidents(request);
 | Path | Purpose |
 | --- | --- |
 | `NerisSharp/` | The class library that models NERIS data and allows for interaction with the NERIS API |
-| `NerisSharpTest/` | Test Suite with Xunit. |
+| `NerisSharpTest/` | Xunit Test Suite |
 | `TestProject/` | Console harness for manual testing against the live or test API. |
 
 Inside `NerisSharp/`:
@@ -109,7 +108,7 @@ if (neris.RequiresChallengeResponse)
 If you attempt to access the API while an MFA challenge is required, the library will throw an `MFARequiredException` to inform you. 
 
 #### General Config
-`NerisBase` takes the config, an `HttpClient`, and optionally an `ILogger<NerisBase>`. Without a logger,
+`NerisBase` takes the `Config` object, an `HttpClient`, and optionally an `ILogger<NerisBase>`. Without a logger,
 messages go to the console.
 
 ```csharp
@@ -184,7 +183,7 @@ string stationId = await neris.PostStation(entityId, newStation);
 string unitId    = await neris.PostUnit(entityId, stationId, newUnit);
 ```
 
-For PUT and PATCH, server-managed fields (`neris_id`, and on incidents `submitter_account_type` and
+For PUT and PATCH, server-managed fields (ex. `neris_id`, and on incidents `submitter_account_type` and
 `incident_status`) are stripped before sending. PATCH methods accept an optional `fieldsToNull` set:
 snake_cased field names to explicitly null out on the server, since omitted fields are left unchanged.
 
