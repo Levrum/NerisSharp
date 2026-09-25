@@ -37,6 +37,11 @@ namespace NerisSharp.Models.ElementModels.Incident.Modules
         public double? Acres_Burned { get; set; }
 
         /// <summary>
+        /// Outside Fire Type Only. True when the fire was in violation of a local ordinance such as a burn ban (added in NERIS 1.5).
+        /// </summary>
+        public bool? Violated_Local_Ordinance { get; set; }
+
+        /// <summary>
         /// Some causes may be exclusive to Structure or Outside fire type. You can verify using IsOutsideCause() or IsStructureCause()  
         /// </summary>
         public CauseEnum Cause { get; set; }
@@ -109,6 +114,8 @@ namespace NerisSharp.Models.ElementModels.Incident.Modules
 
     public enum DamageTypeEnum
     {
+        AFFECTED,
+        INACCESSIBLE,
         MAJOR_DAMAGE,
         MINOR_DAMAGE,
         MODERATE_DAMAGE,

@@ -25,6 +25,12 @@ namespace NerisSharp.Models.ElementModels
         public string Internal_Id { get; set; }
         public string Zip_Code { get; set; }
         public string Location { get; set; }
+        /// <summary>
+        /// Whether the station is in service. Set to false when a station is taken offline for
+        /// renovations or repair so its NERIS id is preserved; not intended for real-time availability.
+        /// The server defaults this to true. Left null here so a PATCH omits it unless the caller sets it explicitly.
+        /// </summary>
+        public bool? In_Service { get; set; } = null;
         public List<UnitModel> Units { get; set; }
     }
 }
