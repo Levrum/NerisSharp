@@ -46,6 +46,19 @@ namespace NerisSharp.Models
             return config;
         }
 
+        /// <summary>
+        /// Create a Config option for use with Guid Client Id and Secret Authentication.
+        /// </summary>
+        /// <param name="clientId">Public Client Id to use for integration authentication</param>
+        /// <param name="clientSecret">Client Secret to use for integration authentication</param>
+        /// <param name="BaseUrl">Which NERIS endpoint to connect to, options are live or test, default is live.</param>
+        /// <returns></returns>
+        public static Config CreateClientCredentialConfig(Guid clientId, string clientSecret, UrlType BaseUrl = UrlType.Live)
+        {
+            Config config = new Config(BaseUrl) { CredentialType = CredentialType.ClientCredentials, ClientId = clientId.ToString(), ClientSecret = clientSecret };
+            return config;
+        }
+
     }
 
     /// <summary>
