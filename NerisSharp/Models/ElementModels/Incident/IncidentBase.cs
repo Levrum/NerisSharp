@@ -80,12 +80,6 @@ namespace NerisSharp.Models.ElementModels.Incident
         public PatchAction<string> Polygon { get; set; }
     }
 
-    public struct LatLong
-    {
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
-    }
-
     public enum DisplacementCausesEnum
     {
         COLLAPSE,
