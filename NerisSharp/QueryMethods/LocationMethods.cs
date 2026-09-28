@@ -14,6 +14,14 @@ namespace NerisSharp
 {
     public partial class NerisBase
     {
+
+        /// <summary>
+        /// Queries a location URI, typically obtained from a StationModel or EntityModel location property, from the NERIS API.
+        /// Returns a LatLong object from the coordinates returned from the API.
+        /// </summary>
+        /// <param name="station">Station model containing URI for the location</param>
+        /// <returns>LatLong object containing the coordinates returned from the API</returns>
+        /// <exception cref="JsonException">Thrown when the json cannot be parsed from the response</exception>
         public async Task<LatLong> GetLocation(StationModel station)
         {
             if (station == null || String.IsNullOrWhiteSpace(station.Location))
@@ -22,6 +30,14 @@ namespace NerisSharp
             }
             return await GetLocation(station.Location);
         }
+
+        /// <summary>
+        /// Queries a location URI, typically obtained from a StationModel or EntityModel location property, from the NERIS API.
+        /// Returns a LatLong object from the coordinates returned from the API.
+        /// </summary>
+        /// <param name="entity">Entity model string URI for the location</param>
+        /// <returns>LatLong object containing the coordinates returned from the API</returns>
+        /// <exception cref="JsonException">Thrown when the json cannot be parsed from the response</exception>
         public async Task<LatLong> GetLocation(EntityModel entity)
         {
             if (entity == null || String.IsNullOrWhiteSpace(entity.Location))
@@ -31,6 +47,13 @@ namespace NerisSharp
             return await GetLocation(entity.Location);
         }
 
+        /// <summary>
+        /// Queries a location URI, typically obtained from a StationModel or EntityModel location property, from the NERIS API.
+        /// Returns a LatLong object from the coordinates returned from the API.
+        /// </summary>
+        /// <param name="locationURI">string URI for the location</param>
+        /// <returns>LatLong object containing the coordinates returned from the API</returns>
+        /// <exception cref="JsonException">Thrown when the json cannot be parsed from the response</exception>
         public async Task<LatLong> GetLocation(string locationURI)
         {
             string uri = string.Format("{0}?f=json", locationURI);
