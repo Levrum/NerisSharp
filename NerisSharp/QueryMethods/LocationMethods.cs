@@ -56,7 +56,6 @@ namespace NerisSharp
         /// <exception cref="JsonException">Thrown when the json cannot be parsed from the response</exception>
         public async Task<LatLong> GetLocation(string locationURI)
         {
-            string uri = string.Format("{0}?f=json", locationURI);
             JsonNode? json = null;
             LatLong toReturn = new LatLong();
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, locationURI))
