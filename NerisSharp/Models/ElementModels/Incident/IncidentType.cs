@@ -176,6 +176,7 @@ namespace NerisSharp.Models.ElementModels.Incident
             IncidentTypeEnum.CANCELLED
         };
 
+#pragma warning disable CS0618 // ELEC_POWER_LINE_DOWN_ARCHING_MALFUNC is obsolete but still accepted so existing callers keep producing a type string
         /// <summary>
         /// List of Secondary Incident Types. Note that not checking combinations is not supported e.g CONSTRUCTION_WASTE does not combine with FALL.
         /// </summary>
@@ -200,7 +201,12 @@ namespace NerisSharp.Models.ElementModels.Incident
             IncidentTypeEnum.ELEVATOR_ESCALATOR_RESCUE, IncidentTypeEnum.MOTOR_VEHICLE_EXTRICATION_ENTRAPPED, IncidentTypeEnum.TRAIN_RAIL_COLLISION_DERAILMENT, IncidentTypeEnum.AVIATION_COLLISION_CRASH, IncidentTypeEnum.AVIATION_STANDBY,
             IncidentTypeEnum.PERSON_IN_WATER_STANDING, IncidentTypeEnum.PERSON_IN_WATER_SWIFTWATER, IncidentTypeEnum.WATERCRAFT_IN_DISTRESS, IncidentTypeEnum.INTENTIONAL_FALSE_ALARM, IncidentTypeEnum.MALFUNCTIONING_ALARM,
             IncidentTypeEnum.ACCIDENTAL_ALARM, IncidentTypeEnum.OTHER_FALSE_CALL, IncidentTypeEnum.BOMB_SCARE, IncidentTypeEnum.NO_INCIDENT_FOUND_LOCATION_ERROR, IncidentTypeEnum.CONTROLLED_BURNING_AUTHORIZED, IncidentTypeEnum.SMOKE_FROM_NONHOSTILE_SOURCE, IncidentTypeEnum.INVESTIGATE_HAZARDOUS_RELEASE,
+            // Added in NERIS 1.5
+            IncidentTypeEnum.VEHICLE_FIRE_AGRICULTURAL, IncidentTypeEnum.LEAK_FLOOD, IncidentTypeEnum.OBSTRUCTION_DEBRIS, IncidentTypeEnum.AVIATION_EMERGENCY, IncidentTypeEnum.ICE_RESCUE,
+            IncidentTypeEnum.PERSON_IN_WATER_TIDAL_SURF, IncidentTypeEnum.PERSON_IN_WATER_FLOOD, IncidentTypeEnum.MICRO_MOBILITY_VEHICLE_COLLISION, IncidentTypeEnum.HUMAN_POWERED_VEHICLE_COLLISION,
+            IncidentTypeEnum.ELEC_POWER_LINE_DOWN_ARCING_MALFUNC,
         };
+#pragma warning restore CS0618
 
     }
     /// <summary>
@@ -237,6 +243,7 @@ namespace NerisSharp.Models.ElementModels.Incident
         VEHICLE_FIRE_FOOD_TRUCK,
         VEHICLE_FIRE_PASSENGER,
         VEHICLE_FIRE_RV,
+        VEHICLE_FIRE_AGRICULTURAL,
         HAZSIT,
         HAZARDOUS_MATERIALS,
         BIOLOGICAL_RELEASE_INCIDENT,
@@ -249,7 +256,9 @@ namespace NerisSharp.Models.ElementModels.Incident
         HAZARD_NONCHEM,
         BOMB_THREAT_RESPONSE_SUSPICIOUS_PACKAGE,
         ELEC_HAZARD_SHORT_CIRCUIT,
+        [Obsolete("Typo corrected in NERIS 1.5; use ELEC_POWER_LINE_DOWN_ARCING_MALFUNC.")]
         ELEC_POWER_LINE_DOWN_ARCHING_MALFUNC,
+        ELEC_POWER_LINE_DOWN_ARCING_MALFUNC,
         MOTOR_VEHICLE_COLLISION,
         INVESTIGATION,
         ODOR,
@@ -298,6 +307,8 @@ namespace NerisSharp.Models.ElementModels.Incident
         OTHER_TRAUMATIC_INJURY,
         POISONING,
         STAB_PENETRATING_TRAUMA,
+        MICRO_MOBILITY_VEHICLE_COLLISION,
+        HUMAN_POWERED_VEHICLE_COLLISION,
         OTHER,
         AIRMEDICAL_TRANSPORT,
         COMMUNITY_PUBLIC_HEALTH,
@@ -328,6 +339,8 @@ namespace NerisSharp.Models.ElementModels.Incident
         CITIZEN_ASSIST,
         CITIZEN_ASSIST_SERVICE_CALL,
         LIFT_ASSIST,
+        LEAK_FLOOD,
+        OBSTRUCTION_DEBRIS,
         LOST_PERSON,
         PERSON_IN_DISTRESS,
         DISASTER_WEATHER,
@@ -352,12 +365,16 @@ namespace NerisSharp.Models.ElementModels.Incident
         TRANSPORTATION,
         AVIATION_COLLISION_CRASH,
         AVIATION_STANDBY,
+        AVIATION_EMERGENCY,
         MOTOR_VEHICLE_EXTRICATION_ENTRAPPED,
         TRAIN_RAIL_COLLISION_DERAILMENT,
         WATER,
         PERSON_IN_WATER_STANDING,
         PERSON_IN_WATER_SWIFTWATER,
         WATERCRAFT_IN_DISTRESS,
+        ICE_RESCUE,
+        PERSON_IN_WATER_TIDAL_SURF,
+        PERSON_IN_WATER_FLOOD,
         UNDETERMINED,
         LAWENFORCE
     }

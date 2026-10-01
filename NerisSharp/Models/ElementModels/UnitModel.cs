@@ -3,12 +3,22 @@
     public class UnitModel
     {
         public int? Staffing { get; set; } = null;
-        public bool Dedicated_Staffing { get; set; } = true;
+        /// <summary>
+        /// Whether the unit has dedicated staffing. The server defaults this to true. Left null here so a PATCH omits it
+        /// unless the caller sets it explicitly.
+        /// </summary>
+        public bool? Dedicated_Staffing { get; set; } = null;
         public string Neris_Id { get; set; }
         public int? Version { get; set; } = null;
         public UnitTypes? Type { get; set; } = null;
         public string Cad_Designation_1 { get; set; }
         public string Cad_Designation_2 { get; set; }
+        /// <summary>
+        /// Whether the unit is in service. Set to false when a unit is taken offline for repair or
+        /// moved seasonally so its NERIS id is preserved; not intended for real-time availability.
+        /// The server defaults this to true. Left null here so a PATCH omits it unless the caller sets it explicitly.
+        /// </summary>
+        public bool? In_Service { get; set; } = null;
     }
 
     public enum UnitTypes

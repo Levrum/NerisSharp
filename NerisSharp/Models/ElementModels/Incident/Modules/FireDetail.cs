@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace NerisSharp.Models.ElementModels.Incident.Modules
 {
@@ -8,7 +10,7 @@ namespace NerisSharp.Models.ElementModels.Incident.Modules
         public WaterSupplyEnum Water_Supply { get; set; }
         public InvestigationNeededEnum Investigation_Needed { get; set; }
         public List<InvestigationTypeEnum> Investigation_Types { get; set; }
-        public List<SuppressionAppliancesEnum> Suppresion_Appliances { get; set; }
+        public List<SuppressionAppliancesEnum> Suppression_Appliances { get; set; }
     }
 
     public enum WaterSupplyEnum
@@ -36,7 +38,9 @@ namespace NerisSharp.Models.ElementModels.Incident.Modules
 
     public enum InvestigationTypeEnum
     {
+        [Obsolete("Deprecated in NERIS 1.5; use INVESTIGATED_BY_FIRE_AND_EXPLOSION_INVESTIGATOR.")]
         INVESTIGATED_BY_ARSON_FIRE_INVESTIGATOR,
+        INVESTIGATED_BY_FIRE_AND_EXPLOSION_INVESTIGATOR,
         INVESTIGATED_BY_INSURANCE,
         INVESTIGATED_BY_NONFIRE_LAW_ENFORCEMENT,
         INVESTIGATED_BY_OTHER,
@@ -48,6 +52,7 @@ namespace NerisSharp.Models.ElementModels.Incident.Modules
 
     public enum SuppressionAppliancesEnum
     {
+        AERIAL_MASTER_STREAM,
         AIRATTACK_HELITACK,
         BOOSTER_FIRE_HOSE,
         BUILDING_FDC,

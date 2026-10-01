@@ -17,6 +17,11 @@ namespace NerisSharp.Models.ElementModels.Incident
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWriting)]
         public DateTimeOffset Last_Modified { get; set; }
         public bool? People_Present { get; set; }
+        /// <summary>
+        /// True when a component of the response included interaction with a person or persons experiencing homelessness,
+        /// regardless of where the incident occurred (added in NERIS 1.5).
+        /// </summary>
+        public bool? Person_Experiencing_Homelessness { get; set; }
         public int? Animals_Rescued { get; set; }
         public string Impediment_Narrative { get; set; }
         public string Outcome_Narrative { get; set; }
@@ -67,6 +72,7 @@ namespace NerisSharp.Models.ElementModels.Incident
     public class IncidentBaseModelPatchProperties
     {
         public PatchAction<bool> People_Present { get; set; }
+        public PatchAction<bool> Person_Experiencing_Homelessness { get; set; }
         public PatchAction<int> Animals_Rescued { get; set; }
         public PatchAction<string> Impediment_Narrative { get; set; }
         public PatchAction<string> Outcome_Narrative { get; set; }

@@ -16,12 +16,14 @@ namespace NerisSharp.Models.ElementModels.Incident
     public enum IncidentSpecialModifierEnum
     {
         ACTIVE_ASSAILANT,
+        CIVIL_UNREST,
         COUNTY_LOCAL_DECLARED_DISASTER,
         FEDERAL_DECLARED_DISASTER,
         MCI,
         STATE_DECLARED_DISASTER,
         URBAN_CONFLAGRATION,
         VIOLENCE_AGAINST_RESPONDER,
+        [Obsolete("Deprecated in NERIS 1.5.")]
         WORLD_CUP_2026,
     }
 }

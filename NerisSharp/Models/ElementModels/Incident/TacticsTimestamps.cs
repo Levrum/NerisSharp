@@ -22,6 +22,10 @@ namespace NerisSharp.Models.ElementModels.Incident
         public DateTimeOffset? Fire_Under_Control { get; set; } = null;
         public DateTimeOffset? Fire_Knocked_Down { get; set; } = null;
         public DateTimeOffset? Extrication_Complete { get; set; } = null;
+        /// <summary>
+        /// Time at which a rapid intervention crew was assigned to stand by at the scene (added in NERIS 1.5).
+        /// </summary>
+        public DateTimeOffset? Rapid_Intervention_Established { get; set; } = null;
     }
 
     public class TacticsTimestampPatchProperties
@@ -35,5 +39,6 @@ namespace NerisSharp.Models.ElementModels.Incident
         public PatchAction<DateTimeOffset>? Fire_Under_Control { get; set; } = null;
         public PatchAction<DateTimeOffset>? Fire_Knocked_Down { get; set; } = null;
         public PatchAction<DateTimeOffset>? Extrication_Complete { get; set; } = null;
+        public PatchAction<DateTimeOffset>? Rapid_Intervention_Established { get; set; } = null;
     }
 }
