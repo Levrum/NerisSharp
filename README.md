@@ -1,7 +1,7 @@
 # NerisSharp
 
 A .NET client library for the [NERIS](https://neris.fsri.org/) API (National Emergency Response
-Information System), the FSRI-hosted data platform for fire and EMS reporting.
+Information System), the FSRI-hosted data platform for fire and EMS reporting. Supports NERIS API v1.5.
 
 The library wraps the REST endpoints at `api.neris.fsri.org` in typed models and async methods, so a
 consuming application can read and write Entities, Incidents, Stations, and Units without hand-rolling
