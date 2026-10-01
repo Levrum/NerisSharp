@@ -11,7 +11,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>neris;fire;ems</PackageTags>
     <PackageIcon>logo_mark only.png</PackageIcon>
-    <VersionPrefix>1.0.5</VersionPrefix>
+    <VersionPrefix>1.5.0</VersionPrefix>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
